@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مستندات API - Story Development Toolkit</title>
+
+    <!-- Bootstrap RTL -->
+    <link rel="stylesheet" href="https://lib.arvancloud.ir/bootstrap/5.2.3/css/bootstrap.rtl.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://lib.arvancloud.ir/font-awesome/6.3.0/css/all.min.css">
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fa-solid fa-book-open"></i> Story Toolkit
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    style="border-color:var(--border);">
+                <span class="navbar-toggler-icon" style="filter:invert(1);"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html"><i class="fa-solid fa-house"></i> خانه</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="quickstart.html"><i class="fa-solid fa-rocket"></i> شروع سریع</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="api.html"><i class="fa-solid fa-code"></i> مستندات API</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://github.com/miladrezanezhad/story-toolkit" target="_blank">
+                            <i class="fa-brands fa-github"></i> گیت‌هاب
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../eng/api.html"><i class="fa-solid fa-globe"></i> English</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sidebar + Main Content -->
+    <div class="container-fluid">
+        <div class="row">
+
+            <!-- Sidebar -->
+            <div class="col-lg-3 d-none d-lg-block">
+                <div class="sidebar-custom sticky-top pt-4" style="top:76px;">
+                    <h5 class="mb-3"><i class="fa-solid fa-list"></i> فهرست</h5>
+                    <nav class="nav flex-column">
+                        <a class="nav-link-sidebar" href="#installation"><i class="fa-solid fa-download"></i> نصب</a>
+                        <a class="nav-link-sidebar" href="#storytoolkit"><i class="fa-solid fa-layer-group"></i> StoryToolkit</a>
+                        <a class="nav-link-sidebar" href="#storyengine"><i class="fa-solid fa-gear"></i> StoryEngine</a>
+                        <a class="nav-link-sidebar" href="#character"><i class="fa-solid fa-user"></i> Character</a>
+                        <a class="nav-link-sidebar" href="#plot"><i class="fa-solid fa-chart-line"></i> Plot</a>
+                        <a class="nav-link-sidebar" href="#worldbuilder"><i class="fa-solid fa-globe"></i> WorldBuilder</a>
+                        <a class="nav-link-sidebar" href="#charactergenerator"><i class="fa-solid fa-dice"></i> CharacterGenerator</a>
+                        <a class="nav-link-sidebar" href="#plotgenerator"><i class="fa-solid fa-sitemap"></i> PlotGenerator</a>
+                        <a class="nav-link-sidebar" href="#dialoguegenerator"><i class="fa-solid fa-comments"></i> DialogueGenerator</a>
+                        <a class="nav-link-sidebar" href="#coherencechecker"><i class="fa-solid fa-magnifying-glass"></i> CoherenceChecker</a>
+                        <a class="nav-link-sidebar" href="#textanalyzer"><i class="fa-solid fa-chart-bar"></i> TextAnalyzer</a>
+                        <a class="nav-link-sidebar" href="#helpers"><i class="fa-solid fa-toolbox"></i> توابع کمکی</a>
+                    </nav>
+                </div>
+            </div>
+
+            <!-- Main -->
+            <div class="col-lg-9 py-4" style="max-width:900px;">
+
+                <!-- Breadcrumb -->
+                <nav aria-label="breadcrumb" class="mb-4">
+                    <ol class="breadcrumb" style="--bs-breadcrumb-divider-color: var(--text-muted);">
+                        <li class="breadcrumb-item"><a href="index.html" style="color:var(--accent);">خانه</a></li>
+                        <li class="breadcrumb-item active" style="color:var(--text-secondary);">مستندات API</li>
+                    </ol>
+                </nav>
+
+                <!-- Header -->
+                <h1><i class="fa-solid fa-code"></i> مستندات API</h1>
+                <p style="font-size:1.1rem;color:var(--text-secondary);margin-bottom:2rem;">
+                    مرجع کامل تمام کلاس‌ها، متدها و پارامترهای Story Development Toolkit نسخه ۱.۰.۰
+                </p>
+
+                <div class="d-flex gap-3 flex-wrap mb-5">
+                    <span class="badge-custom badge-python"><i class="fa-brands fa-python"></i> Python 3.8+</span>
+                    <span class="badge-custom badge-version"><i class="fa-solid fa-code-branch"></i> نسخه ۱.۰.۰</span>
+                    <span class="badge-custom badge-license"><i class="fa-regular fa-file-lines"></i> MIT</span>
+                </div>
+
+                <!-- ==================== Installation ==================== -->
+                <h2 id="installation"><i class="fa-solid fa-download"></i> نصب</h2>
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="lang-label">bash</span>
+                        <button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> کپی</button>
+                    </div>
+                    <div class="code-block-body">
+                        <pre><code>git clone https://github.com/miladrezanezhad/story-toolkit.git
+cd story-toolkit
+pip install -r requirements.txt</code></pre>
+                    </div>
+                </div>
+
+                <!-- ==================== StoryToolkit ==================== -->
+                <h2 id="storytoolkit"><i class="fa-solid fa-layer-group"></i> StoryToolkit</h2>
+                <p>کلاس اصلی که دسترسی یکپارچه به تمام امکانات toolkit را فراهم می‌کند.</p>
+
+                <h4>سازنده (Constructor)</h4>
+                <div class="code-block-wrapper">
+                    <div class="code-block-header">
+                        <span class="lang-label">python</span>
+                        <button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> کپی</button>
+                    </div>
+                    <div class="code-block-body">
+                        <pre><code><span class="kw">from</span> story_toolkit <span class="kw">import</span> StoryToolkit
+
+toolkit = StoryToolkit()</code></pre>
+                    </div>
+                </div>
+
+                <h4>ویژگی‌ها (Attributes)</h4>
+                <div class="table-responsive">
+                    <table class="table table-dark table-striped">
+                        <thead><tr><th>ویژگی</th><th>نوع</th><th>توضیح</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>engine</code></td><td>StoryEngine</td><td>موتور اصلی داستان</td></tr>
+                            <tr><td><code>character_gen</code></td><td>CharacterGenerator</td><td>تولید شخصیت تصادفی</td></tr>
+                            <tr><td><code>plot_gen</code></td><td>PlotGenerator</td><td>تولید ساختار پیرنگ</td></tr>
+                            <tr><td><code>dialogue_gen</code></td><td>DialogueGenerator</td><td>تولید دیالوگ</td></tr>
+                            <tr><td><code>coherence_checker</code></td><td>CoherenceChecker</td><td>بررسی انسجام داستان</td></tr>
+                            <tr><td><code>text_analyzer</code></td><td>TextAnalyzer</td><td>تحلیل متن و خوانایی</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h4>متدها</h4>
+
+                <!-- create_story -->
+                <div class="api-method mb-4">
+                    <h5>create_story(genre, theme, complexity=3) → dict</h5>
+                    <p>یک داستان جدید با تمام اجزای لازم ایجاد می‌کند.</p>
+                    <div class="table-responsive">
+                        <table class="table table-dark table-striped">
+                            <thead><tr><th>پارامتر</th><th>نوع</th><th>پیش‌فرض</th><th>توضیح</th></tr></thead>
+                            <tbody>
+                                <tr><td><code>genre</code></td><td>str</td><td>الزامی</td><td>ژانر: fantasy, mystery, romance, adventure, sci_fi</td></tr>
+                                <tr><td><code>theme</code></td><td>str</td><td>الزامی</td><td>تم اصلی مانند courage, redemption, identity</td></tr>
+                                <tr><td><code>complexity</code></td><td>int</td><td>3</td><td>سطح پیچیدگی از ۱ تا ۵</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p><strong>خروجی:</strong> دیکشنری با کلیدهای <code>metadata</code>، <code>outline</code>، <code>plot</code>، <code>characters</code>، <code>world</code>، <code>dialogue_scenes</code>، <code>coherence_report</code></p>
+                    <div class="code-block-wrapper">
+                        <div class="code-block-header"><span class="lang-label">python</span><button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> کپی</button></div>
+                        <div class="code-block-body"><pre><code>story = toolkit.create_story(genre=<span class="str">"fantasy"</span>, theme=<span class="str">"courage"</span>, complexity=4)
+<span class="fn">print</span>(story[<span class="str">"metadata"</span>][<span class="str">"genre"</span>])  <span class="cm"># "fantasy"</span></code></pre></div>
+                    </div>
+                </div>
+
+                <!-- add_character_to_story -->
+                <div class="api-method mb-4">
+                    <h5>add_character_to_story(story, name, role) → Character</h5>
+                    <p>یک شخصیت جدید به داستان اضافه می‌کند.</p>
+                    <div class="code-block-wrapper">
+                        <div class="code-block-header"><span class="lang-label">python</span><button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> کپی</button></div>
+                        <div class="code-block-body"><pre><code>hero = toolkit.add_character_to_story(story, <span class="str">"کای"</span>, <span class="str">"protagonist"</span>)
+hero.add_trait(<span class="str">"brave"</span>)</code></pre></div>
+                    </div>
+                </div>
+
+                <!-- check_story_coherence -->
+                <div class="api-method mb-4">
+                    <h5>check_story_coherence(story_data) → dict</h5>
+                    <p>انسجام داستان را بررسی و گزارش کامل تولید می‌کند.</p>
+                    <div class="code-block-wrapper">
+                        <div class="code-block-header"><span class="lang-label">python</span><button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> کپی</button></div>
+                        <div class="code-block-body"><pre><code>report = toolkit.check_story_coherence(story)
+<span class="fn">print</span>(<span class="str">f"امتیاز: {report['overall_score']:.0%}"</span>)</code></pre></div>
+                    </div>
+                </div>
+
+                <!-- generate_full_story -->
+                <div class="api-method mb-4">
+                    <h5>generate_full_story(genre, theme, num_characters=3) → dict</h5>
+                    <p>یک داستان کامل با تمام عناصر به صورت خودکار تولید می‌کند.</p>
+                    <div class="code-block-wrapper">
+                        <div class="code-block-header"><span class="lang-label">python</span><button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> کپی</button></div>
+                        <div class="code-block-body"><pre><code>full_story = toolkit.generate_full_story(
+    <span class="str">"mystery"</span>, <span class="str">"justice"</span>, num_characters=4
+)</code></pre></div>
+                    </div>
+                </div>
+
+                <!-- export_story -->
+                <div class="api-method mb-4">
+                    <h5>export_story(story, format="json", filename=None) → str</h5>
+                    <p>داستان را در قالب مشخص خروجی می‌گیرد.</p>
+                    <div class="code-block-wrapper">
+                        <div class="code-block-header"><span class="lang-label">python</span><button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> کپی</button></div>
+                        <div class="code-block-body"><pre><code>path = toolkit.export_story(story, format=<span class="str">"markdown"</span>, filename=<span class="str">"my_story"</span>)
+<span class="fn">print</span>(<span class="str">f"ذخیره شد: {path}"</span>)</code></pre></div>
+                    </div>
+                </div>
+
+                <!-- ==================== StoryEngine ==================== -->
+                <h2 id="storyengine"><i class="fa-solid fa-gear"></i> StoryEngine</h2>
+                <p>موتور اصلی ایجاد و مدیریت داستان.</p>
+
+                <div class="code-block-wrapper">
+                    <div class="code-block-header"><span class="lang-label">python</span><button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> کپی</button></div>
+                    <div class="code-block-body"><pre><code><span class="kw">from</span> story_toolkit.core.story_engine <span class="kw">import</span> StoryEngine
+
+engine = StoryEngine()
+outline = engine.create_story_outline(<span class="str">"fantasy"</span>, <span class="str">"courage"</span>)
+chapter = engine.add_chapter(<span class="str">"The Awakening"</span>, {<span class="str">"summary"</span>: <span class="str">"..."</span>})
+progress = engine.get_story_progress()</code></pre></div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table table-dark table-striped">
+                        <thead><tr><th>متد</th><th>پارامترها</th><th>خروجی</th><th>توضیح</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>create_story_outline</code></td><td>genre, theme</td><td>dict</td><td>طرح کلی داستان با ساختار پنج‌پرده‌ای</td></tr>
+                            <tr><td><code>add_chapter</code></td><td>title, content=None</td><td>dict</td><td>افزودن فصل جدید</td></tr>
+                            <tr><td><code>get_story_progress</code></td><td>—</td><td>dict</td><td>آمار پیشرفت داستان</td></tr>
+                            <tr><td><code>set_story_metadata</code></td><td>title, author, description</td><td>None</td><td>به‌روزرسانی متادیتا</td></tr>
+                            <tr><td><code>validate_structure</code></td><td>—</td><td>list</td><td>اعتبارسنجی و بازگشت مشکلات</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- ==================== Character ==================== -->
+                <h2 id="character"><i class="fa-solid fa-user"></i> Character</h2>
+                <p>سیستم ایجاد و مدیریت شخصیت با ویژگی‌های کامل.</p>
+
+                <div class="code-block-wrapper">
+                    <div class="code-block-header"><span class="lang-label">python</span><button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> کپی</button></div>
+                    <div class="code-block-body"><pre><code><span class="kw">from</span> story_toolkit.core.character <span class="kw">import</span> Character
+
+<span class="cm"># ایجاد شخصیت</span>
+hero = Character(name=<span class="str">"النا"</span>, age=32, role=<span class="str">"protagonist"</span>)
+
+<span class="cm"># افزودن ویژگی‌ها</span>
+hero.add_trait(<span class="str">"brave"</span>)         <span class="cm"># شجاع</span>
+hero.add_trait(<span class="str">"intelligent"</span>)   <span class="cm"># باهوش</span>
+
+<span class="cm"># افزودن اهداف</span>
+hero.add_goal(<span class="str">"Save the kingdom"</span>)
+hero.add_goal(<span class="str">"Find the lost artifact"</span>)
+
+<span class="cm"># افزودن مهارت‌ها</span>
+hero.add_skill(<span class="str">"sword_mastery"</span>)
+hero.add_skill(<span class="str">"stealth"</span>)
+hero.add_skill(<span class="str">"diplomacy"</span>)
+
+<span class="cm"># افزودن نقاط ضعف</span>
+hero.add_weakness(<span class="str">"overconfidence"</span>)
+hero.add_weakness(<span class="str">"impatience"</span>)
+
+<span class="cm"># افزودن ترس‌ها</span>
+hero.add_fear(<span class="str">"darkness"</span>)
+hero.add_fear(<span class="str">"failure"</span>)
+
+<span class="cm"># افزودن انگیزه‌ها</span>
+hero.add_motivation(<span class="str">"justice"</span>)
+hero.add_motivation(<span class="str">"honor"</span>)
+
+<span class="cm"># افزودن روابط</span>
+hero.add_relationship(<span class="str">"Villain"</span>, <span class="str">"enemy"</span>, strength=9)
+hero.add_relationship(<span class="str">"Mentor"</span>, <span class="str">"mentor"</span>, strength=10)
+hero.add_relationship(<span class="str">"Sidekick"</span>, <span class="str">"friend"</span>, strength=8)
+
+<span class="cm"># ایجاد تعارض</span>
+conflict = hero.add_conflict(<span class="str">"internal"</span>)
+<span class="fn">print</span>(conflict)  <span class="cm"># "النا struggles with inner doubts and fears"</span>
+
+<span class="cm"># قوس شخصیتی</span>
+<span class="fn">print</span>(hero.arc_stage)  <span class="cm"># "initial"</span>
+hero.advance_arc()
+<span class="fn">print</span>(hero.arc_stage)  <span class="cm"># "challenged"</span>
+
+<span class="cm"># تبدیل به دیکشنری</span>
+data = hero.to_dict()</code></pre></div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table table-dark table-striped">
+                        <thead><tr><th>متد</th><th>پارامترها</th><th>توضیح</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>add_trait(trait)</code></td><td>str</td><td>افزودن ویژگی شخصیتی</td></tr>
+                            <tr><td><code>remove_trait(trait)</code></td><td>str</td><td>حذف ویژگی شخصیتی</td></tr>
+                            <tr><td><code>add_goal(goal)</code></td><td>str</td><td>افزودن هدف</td></tr>
+                            <tr><td><code>add_skill(skill)</code></td><td>str</td><td>افزودن مهارت</td></tr>
+                            <tr><td><code>add_weakness(weakness)</code></td><td>str</td><td>افزودن نقطه ضعف</td></tr>
+                            <tr><td><code>add_fear(fear)</code></td><td>str</td><td>افزودن ترس</td></tr>
+                            <tr><td><code>add_motivation(motivation)</code></td><td>str</td><td>افزودن انگیزه</td></tr>
+                            <tr><td><code>add_relationship(name, type, strength=5)</code></td><td>str, str, int</td><td>افزودن رابطه: friend, enemy, family, mentor, ally, rival</td></tr>
+                            <tr><td><code>update_relationship_status(name, status)</code></td><td>str, str</td><td>به‌روزرسانی وضعیت رابطه</td></tr>
+                            <tr><td><code>add_conflict(type)</code></td><td>str</td><td>ایجاد تعارض: internal, external, moral, relationship, societal</td></tr>
+                            <tr><td><code>get_character_arc()</code></td><td>—</td><td>دریافت قوس شخصیتی</td></tr>
+                            <tr><td><code>advance_arc()</code></td><td>—</td><td>پیشبرد: initial → challenged → transformation → new_equilibrium</td></tr>
+                            <tr><td><code>get_strengths_weaknesses()</code></td><td>—</td><td>خلاصه نقاط قوت و ضعف</td></tr>
+                            <tr><td><code>to_dict()</code></td><td>—</td><td>تبدیل به دیکشنری</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- ==================== Plot ==================== -->
+                <h2 id="plot"><i class="fa-solid fa-chart-line"></i> Plot</h2>
+                <p>سیستم مدیریت ساختار پیرنگ داستان.</p>
+
+                <div class="code-block-wrapper">
+                    <div class="code-block-header"><span class="lang-label">python</span><button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> کپی</button></div>
+                    <div class="code-block-body"><pre><code><span class="kw">from</span> story_toolkit.core.plot <span class="kw">import</span> Plot
+
+plot = Plot()
+
+<span class="cm"># افزودن نقاط عطف</span>
+point1 = plot.add_plot_point(
+    <span class="str">"The Discovery"</span>,
+    <span class="str">"Hero finds the ancient map"</span>,
+    chapter=3,
+    importance=8
+)
+point2 = plot.add_plot_point(
+    <span class="str">"The Climax"</span>,
+    <span class="str">"Final battle with the villain"</span>,
+    chapter=18,
+    importance=10
+)
+
+<span class="cm"># اتصال نقاط</span>
+plot.connect_plot_points(point1.id, point2.id)
+
+<span class="cm"># افزودن زیرپیرنگ</span>
+subplot = plot.add_subplot(
+    <span class="str">"Forbidden Love"</span>,
+    <span class="str">"Hero falls for enemy's daughter"</span>,
+    connected_characters=[<span class="str">"Hero"</span>, <span class="str">"Princess"</span>]
+)
+
+<span class="cm"># دریافت جدول زمانی</span>
+timeline = plot.get_plot_timeline()
+<span class="kw">for</span> event <span class="kw">in</span> timeline:
+    <span class="fn">print</span>(<span class="str">f"Ch.{event['chapter']}: {event['title']}"</span>)
+
+<span class="cm"># اعتبارسنجی</span>
+issues = plot.validate_plot()
+<span class="kw">if</span> issues:
+    <span class="kw">for</span> issue <span class="kw">in</span> issues:
+        <span class="fn">print</span>(<span class="str">f"⚠️ {issue}"</span>)</code></pre></div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table table-dark table-striped">
+                        <thead><tr><th>متد</th><th>پارامترها</th><th>توضیح</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>add_plot_point(title, desc, chapter, importance)</code></td><td>str, str, int, int</td><td>افزودن نقطه عطف</td></tr>
+                            <tr><td><code>add_subplot(title, desc, characters)</code></td><td>str, str, list</td><td>افزودن زیرپیرنگ</td></tr>
+                            <tr><td><code>connect_plot_points(id1, id2)</code></td><td>str, str</td><td>اتصال دو نقطه عطف</td></tr>
+                            <tr><td><code>get_plot_summary()</code></td><td>—</td><td>خلاصه آمار پیرنگ</td></tr>
+                            <tr><td><code>get_plot_timeline()</code></td><td>—</td><td>جدول زمانی وقایع</td></tr>
+                            <tr><td><code>validate_plot()</code></td><td>—</td><td>اعتبارسنجی ساختار</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- ==================== WorldBuilder ==================== -->
+                <h2 id="worldbuilder"><i class="fa-solid fa-globe"></i> WorldBuilder</h2>
+                <p>سیستم ساخت و مدیریت جهان داستان.</p>
+
+                <div class="code-block-wrapper">
+                    <div class="code-block-header"><span class="lang-label">python</span><button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> کپی</button></div>
+                    <div class="code-block-body"><pre><code><span class="kw">from</span> story_toolkit.core.world_builder <span class="kw">import</span> WorldBuilder
+
+world = WorldBuilder()
+
+<span class="cm"># ایجاد جهان</span>
+world.create_world(<span class="str">"الدوریا"</span>, <span class="str">"fantasy"</span>)
+
+<span class="cm"># افزودن مکان‌ها</span>
+city = world.add_location(<span class="str">"شهر کریستال"</span>, <span class="str">"کلانشهر باستانی"</span>, <span class="str">"city"</span>)
+forest = world.add_location(<span class="str">"جنگل سایه‌ها"</span>, <span class="str">"جنگل مرموز"</span>, <span class="str">"forest"</span>)
+
+<span class="cm"># اتصال مکان‌ها</span>
+world.connect_locations(<span class="str">"شهر کریستال"</span>, <span class="str">"جنگل سایه‌ها"</span>)
+
+<span class="cm"># افزودن قوانین</span>
+world.add_rule(<span class="str">"physical"</span>, <span class="str">"جادو از طریق کریستال‌ها جریان دارد"</span>)
+world.add_rule(<span class="str">"magical"</span>, <span class="str">"فقط متولدان ماه‌گرفتگی جادو دارند"</span>)
+world.add_rule(<span class="str">"social"</span>, <span class="str">"شورای هفت نفر بر امور جادویی حکومت می‌کند"</span>)
+
+<span class="cm"># افزودن فرهنگ</span>
+culture = world.add_culture(
+    <span class="str">"کریستال‌بافان"</span>,
+    <span class="str">"جامعه باستانی استفاده از کریستال"</span>,
+    customs=[<span class="str">"کریستال‌تراشی"</span>, <span class="str">"مراقبه"</span>]
+)
+
+<span class="cm"># افزودن گروه</span>
+faction = world.add_faction(
+    <span class="str">"انجمن سایه"</span>,
+    <span class="str">"سازمان مخفی زیرزمینی"</span>,
+    goals=[<span class="str">"کنترل جادو"</span>, <span class="str">"سرنگونی شورا"</span>]
+)
+
+<span class="cm"># تولید خودکار جهان براساس ژانر</span>
+template = world.generate_world(<span class="str">"fantasy"</span>)
+
+<span class="cm"># خلاصه جهان</span>
+summary = world.get_world_summary()
+<span class="fn">print</span>(summary[<span class="str">"total_locations"</span>])</code></pre></div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table table-dark table-striped">
+                        <thead><tr><th>متد</th><th>پارامترها</th><th>توضیح</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>create_world(name, type)</code></td><td>str, str</td><td>ایجاد جهان جدید</td></tr>
+                            <tr><td><code>add_location(name, desc, type)</code></td><td>str, str, str</td><td>افزودن مکان: city, forest, mountains, underground</td></tr>
+                            <tr><td><code>connect_locations(loc1, loc2)</code></td><td>str, str</td><td>اتصال دو مکان</td></tr>
+                            <tr><td><code>add_rule(category, rule)</code></td><td>str, str</td><td>افزودن قانون: physical, magical, social, technological</td></tr>
+                            <tr><td><code>add_culture(name, desc, customs)</code></td><td>str, str, list</td><td>افزودن فرهنگ</td></tr>
+                            <tr><td><code>add_faction(name, desc, goals)</code></td><td>str, str, list</td><td>افزودن گروه</td></tr>
+                            <tr><td><code>generate_world(genre)</code></td><td>str</td><td>تولید خودکار جهان</td></tr>
+                            <tr><td><code>get_world_summary()</code></td><td>—</td><td>خلاصه آمار جهان</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- ==================== CharacterGenerator ==================== -->
+                <h2 id="charactergenerator"><i class="fa-solid fa-dice"></i> CharacterGenerator</h2>
+                <p>تولید شخصیت‌های تصادفی یا قالبی.</p>
+
+                <div class="code-block-wrapper">
+                    <div class="code-block-header"><span class="lang-label">python</span><button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> کپی</button></div>
+                    <div class="code-block-body"><pre><code><span class="kw">from</span> story_toolkit.generators.character_generator <span class="kw">import</span> CharacterGenerator
+
+gen = CharacterGenerator()
+
+<span class="cm"># تولید یک شخصیت</span>
+hero = gen.generate_character(<span class="str">"protagonist"</span>, complexity=4)
+<span class="fn">print</span>(hero.name)             <span class="cm"># اسم تصادفی مثل "Alexander Storm"</span>
+<span class="fn">print</span>(hero.personality_traits)  <span class="cm"># ["brave", "determined", ...]</span>
+
+<span class="cm"># تولید گروه کامل</span>
+ensemble = gen.generate_ensemble(4)
+<span class="kw">for</span> char <span class="kw">in</span> ensemble:
+    <span class="fn">print</span>(<span class="str">f"{char.name} - {char.role}"</span>)
+
+<span class="cm"># تولید با پیش‌زمینه خاص</span>
+hero2 = gen.generate_with_backstory(<span class="str">"protagonist"</span>, <span class="str">"redemption"</span>)
+<span class="fn">print</span>(hero2.background)</code></pre></div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table table-dark table-striped">
+                        <thead><tr><th>متد</th><th>پارامترها</th><th>توضیح</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>generate_character(role, complexity)</code></td><td>str, int</td><td>تولید شخصیت تصادفی</td></tr>
+                            <tr><td><code>generate_ensemble(num)</code></td><td>int</td><td>تولید گروه متعادل</td></tr>
+                            <tr><td><code>generate_with_backstory(role, theme)</code></td><td>str, str</td><td>تولید با پیش‌زمینه: redemption, discovery, legacy, survival</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- ==================== PlotGenerator ==================== -->
+                <h2 id="plotgenerator"><i class="fa-solid fa-sitemap"></i> PlotGenerator</h2>
+                <p>تولید ساختار پیرنگ برای ژانرهای مختلف.</p>
+
+                <div class="code-block-wrapper">
+                    <div class="code-block-header"><span class="lang-label">python</span><button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> کپی</button></div>
+                    <div class="code-block-body"><pre><code><span class="kw">from</span> story_toolkit.generators.plot_generator <span class="kw">import</span> PlotGenerator
+
+gen = PlotGenerator()
+
+<span class="cm"># تولید پیرنگ</span>
+plot = gen.generate_plot(<span class="str">"mystery"</span>, complexity=4)
+
+<span class="cm"># نمایش مراحل</span>
+<span class="kw">for</span> stage <span class="kw">in</span> plot[<span class="str">'main_plot'</span>]:
+    <span class="fn">print</span>(<span class="str">f"{stage['stage']}: {stage['description']}"</span>)
+
+<span class="cm"># پیچش‌های داستانی</span>
+<span class="kw">for</span> twist <span class="kw">in</span> plot[<span class="str">'twists'</span>]:
+    <span class="fn">print</span>(<span class="str">f"🌀 {twist}"</span>)
+
+<span class="cm"># برآورد طول داستان</span>
+<span class="fn">print</span>(<span class="str">f"فصل‌ها: {plot['estimated_length']['estimated_chapters']}"</span>)
+<span class="fn">print</span>(<span class="str">f"کلمات: {plot['estimated_length']['estimated_words']:,}"</span>)</code></pre></div>
+                </div>
+
+                <!-- ==================== DialogueGenerator ==================== -->
+                <h2 id="dialoguegenerator"><i class="fa-solid fa-comments"></i> DialogueGenerator</h2>
+                <p>تولید دیالوگ‌های طبیعی بین شخصیت‌ها.</p>
+
+                <div class="code-block-wrapper">
+                    <div class="code-block-header"><span class="lang-label">python</span><button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> کپی</button></div>
+                    <div class="code-block-body"><pre><code><span class="kw">from</span> story_toolkit.generators.dialogue_generator <span class="kw">import</span> DialogueGenerator
+
+gen = DialogueGenerator()
+
+<span class="cm"># دیالوگ ساده</span>
+dialogue = gen.generate_dialogue(
+    <span class="str">"Hero"</span>, <span class="str">"Villain"</span>,
+    context=<span class="str">"conflict"</span>,
+    mood=<span class="str">"tense"</span>
+)
+<span class="kw">for</span> line <span class="kw">in</span> dialogue:
+    <span class="fn">print</span>(line)
+
+<span class="cm"># صحنه کامل</span>
+scene = gen.create_conversation_scene(
+    [
+        {<span class="str">"name"</span>: <span class="str">"Elena"</span>, <span class="str">"role"</span>: <span class="str">"protagonist"</span>},
+        {<span class="str">"name"</span>: <span class="str">"Victor"</span>, <span class="str">"role"</span>: <span class="str">"antagonist"</span>}
+    ],
+    <span class="str">"confrontation"</span>
+)
+<span class="fn">print</span>(scene[<span class="str">"setting"</span>])      <span class="cm"># "an abandoned warehouse in the rain"</span>
+<span class="fn">print</span>(scene[<span class="str">"atmosphere"</span>])   <span class="cm"># "charged and volatile"</span>
+
+<span class="cm"># مونولوگ</span>
+monologue = gen.generate_monologue(<span class="str">"Hero"</span>, <span class="str">"destiny"</span>, <span class="str">"reflective"</span>)</code></pre></div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table table-dark table-striped">
+                        <thead><tr><th>متد</th><th>پارامترها</th><th>توضیح</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>generate_dialogue(char1, char2, context, mood)</code></td><td>str, str, str, str</td><td>تولید دیالوگ. context: conflict, revelation, emotional, romantic, mysterious</td></tr>
+                            <tr><td><code>create_conversation_scene(chars, purpose)</code></td><td>list, str</td><td>ایجاد صحنه کامل. purpose: confession, confrontation, romantic, mystery</td></tr>
+                            <tr><td><code>generate_monologue(char, topic, mood)</code></td><td>str, str, str</td><td>تولید مونولوگ. mood: reflective, determined</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- ==================== CoherenceChecker ==================== -->
+                <h2 id="coherencechecker"><i class="fa-solid fa-magnifying-glass"></i> CoherenceChecker</h2>
+                <p>تحلیل انسجام داستان و شناسایی مشکلات روایی.</p>
+
+                <div class="code-block-wrapper">
+                    <div class="code-block-header"><span class="lang-label">python</span><button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> کپی</button></div>
+                    <div class="code-block-body"><pre><code><span class="kw">from</span> story_toolkit.nlp.coherence_checker <span class="kw">import</span> CoherenceChecker
+
+checker = CoherenceChecker()
+
+<span class="cm"># بررسی کامل</span>
+report = checker.generate_coherence_report(story_data)
+
+<span class="cm"># بررسی سریع</span>
+is_ok = checker.quick_check(story_data)  <span class="cm"># True/False</span>
+
+<span class="cm"># جزئیات کامل</span>
+details = checker.get_detailed_issues(story_data)</code></pre></div>
+                </div>
+
+                <!-- ==================== TextAnalyzer ==================== -->
+                <h2 id="textanalyzer"><i class="fa-solid fa-chart-bar"></i> TextAnalyzer</h2>
+                <p>تحلیل ویژگی‌های متن، خوانایی و ریتم.</p>
+
+                <div class="code-block-wrapper">
+                    <div class="code-block-header"><span class="lang-label">python</span><button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> کپی</button></div>
+                    <div class="code-block-body"><pre><code><span class="kw">from</span> story_toolkit.nlp.text_analyzer <span class="kw">import</span> TextAnalyzer
+
+analyzer = TextAnalyzer()
+
+<span class="cm"># تحلیل متن</span>
+text = <span class="str">"The old house stood on the hill. It had been abandoned for years."</span>
+analysis = analyzer.analyze_text(text)
+<span class="fn">print</span>(analysis[<span class="str">"readability_score"</span>])
+
+<span class="cm"># تحلیل خوانایی</span>
+readability = analyzer.analyze_readability(text)
+
+<span class="cm"># تحلیل دیالوگ</span>
+dialogue_analysis = analyzer.analyze_dialogue([
+    <span class="str">"Hero: I will stop you!"</span>,
+    <span class="str">"Villain: You can try!"</span>
+])
+
+<span class="cm"># تحلیل ریتم</span>
+pacing = analyzer.analyze_pacing(long_text, chunk_size=100)</code></pre></div>
+                </div>
+
+                <!-- ==================== Helpers ==================== -->
+                <h2 id="helpers"><i class="fa-solid fa-toolbox"></i> توابع کمکی</h2>
+
+                <div class="code-block-wrapper">
+                    <div class="code-block-header"><span class="lang-label">python</span><button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> کپی</button></div>
+                    <div class="code-block-body"><pre><code><span class="kw">from</span> story_toolkit.utils.helpers <span class="kw">import</span> save_story, load_story, export_to_markdown, format_story_stats
+
+<span class="cm"># ذخیره داستان</span>
+path = save_story(story_data, <span class="str">"output.json"</span>)
+
+<span class="cm"># بارگذاری داستان</span>
+loaded = load_story(<span class="str">"output.json"</span>)
+
+<span class="cm"># خروجی Markdown</span>
+md_path = export_to_markdown(story_data, <span class="str">"output.md"</span>)
+
+<span class="cm"># آمار فرمت‌شده</span>
+stats = format_story_stats(story_data)
+<span class="fn">print</span>(stats)</code></pre></div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table table-dark table-striped">
+                        <thead><tr><th>تابع</th><th>پارامترها</th><th>خروجی</th><th>توضیح</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>save_story(data, filename)</code></td><td>dict, str</td><td>str</td><td>ذخیره به JSON</td></tr>
+                            <tr><td><code>load_story(filename)</code></td><td>str</td><td>dict</td><td>بارگذاری از JSON</td></tr>
+                            <tr><td><code>export_to_markdown(data, filename)</code></td><td>dict, str</td><td>str</td><td>خروجی Markdown</td></tr>
+                            <tr><td><code>format_story_stats(data)</code></td><td>dict</td><td>str</td><td>آمار فرمت‌شده</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div><!-- /col-lg-9 -->
+        </div><!-- /row -->
+    </div><!-- /container-fluid -->
+
+    <!-- Footer -->
+    <footer class="footer py-4 mt-5">
+        <div class="container text-center">
+            <p class="mb-2">
+                ساخته شده با <i class="fa-solid fa-heart" style="color:var(--red);"></i> توسط
+                <a href="https://github.com/miladrezanezhad">میلاد رضانژاد</a>
+            </p>
+            <div class="d-flex justify-content-center gap-3 flex-wrap">
+                <a href="index.html"><i class="fa-solid fa-house"></i> خانه</a>
+                <span class="text-muted">•</span>
+                <a href="quickstart.html"><i class="fa-solid fa-rocket"></i> شروع سریع</a>
+                <span class="text-muted">•</span>
+                <a href="https://github.com/miladrezanezhad/story-toolkit"><i class="fa-brands fa-github"></i> گیت‌هاب</a>
+            </div>
+            <p class="mt-2 text-muted">Story Development Toolkit • نسخه ۱.۰.۰ • مجوز MIT</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://lib.arvancloud.ir/bootstrap/5.2.3/js/bootstrap.js"></script>
+    <!-- Custom Script -->
+    <script src="script.js"></script>
+</body>
+</html>
