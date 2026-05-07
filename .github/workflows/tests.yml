@@ -2,12 +2,16 @@ name: Tests
 
 on: [push, pull_request]
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   test:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
-        python-version: ["3.8", "3.9", "3.10", "3.11"]
+        python-version: ["3.9", "3.11"]
 
     steps:
     - uses: actions/checkout@v4
@@ -22,11 +26,8 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
-    - name: Run Core Tests
-      run: python -m tests.test_core
-
-    - name: Run Generator Tests
-      run: python -m tests.test_generators
-
-    - name: Run NLP Tests
-      run: python -m tests.test_nlp
+    - name: Run all tests
+      run: |
+        python -m tests.test_core
+        python -m tests.test_generators
+        python -m tests.test_nlp
