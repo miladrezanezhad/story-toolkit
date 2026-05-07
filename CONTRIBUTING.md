@@ -1,5 +1,3 @@
-## 📄 **CONTRIBUTING.md**
-
 # 🤝 Contributing to Story Development Toolkit
 
 First off, thank you for considering contributing! 🎉
