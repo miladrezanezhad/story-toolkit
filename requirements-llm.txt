@@ -1,0 +1,13 @@
+# Optional LLM dependencies for story-toolkit
+
+# OpenAI support
+openai>=1.0.0
+
+# Anthropic support  
+anthropic>=0.18.0
+
+# Local LLM support (Ollama)
+ollama>=0.1.0
+
+# Local LLM support (llama.cpp)
+llama-cpp-python>=0.2.0
