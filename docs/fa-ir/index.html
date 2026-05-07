@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Story Development Toolkit - ابزار توسعه داستان</title>
+
+    <!-- Bootstrap RTL -->
+    <link rel="stylesheet" href="https://lib.arvancloud.ir/bootstrap/5.2.3/css/bootstrap.rtl.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://lib.arvancloud.ir/font-awesome/6.3.0/css/all.min.css">
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fa-solid fa-book-open"></i> Story Toolkit
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    style="border-color:var(--border);">
+                <span class="navbar-toggler-icon" style="filter:invert(1);"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="index.html"><i class="fa-solid fa-house"></i> خانه</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="quickstart.html"><i class="fa-solid fa-rocket"></i> شروع سریع</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="api.html"><i class="fa-solid fa-code"></i> مستندات API</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://github.com/miladrezanezhad/story-toolkit" target="_blank">
+                            <i class="fa-brands fa-github"></i> گیت‌هاب
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../eng/index.html"><i class="fa-solid fa-globe"></i> English</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section py-5">
+        <div class="container text-center py-5">
+            <div class="hero-logo mb-4">📚</div>
+            <h1 class="hero-title mb-3">Story Development Toolkit</h1>
+            <p class="hero-subtitle mb-4">
+                ابزار جامع پایتون برای تولید داستان‌های جذاب و منسجم
+            </p>
+
+            <div class="d-flex justify-content-center gap-2 flex-wrap mb-4">
+                <span class="badge-custom badge-python"><i class="fa-brands fa-python"></i> Python 3.8+</span>
+                <span class="badge-custom badge-version"><i class="fa-solid fa-code-branch"></i> نسخه ۱.۰.۰</span>
+                <span class="badge-custom badge-license"><i class="fa-regular fa-file-lines"></i> MIT</span>
+                <span class="badge-custom badge-author"><i class="fa-solid fa-user"></i> میلاد رضانژاد</span>
+            </div>
+
+            <div class="d-flex justify-content-center gap-3 flex-wrap">
+                <a href="quickstart.html" class="btn btn-primary-custom">
+                    <i class="fa-solid fa-rocket"></i> شروع سریع
+                </a>
+                <a href="api.html" class="btn btn-outline-custom">
+                    <i class="fa-solid fa-book"></i> مستندات API
+                </a>
+                <a href="https://github.com/miladrezanezhad/story-toolkit" class="btn btn-outline-custom" target="_blank">
+                    <i class="fa-brands fa-github"></i> گیت‌هاب
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Installation -->
+    <section class="py-5">
+        <div class="container">
+            <h2 class="section-title"><i class="fa-solid fa-download"></i> نصب</h2>
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="code-block-wrapper">
+                        <div class="code-block-header">
+                            <span class="lang-label">bash</span>
+                            <button class="copy-btn" onclick="copyCode(this)">
+                                <i class="fa-regular fa-copy"></i> کپی
+                            </button>
+                        </div>
+                        <div class="code-block-body">
+                            <pre><code>git clone https://github.com/miladrezanezhad/story-toolkit.git
+cd story-toolkit
+pip install -r requirements.txt</code></pre>
+                        </div>
+                    </div>
+                    <p class="text-center text-muted mt-3">
+                        یا نصب مستقیم: <code style="background:var(--bg-tertiary);padding:2px 8px;border-radius:4px;color:var(--pink);">pip install -e .</code>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="py-5 bg-dark-section">
+        <div class="container">
+            <h2 class="section-title"><i class="fa-solid fa-star"></i> ویژگی‌ها</h2>
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">🎭</div>
+                        <h3>ایجاد شخصیت</h3>
+                        <p>ساخت شخصیت‌های پیچیده با ویژگی‌های شخصیتی، اهداف، مهارت‌ها، ترس‌ها و روابط. شامل سیستم قوس شخصیتی.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">📚</div>
+                        <h3>تولید پیرنگ</h3>
+                        <p>تولید ساختار داستان برای ژانرهای: فانتزی، معمایی، عاشقانه، ماجراجویی و علمی-تخیلی با پیچش‌های داستانی.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">💬</div>
+                        <h3>نوشتن دیالوگ</h3>
+                        <p>ایجاد دیالوگ‌های طبیعی با قالب‌های آماده برای موقعیت‌های درگیری، افشاگری، عاطفی و عاشقانه.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">🌍</div>
+                        <h3>جهان‌سازی</h3>
+                        <p>طراحی جهان‌های داستانی با مکان‌ها، فرهنگ‌ها، قوانین، گروه‌ها و ارتباطات بین آن‌ها.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">🔍</div>
+                        <h3>بررسی انسجام</h3>
+                        <p>شناسایی حفره‌های داستانی، ناسازگاری شخصیت‌ها، مشکلات زمانی و ارائه پیشنهادات بهبود.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">📊</div>
+                        <h3>تحلیل متن</h3>
+                        <p>تحلیل خوانایی، ریتم داستان، تعادل دیالوگ‌ها، غنای واژگان و سطح دشواری متن.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Start Preview -->
+    <section class="py-5">
+        <div class="container">
+            <h2 class="section-title"><i class="fa-solid fa-bolt"></i> شروع سریع</h2>
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="code-block-wrapper">
+                        <div class="code-block-header">
+                            <span class="lang-label">python</span>
+                            <button class="copy-btn" onclick="copyCode(this)">
+                                <i class="fa-regular fa-copy"></i> کپی
+                            </button>
+                        </div>
+                        <div class="code-block-body">
+                            <pre><code><span class="kw">from</span> story_toolkit <span class="kw">import</span> StoryToolkit
+
+<span class="cm"># ایجاد نمونه</span>
+toolkit = StoryToolkit()
+
+<span class="cm"># ساخت داستان</span>
+story = toolkit.create_story(<span class="str">"fantasy"</span>, <span class="str">"courage"</span>)
+
+<span class="cm"># افزودن قهرمان</span>
+hero = toolkit.add_character_to_story(story, <span class="str">"کای"</span>, <span class="str">"protagonist"</span>)
+hero.add_trait(<span class="str">"brave"</span>)
+hero.add_goal(<span class="str">"Save the kingdom"</span>)
+
+<span class="cm"># بررسی انسجام</span>
+report = toolkit.check_story_coherence(story)
+<span class="fn">print</span>(<span class="str">f"انسجام: {report['overall_score']:.0%}"</span>)</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats -->
+    <section class="py-5 bg-dark-section">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-6 col-md">
+                    <div class="stat-item">
+                        <div class="stat-icon"><i class="fa-solid fa-puzzle-piece"></i></div>
+                        <div class="stat-number">۵</div>
+                        <div class="stat-label">ماژول اصلی</div>
+                    </div>
+                </div>
+                <div class="col-6 col-md">
+                    <div class="stat-item">
+                        <div class="stat-icon"><i class="fa-solid fa-dice"></i></div>
+                        <div class="stat-number">۳</div>
+                        <div class="stat-label">تولیدکننده</div>
+                    </div>
+                </div>
+                <div class="col-6 col-md">
+                    <div class="stat-item">
+                        <div class="stat-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
+                        <div class="stat-number">۲</div>
+                        <div class="stat-label">ابزار NLP</div>
+                    </div>
+                </div>
+                <div class="col-6 col-md">
+                    <div class="stat-item">
+                        <div class="stat-icon"><i class="fa-solid fa-check-double"></i></div>
+                        <div class="stat-number">۱۸+</div>
+                        <div class="stat-label">تست واحد</div>
+                    </div>
+                </div>
+                <div class="col-12 col-md">
+                    <div class="stat-item">
+                        <div class="stat-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                        <div class="stat-number">۱۰۰٪</div>
+                        <div class="stat-label">پوشش تست</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Documentation Links -->
+    <section class="py-5">
+        <div class="container">
+            <h2 class="section-title"><i class="fa-solid fa-folder-open"></i> مستندات</h2>
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-3">
+                    <a href="quickstart.html" class="doc-card">
+                        <div class="doc-icon"><i class="fa-solid fa-rocket"></i></div>
+                        <h3>راهنمای شروع سریع</h3>
+                        <p>در ۵ دقیقه اولین داستان خود را بسازید</p>
+                        <span class="lang-tag">🇮🇷 فارسی</span>
+                    </a>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <a href="api.html" class="doc-card">
+                        <div class="doc-icon"><i class="fa-solid fa-code"></i></div>
+                        <h3>مستندات API</h3>
+                        <p>مستندات کامل تمام کلاس‌ها و متدها</p>
+                        <span class="lang-tag">🇮🇷 فارسی</span>
+                    </a>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <a href="../eng/api.html" class="doc-card">
+                        <div class="doc-icon"><i class="fa-solid fa-globe"></i></div>
+                        <h3>API Reference</h3>
+                        <p>مستندات انگلیسی API</p>
+                        <span class="lang-tag">🇬🇧 English</span>
+                    </a>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <a href="https://github.com/miladrezanezhad/story-toolkit" class="doc-card" target="_blank">
+                        <div class="doc-icon"><i class="fa-brands fa-github"></i></div>
+                        <h3>سورس کد</h3>
+                        <p>مشاهده کد منبع در گیت‌هاب</p>
+                        <span class="lang-tag">🔗 GitHub</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer py-4">
+        <div class="container text-center">
+            <p class="mb-2">
+                ساخته شده با <i class="fa-solid fa-heart" style="color:var(--red);"></i> توسط
+                <a href="https://github.com/miladrezanezhad">میلاد رضانژاد</a>
+            </p>
+            <div class="d-flex justify-content-center gap-3 flex-wrap">
+                <a href="https://github.com/miladrezanezhad/story-toolkit"><i class="fa-brands fa-github"></i> گیت‌هاب</a>
+                <span class="text-muted">•</span>
+                <a href="api.html"><i class="fa-solid fa-book"></i> مستندات API</a>
+                <span class="text-muted">•</span>
+                <a href="#"><i class="fa-solid fa-scale-balanced"></i> مجوز MIT</a>
+            </div>
+            <p class="mt-2 text-muted">Story Development Toolkit • نسخه ۱.۰.۰</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://lib.arvancloud.ir/bootstrap/5.2.3/js/bootstrap.js"></script>
+    <!-- Custom Script -->
+    <script src="script.js"></script>
+</body>
+</html>
