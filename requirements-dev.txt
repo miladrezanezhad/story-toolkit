@@ -1,0 +1,14 @@
+# Story Development Toolkit - Development Dependencies
+# Author: Milad Rezanezhad
+# GitHub: https://github.com/miladrezanezhad
+# Install: pip install -r requirements-dev.txt
+
+-r requirements.txt
+
+pytest>=7.0.0
+pytest-cov>=4.0.0
+black>=23.0.0
+flake8>=6.0.0
+mypy>=1.0.0
+isort>=5.12.0
+pre-commit>=3.0.0
