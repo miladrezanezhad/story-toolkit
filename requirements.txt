@@ -1,0 +1,20 @@
+# Story Development Toolkit - Dependencies
+# Author: Milad Rezanezhad
+# GitHub: https://github.com/miladrezanezhad
+
+# Core dependencies
+nltk>=3.8.1
+spacy>=3.7.0
+textblob>=0.17.1
+pydantic>=2.5.0
+pyyaml>=6.0
+
+# Optional: for better NLP processing
+# transformers>=4.36.0
+# torch>=2.0.0
+
+# Development dependencies (install with: pip install -r requirements-dev.txt)
+# pytest>=7.0.0
+# black>=23.0.0
+# flake8>=6.0.0
+# mypy>=1.0.0
