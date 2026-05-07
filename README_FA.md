@@ -1,15 +1,12 @@
-
----
-
-## 📄 **README_FA.md**
-
-```markdown
 # 📚 Story Development Toolkit
-```
+
+[![Tests](https://github.com/miladrezanezhad/story-toolkit/actions/workflows/tests.yml/badge.svg)](https://github.com/miladrezanezhad/story-toolkit/actions/workflows/tests.yml)
 [![Python](https://img.shields.io/badge/Python-3.11+-blue.svg)](https://www.python.org/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/Version-1.0.0-orange.svg)](https://github.com/miladrezanezhad/story-toolkit)
+[![Version](https://img.shields.io/badge/Version-1.0.0-orange.svg)](https://github.com/miladrezanezhad/story-toolkit/releases)
 [![Author](https://img.shields.io/badge/Author-Milad%20Rezanezhad-purple.svg)](https://github.com/miladrezanezhad)
+
+**A comprehensive Python toolkit for generating engaging and coherent stories.**
 
 **ابزار جامع پایتون برای تولید داستان‌های جذاب و منسجم**
 
