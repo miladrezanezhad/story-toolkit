@@ -1,17 +1,17 @@
-
 # 📚 Story Development Toolkit
 
 [![Tests](https://github.com/miladrezanezhad/story-toolkit/actions/workflows/tests.yml/badge.svg)](https://github.com/miladrezanezhad/story-toolkit/actions/workflows/tests.yml)
 [![Python](https://img.shields.io/badge/Python-3.11+-blue.svg)](https://www.python.org/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/Version-1.0.0-orange.svg)](https://github.com/miladrezanezhad/story-toolkit/releases)
+[![Version](https://img.shields.io/badge/Version-2.0.0-orange.svg)](https://github.com/miladrezanezhad/story-toolkit/releases)
 [![Author](https://img.shields.io/badge/Author-Milad%20Rezanezhad-purple.svg)](https://github.com/miladrezanezhad)
 
-**A comprehensive Python toolkit for generating engaging and coherent stories.**
+**A comprehensive Python toolkit for generating engaging and coherent stories with optional LLM support.**
 
-Story Development Toolkit provides tools for character creation, plot generation, dialogue writing, world building, and story coherence analysis — all in one package.
+Story Development Toolkit provides tools for character creation, plot generation, dialogue writing, world building, and story coherence analysis — all in one package. **NEW in v2.0.0:** Optional integration with OpenAI, Anthropic, and local LLMs!
 
 ---
+
 ## 🌐 Language
 
 This README is also available in:
@@ -32,26 +32,39 @@ This README is also available in:
 | 🌍 **World Building** | Design detailed fictional worlds with locations, cultures, rules, factions |
 | 🔍 **Coherence Checking** | Identify plot holes, character inconsistencies, timeline issues |
 | 📊 **Text Analysis** | Analyze readability, pacing, dialogue balance, vocabulary richness |
+| 🤖 **LLM Support** | Optional integration with OpenAI, Anthropic, and local models (NEW in v2.0.0) |
 
 ---
 
 ## 📦 Installation
 
 ```bash
-# Clone the repository
+# Basic installation (no LLM)
+pip install story-toolkit
+
+# With OpenAI support (GPT-4, GPT-3.5)
+pip install story-toolkit[openai]
+
+# With Anthropic support (Claude)
+pip install story-toolkit[anthropic]
+
+# With local LLM support (Ollama, llama.cpp)
+pip install story-toolkit[local]
+
+# Full installation (all LLM backends)
+pip install story-toolkit[all]
+
+# Or install from source
 git clone https://github.com/miladrezanezhad/story-toolkit.git
 cd story-toolkit
-
-# Install dependencies
-pip install -r requirements.txt
-
-# Or install as editable package
 pip install -e .
 ```
 
 ---
 
 ## 🚀 Quick Start
+
+### Basic Usage (No LLM - v1 compatible)
 
 ```python
 from story_toolkit import StoryToolkit
@@ -67,7 +80,7 @@ hero = toolkit.add_character_to_story(story, "Kai", "protagonist")
 hero.add_trait("brave")
 hero.add_goal("Save the kingdom")
 
-# Generate dialogue
+# Generate dialogue (template-based)
 dialogue = toolkit.dialogue_gen.generate_dialogue(
     "Kai", "Villain", context="conflict"
 )
@@ -87,6 +100,104 @@ Kai: There's always a choice. You just chose wrong.
 Coherence Score: 100%
 ```
 
+### Advanced Usage (With LLM - NEW in v2.0.0)
+
+```python
+from story_toolkit import StoryToolkit
+from story_toolkit.llm import LLMFactory, LLMProvider
+
+# Create LLM backend (Mock for testing, no API key needed)
+llm = LLMFactory.create_backend(provider=LLMProvider.MOCK)
+toolkit = StoryToolkit(llm_backend=llm)
+
+# Generate advanced dialogue with LLM
+dialogue = toolkit.dialogue_gen.generate_dialogue(
+    "Kai", "Villain",
+    context="final_battle",
+    use_advanced=True,  # Enable LLM
+    style="dramatic",
+    num_lines=8
+)
+
+for line in dialogue:
+    print(line)
+
+# Check LLM status
+print(f"LLM Status: {toolkit.get_llm_status()}")
+```
+
+**Output:**
+```
+Kai: I can't believe what you've done!
+Villain: You left me no choice, Kai.
+Kai: There's always a choice. You chose wrong.
+Villain: We'll see who was wrong in the end.
+Kai: This isn't over.
+LLM Status: {'available': True, 'provider': 'mock', 'model': 'mock'}
+```
+
+---
+
+## 🤖 LLM Backends
+
+v2.0.0 supports multiple LLM providers:
+
+| Provider | Installation | API Key Required |
+|----------|--------------|------------------|
+| **Mock** | Included | ❌ No (for testing) |
+| **OpenAI** | `pip install story-toolkit[openai]` | ✅ Yes |
+| **Anthropic** | `pip install story-toolkit[anthropic]` | ✅ Yes |
+| **Local (Ollama)** | `pip install story-toolkit[local]` | ❌ No (free) |
+
+### Example with OpenAI
+
+```python
+import os
+from story_toolkit import StoryToolkit
+from story_toolkit.llm import LLMFactory, LLMProvider
+
+# Set your API key
+os.environ["OPENAI_API_KEY"] = "sk-..."
+
+# Create OpenAI backend
+llm = LLMFactory.create_backend(
+    provider=LLMProvider.OPENAI,
+    model="gpt-3.5-turbo",
+    temperature=0.8
+)
+
+toolkit = StoryToolkit(llm_backend=llm)
+
+# Generate advanced dialogue
+dialogue = toolkit.generate_advanced_dialogue(
+    "Knight", "Dragon",
+    context="final_battle",
+    style="epic",
+    num_lines=6
+)
+```
+
+### Example with Local LLM (Ollama)
+
+```bash
+# First, install and run Ollama
+ollama pull llama2
+```
+
+```python
+from story_toolkit import StoryToolkit
+from story_toolkit.llm import LLMFactory, LLMProvider
+
+# Create local backend (free, no API key)
+llm = LLMFactory.create_backend(
+    provider=LLMProvider.LOCAL,
+    model="llama2",
+    temperature=0.7
+)
+
+toolkit = StoryToolkit(llm_backend=llm)
+```
+
 ---
 
 ## 📁 Project Structure
@@ -97,6 +208,10 @@ story_toolkit/
 │   ├── core/               # Story engine, Character, Plot, WorldBuilder
 │   ├── generators/         # Character, Plot, and Dialogue generators
 │   ├── nlp/                # Coherence checker and Text analyzer
+│   ├── llm/                # LLM layer (NEW in v2.0.0)
+│   │   ├── base.py        # Base classes
+│   │   ├── factory.py     # Backend factory
+│   │   └── backends/      # Mock, OpenAI, Anthropic, Local
 │   └── utils/              # Helper functions
 ├── docs/                   # Documentation (English & Persian)
 │   ├── eng/                # English documentation
@@ -118,16 +233,11 @@ Full documentation is available in two languages:
 | 🇬🇧 English | [docs/eng/index.html](docs/eng/index.html) |
 | 🇮🇷 فارسی | [docs/fa-ir/index.html](docs/fa-ir/index.html) |
 
-Or open the language selection page:
-
-```bash
-start docs/index.html
-```
-
 ### Documentation Pages
 
 - **Quick Start Guide** — Build your first story in 5 minutes
 - **API Reference** — Complete documentation for all classes and methods
+- **LLM Integration Guide** — How to use OpenAI, Anthropic, and local models
 - **Examples** — Simple, complete, and advanced usage examples
 
 ---
@@ -135,6 +245,9 @@ start docs/index.html
 ## 🧪 Running Tests
 
 ```bash
+# Run all tests
+pytest tests/ -v
+
 # Core module tests
 python -m tests.test_core
 
@@ -143,6 +256,9 @@ python -m tests.test_generators
 
 # NLP tool tests
 python -m tests.test_nlp
+
+# LLM layer tests
+python -m tests.test_llm_quick.test_quick_verify
 ```
 
 All tests should pass:
@@ -151,6 +267,7 @@ All tests should pass:
 ✅ Character tests passed!
 ✅ Plot tests passed!
 ✅ WorldBuilder tests passed!
+✅ LLM layer tests passed!
 ```
 
 ---
@@ -167,7 +284,7 @@ python -m examples.simple_example
 python -m examples.example
 ```
 
-### Advanced Features
+### Advanced Features (with LLM)
 ```bash
 python -m examples.advanced_example
 ```
@@ -224,6 +341,24 @@ for rec in report['recommendations']:
     print(f"💡 {rec}")
 ```
 
+### LLM-Powered Dialogue (NEW)
+```python
+from story_toolkit import StoryToolkit
+from story_toolkit.llm import LLMFactory, LLMProvider
+
+# Setup LLM
+llm = LLMFactory.create_backend(provider=LLMProvider.MOCK)
+toolkit = StoryToolkit(llm_backend=llm)
+
+# Generate advanced dialogue
+dialogue = toolkit.generate_advanced_dialogue(
+    "Hero", "Villain",
+    context="conflict",
+    style="dramatic",
+    num_lines=10
+)
+```
+
 ---
 
 ## 🔧 Requirements
@@ -235,6 +370,37 @@ for rec in report['recommendations']:
   - `textblob>=0.17.1`
   - `pydantic>=2.5.0`
   - `pyyaml>=6.0`
+
+### Optional LLM Dependencies
+
+| Backend | Package |
+|---------|---------|
+| OpenAI | `openai>=1.0.0` |
+| Anthropic | `anthropic>=0.18.0` |
+| Local (Ollama) | `ollama>=0.1.0` |
+| Local (llama.cpp) | `llama-cpp-python>=0.2.0` |
+
+---
+
+## 🔄 Upgrading from v1.0.0 to v2.0.0
+
+**No breaking changes!** All v1.0.0 code continues to work unchanged.
+
+```python
+# This v1.0.0 code still works perfectly in v2.0.0
+from story_toolkit import StoryToolkit
+
+toolkit = StoryToolkit()  # No LLM by default
+story = toolkit.create_story("fantasy", "courage")
+# ... everything works as before
+```
+
+To use new LLM features:
+```python
+# Optional: Add LLM for enhanced capabilities
+llm = LLMFactory.create_backend(provider=LLMProvider.MOCK)
+toolkit = StoryToolkit(llm_backend=llm)
+```
 
 ---
 
@@ -273,19 +439,15 @@ If you find this project useful, please consider giving it a ⭐️ on GitHub!
 
 *Built with ❤️ for writers and developers*
 
+## ✨ **Version 2.0.0 Highlights**
 
-## ✨ **README Features:**
-
-
-
-| Section | Description |
+| Feature | Description |
 |---------|-------------|
 | 🎯 **Badges** | Python, License, Version, Author shields |
 | ⚡ **Quick Start** | Ready-to-run code with sample output |
-| 📁 **Structure** | Project directory layout |
+| 🤖 **LLM Support** | OpenAI, Anthropic, and local models |
+| 📁 **Structure** | Project directory layout with new llm/ module |
 | 📖 **Docs** | Links to English and Persian documentation |
-| 🧪 **Tests** | How to run unit tests |
+| 🧪 **Tests** | How to run unit tests including LLM tests |
 | 🛠️ **Examples** | Code snippets for each component |
-| 🤝 **Contributing** | Guide for contributors |
-
-
+| 🔄 **Upgrade Guide** | How to upgrade from v1 to v2 |
