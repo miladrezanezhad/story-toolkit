@@ -6,6 +6,7 @@
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Version](https://img.shields.io/badge/Version-2.2.2-orange.svg)](https://github.com/miladrezanezhad/story-toolkit/releases)
 [![Author](https://img.shields.io/badge/Author-Milad%20Rezanezhad-purple.svg)](https://github.com/miladrezanezhad)
+[![PyPI version](https://img.shields.io/pypi/v/story-toolkit.svg)](https://pypi.org/project/story-toolkit/)
 
 **A comprehensive Python toolkit for generating engaging and coherent stories with optional LLM support.**
 
