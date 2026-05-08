@@ -1,3 +1,4 @@
+
 # 🤝 Contributing to Story Development Toolkit
 
 First off, thank you for considering contributing! 🎉
@@ -40,6 +41,7 @@ Before creating a bug report:
 - Expected vs actual behavior
 - Python version and OS
 - Error messages and screenshots
+- Story Toolkit version
 
 ### 💡 Suggesting Features
 
@@ -47,6 +49,13 @@ Feature suggestions are welcome! Please:
 1. Check existing issues to avoid duplicates
 2. Open a new issue with the "enhancement" label
 3. Describe the feature and why it would be useful
+4. Indicate which version you'd like to see it in (v2.x.x)
+
+**Current priority features:**
+- More LLM backends (Google Gemini, Cohere)
+- Export to additional formats (DOCX, TXT)
+- Web-based editor
+- Real-time collaboration
 
 ### 📝 Improving Documentation
 
@@ -55,6 +64,7 @@ Documentation improvements are always welcome:
 - Add more examples
 - Translate to new languages
 - Improve API documentation
+- Update wiki pages
 
 ### 💻 Writing Code
 
@@ -98,26 +108,51 @@ git checkout -b fix/your-bug-fix
 
 ## Development Setup
 
+### Requirements
+
+- Python 3.11 or higher
+- pip (latest version)
+
 ### Install Dependencies
 
 ```bash
+# Core dependencies
 pip install -r requirements.txt
+
+# Development dependencies (testing, linting)
 pip install -r requirements-dev.txt
-```
 
-### Install in Development Mode
+# Optional LLM dependencies
+pip install -r requirements-llm.txt
 
-```bash
+# Optional export dependencies
+pip install -r requirements-export.txt
+
+# Install in development mode
 pip install -e .
 ```
 
-### Run Tests
+### Download spaCy Model
 
 ```bash
-# All tests
-python -m tests.test_core
-python -m tests.test_generators
-python -m tests.test_nlp
+python -m spacy download en_core_web_sm
+```
+
+---
+
+## Project Structure (v2.2.2)
+
+```
+story_toolkit/
+├── core/           # Core modules (Character, Plot, WorldBuilder)
+├── generators/     # Content generators (Character, Plot, Dialogue, Story)
+├── nlp/            # NLP tools (CoherenceChecker, TextAnalyzer)
+├── llm/            # LLM integration (v2.0.0)
+├── memory/         # SQLite memory (v2.1.0)
+├── exporters/      # PDF, EPUB, HTML, Bionic (v2.2.0)
+├── templates/      # Pre-built story templates (v2.2.1)
+├── cli/            # Command-line interface (v2.2.2)
+└── utils/          # Helper functions
 ```
 
 ---
@@ -125,7 +160,7 @@ python -m tests.test_nlp
 ## Coding Guidelines
 
 ### Python Version
-- Target Python 3.11 or higher
+- Target Python **3.11 or higher**
 
 ### Code Style
 - Follow [PEP 8](https://peps.python.org/pep-0008/)
@@ -152,10 +187,18 @@ def add_trait(self, trait: str) -> None:
     Args:
         trait: The personality trait to add.
         
+    Returns:
+        None
+        
     Raises:
         ValueError: If trait is empty.
+        
+    Example:
+        >>> hero.add_trait("brave")
     """
-    ...
+    if not trait:
+        raise ValueError("Trait cannot be empty")
+    self._traits.append(trait)
 ```
 
 ### Imports
@@ -166,18 +209,23 @@ Order imports as follows:
 
 ```python
 import os
-from typing import List, Dict
+from typing import List, Dict, Optional
 
 import nltk
+from pydantic import BaseModel
 
 from story_toolkit.core.character import Character
+from story_toolkit.utils.helpers import save_story
 ```
 
 ### Naming Conventions
-- Classes: `PascalCase` → `CharacterGenerator`
-- Functions: `snake_case` → `generate_character()`
-- Variables: `snake_case` → `character_name`
-- Constants: `UPPER_SNAKE_CASE` → `MAX_CHARACTERS`
+| Type | Convention | Example |
+|------|------------|---------|
+| Classes | `PascalCase` | `CharacterGenerator` |
+| Functions | `snake_case` | `generate_character()` |
+| Variables | `snake_case` | `character_name` |
+| Constants | `UPPER_SNAKE_CASE` | `MAX_CHARACTERS` |
+| Private methods | `_leading_underscore` | `_validate_input()` |
 
 ---
 
@@ -192,19 +240,38 @@ from story_toolkit.core.character import Character
 ```python
 def test_character_creation():
     """Test basic character creation."""
+    # Setup
     char = Character(name="Test", age=25, role="protagonist")
+    
+    # Assertions
     assert char.name == "Test"
     assert char.age == 25
+    assert char.role == "protagonist"
 ```
+
+### Test Structure by Version
+
+| Version | Test Location |
+|---------|---------------|
+| v1.0.0 | `tests/test_core.py` |
+| v2.0.0 | `tests/test_llm.py`, `tests/test_llm_quick/` |
+| v2.1.0 | `tests/v2_1/test_memory.py` |
+| v2.2.0 | `tests/v2_2/test_exporters.py` |
+| v2.2.1 | `tests/v2_2_1/test_templates.py` |
+| v2.2.2 | `tests/v2_2_2/test_cli.py` |
 
 ### Running Tests
 
 ```bash
+# Run all tests
+pytest tests/ -v
+
 # Run specific test file
 python -m tests.test_core
+python tests/v2_2_2/test_cli.py
 
-# Run all tests
-python -m tests.test_core && python -m tests.test_generators && python -m tests.test_nlp
+# Run with coverage
+pytest tests/ --cov=story_toolkit --cov-report=html
 ```
 
 ---
@@ -215,8 +282,9 @@ python -m tests.test_core && python -m tests.test_generators && python -m tests.
 
 1. ✅ Run all tests and make sure they pass
 2. ✅ Update documentation if needed
-3. ✅ Add your changes to the CHANGELOG (if exists)
+3. ✅ Add your changes to `CHANGELOG.md`
 4. ✅ Write clear commit messages
+5. ✅ Ensure backward compatibility with v1.0.0
 
 ### Commit Messages
 
@@ -225,21 +293,34 @@ Follow conventional commits:
 ```
 feat: Add new character arc system
 fix: Fix plot point connection bug
-docs: Update API documentation
-test: Add tests for world builder
+docs: Update API documentation for v2.2.2
+test: Add tests for CLI tool
 refactor: Simplify dialogue generator
+chore: Update dependencies
+```
+
+### Commit Message Structure
+
+```
+<type>(<scope>): <subject>
+
+<body>
+
+<footer>
 ```
 
 ### Submitting
 
 1. Push to your fork
+   ```bash
+   git push origin feature/your-feature-name
+   ```
+
 2. Open a Pull Request to the `main` branch
 3. Fill in the PR template
 4. Link any related issues
 
 ### Pull Request Template
-
-Your PR description should include:
 
 ```markdown
 ## Description
@@ -250,10 +331,20 @@ Brief description of the changes.
 - [ ] New feature
 - [ ] Documentation
 - [ ] Refactoring
+- [ ] Breaking change
+
+## Version Impact
+- [ ] v1.0.0 compatible
+- [ ] v2.0.0 compatible
+- [ ] v2.1.0 compatible
+- [ ] v2.2.0 compatible
+- [ ] v2.2.1 compatible
+- [ ] v2.2.2 compatible
 
 ## Testing
 - [ ] All tests pass
 - [ ] New tests added
+- [ ] Manual testing completed
 
 ## Screenshots (if applicable)
 ```
@@ -269,23 +360,38 @@ Brief description of the changes.
 
 ## Style Guide
 
-### Project Structure
+### Project Structure Rules
 
-```
-story_toolkit/
-├── core/           # Core modules
-├── generators/     # Content generators
-├── nlp/            # NLP tools
-└── utils/          # Utilities
-```
+- Core modules go in `core/` (v1.0.0)
+- Generators go in `generators/` (v1.0.0)
+- New features should have their own module
+- Each version's features should be isolated
+- Maintain backward compatibility
 
-### Adding New Modules
+### Adding New Features
 
-1. Place in the appropriate package
+1. Create new module folder (e.g., `exporters/`, `templates/`)
 2. Add `__init__.py` with proper exports
-3. Register in the main `__init__.py`
-4. Add tests in `tests/`
-5. Update documentation
+3. Register in main `__init__.py`
+4. Add tests in appropriate test folder
+5. Update `CHANGELOG.md`
+6. Update documentation
+
+### Code Quality Tools
+
+```bash
+# Format code
+black story_toolkit/ tests/ --line-length 100
+
+# Sort imports
+isort story_toolkit/ tests/ --profile black
+
+# Lint code
+flake8 story_toolkit/ --max-line-length=100 --ignore=E203,W503
+
+# Type checking
+mypy story_toolkit/ --ignore-missing-imports
+```
 
 ---
 
@@ -294,24 +400,33 @@ story_toolkit/
 ### Code Documentation
 - Document all public methods and classes
 - Include usage examples
-- Keep documentation up to date
+- Keep documentation up to date with version changes
+- Mention which version introduced each feature
 
 ### Wiki Contributions
 - Wiki pages can be edited by anyone
 - Follow the existing format
 - Keep information accurate and helpful
+- Update version numbers when applicable
+
+### API Documentation
+- Update `docs/eng/api.html` and `docs/fa-ir/api.html`
+- Include examples for all methods
+- Show version information for features
 
 ---
 
-## 🎯 Priorities
+## 🎯 Current Priorities
 
-Not sure what to work on? Here are current priorities:
-
-1. 🐛 Bug fixes
-2. 📝 Documentation improvements
-3. 🧪 Adding more tests
-4. ✨ New genre support
-5. 🌍 Translations
+| Priority | Area | Difficulty |
+|----------|------|------------|
+| 🔥 High | Bug fixes | Easy |
+| 🔥 High | Documentation | Easy |
+| 🔥 High | Test coverage | Medium |
+| ⭐ Medium | More LLM backends | Hard |
+| ⭐ Medium | Export formats | Medium |
+| 💡 Low | GUI application | Hard |
+| 💡 Low | Web editor | Hard |
 
 ---
 
@@ -321,13 +436,20 @@ Need help? Here's how to reach out:
 
 - **Questions:** [GitHub Discussions](https://github.com/miladrezanezhad/story-toolkit/discussions)
 - **Bugs:** [GitHub Issues](https://github.com/miladrezanezhad/story-toolkit/issues)
+- **Discord:** (coming soon)
 - **Email:** Open an issue for private contact
 
 ---
 
 ## 🏆 Recognition
 
-All contributors will be recognized in the [README](README.md) and release notes.
+All contributors will be recognized in:
+- [README.md](README.md) contributors list
+- Release notes
+- GitHub Hall of Fame
+
+**Current Contributors:**
+- Milad Rezanezhad (Creator & Maintainer)
 
 ---
 
