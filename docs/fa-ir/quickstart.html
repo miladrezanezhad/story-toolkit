@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>شروع سریع - Story Development Toolkit v2.0.0</title>
+
+    <!-- Bootstrap RTL -->
+    <link rel="stylesheet" href="https://lib.arvancloud.ir/bootstrap/5.2.3/css/bootstrap.rtl.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://lib.arvancloud.ir/font-awesome/6.3.0/css/all.min.css">
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fa-solid fa-book-open"></i> Story Toolkit
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    style="border-color:var(--border);">
+                <span class="navbar-toggler-icon" style="filter:invert(1);"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html"><i class="fa-solid fa-house"></i> خانه</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="quickstart.html"><i class="fa-solid fa-rocket"></i> شروع سریع</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="api.html"><i class="fa-solid fa-code"></i> مستندات API</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://github.com/miladrezanezhad/story-toolkit" target="_blank">
+                            <i class="fa-brands fa-github"></i> گیت‌هاب
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../eng/quickstart.html"><i class="fa-solid fa-globe"></i> English</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container py-5" style="max-width: 860px;">
+
+        <!-- Breadcrumb -->
+        <nav aria-label="breadcrumb" class="mb-4">
+            <ol class="breadcrumb" style="--bs-breadcrumb-divider-color: var(--text-muted);">
+                <li class="breadcrumb-item"><a href="index.html" style="color:var(--accent);">خانه</a></li>
+                <li class="breadcrumb-item active" style="color:var(--text-secondary);">شروع سریع</li>
+            </ol>
+        </nav>
+
+        <!-- Header -->
+        <h1 class="mb-2"><i class="fa-solid fa-rocket"></i> شروع سریع</h1>
+        <p class="mb-3" style="font-size:1.1rem;color:var(--text-secondary);">
+            در ۵ دقیقه اولین داستان خود را با Story Development Toolkit <strong>نسخه ۲.۰.۰</strong> بسازید
+        </p>
+        <div class="note mb-4">
+            <i class="fa-solid fa-star-of-life" style="color:var(--green);"></i>
+            <strong>جدید در نسخه ۲.۰.۰:</strong> قابلیت استفاده از هوش مصنوعی (LLM) برای دیالوگ‌های پیشرفته!
+        </div>
+
+        <!-- Step 1 -->
+        <h2 class="mb-3">مرحله ۱: نصب</h2>
+        <div class="code-block-wrapper">
+            <div class="code-block-header">
+                <span class="lang-label">bash</span>
+                <button class="copy-btn" onclick="copyCode(this)">
+                    <i class="fa-regular fa-copy"></i> کپی
+                </button>
+            </div>
+            <div class="code-block-body">
+                <pre><code>git clone https://github.com/miladrezanezhad/story-toolkit.git
+cd story-toolkit
+pip install -r requirements.txt
+
+<span class="cm"># جدید در نسخه ۲.۰.۰ - نصب با پشتیبانی LLM</span>
+pip install story-toolkit[openai]      <span class="cm"># پشتیبانی از OpenAI</span>
+pip install story-toolkit[local]       <span class="cm"># پشتیبانی از مدل‌های محلی (رایگان)</span>
+pip install story-toolkit[all]         <span class="cm"># همه پشتیبان‌ها</span></code></pre>
+            </div>
+        </div>
+        <p class="text-muted mb-5">
+            یا نصب مستقیم با <code style="background:var(--bg-tertiary);padding:2px 8px;border-radius:4px;color:var(--pink);">pip install -e .</code>
+        </p>
+
+        <!-- Step 2 -->
+        <h2 class="mb-3">مرحله ۲: import کتابخانه</h2>
+        <div class="code-block-wrapper">
+            <div class="code-block-header">
+                <span class="lang-label">python</span>
+                <button class="copy-btn" onclick="copyCode(this)">
+                    <i class="fa-regular fa-copy"></i> کپی
+                </button>
+            </div>
+            <div class="code-block-body">
+                <pre><code><span class="kw">from</span> story_toolkit <span class="kw">import</span> StoryToolkit
+
+<span class="cm"># ایجاد نمونه از Toolkit</span>
+toolkit = StoryToolkit()</code></pre>
+            </div>
+        </div>
+        <p class="text-muted mb-5">
+            کلاس <code>StoryToolkit</code> دسترسی یکپارچه به تمام امکانات را فراهم می‌کند.
+        </p>
+
+        <!-- NEW: LLM Setup Section -->
+        <div class="note mb-5" style="background:rgba(63,185,80,0.1); border-left-color:var(--green);">
+            <strong><i class="fa-solid fa-brain" style="color:var(--green);"></i> جدید در نسخه ۲.۰.۰ - فعال‌سازی هوش مصنوعی:</strong>
+            <div class="mt-2">
+                <pre style="background:var(--bg-primary); padding:12px; border-radius:8px; margin-bottom:0;"><code><span class="kw">from</span> story_toolkit.llm <span class="kw">import</span> LLMFactory, LLMProvider
+
+<span class="cm"># ایجاد پشتیبان Mock برای تست (بدون نیاز به کلید API)</span>
+llm = LLMFactory.create_backend(provider=LLMProvider.MOCK)
+
+<span class="cm"># ایجاد Toolkit با قابلیت LLM</span>
+toolkit = StoryToolkit(llm_backend=llm)</code></pre>
+            </div>
+        </div>
+
+        <!-- Step 3 -->
+        <h2 class="mb-3">مرحله ۳: ساخت داستان</h2>
+        <div class="code-block-wrapper">
+            <div class="code-block-header">
+                <span class="lang-label">python</span>
+                <button class="copy-btn" onclick="copyCode(this)">
+                    <i class="fa-regular fa-copy"></i> کپی
+                </button>
+            </div>
+            <div class="code-block-body">
+                <pre><code><span class="cm"># ایجاد یک داستان فانتزی با تم شجاعت</span>
+story = toolkit.create_story(
+    genre=<span class="str">"fantasy"</span>,
+    theme=<span class="str">"courage"</span>,
+    complexity=4
+)
+
+<span class="fn">print</span>(story[<span class="str">"metadata"</span>][<span class="str">"genre"</span>])   <span class="cm"># "fantasy"</span>
+<span class="fn">print</span>(story[<span class="str">"metadata"</span>][<span class="str">"theme"</span>])   <span class="cm"># "courage"</span>
+<span class="fn">print</span>(story[<span class="str">"metadata"</span>][<span class="str">"complexity"</span>])  <span class="cm"># 4</span></code></pre>
+            </div>
+        </div>
+
+        <div class="note mb-5">
+            <strong><i class="fa-solid fa-lightbulb"></i> نکته:</strong>
+            ژانرهای پشتیبانی شده: <code>fantasy</code>، <code>mystery</code>، <code>romance</code>، <code>adventure</code>، <code>sci_fi</code>
+        </div>
+
+        <!-- Step 4 -->
+        <h2 class="mb-3">مرحله ۴: افزودن شخصیت‌ها</h2>
+        <div class="code-block-wrapper">
+            <div class="code-block-header">
+                <span class="lang-label">python</span>
+                <button class="copy-btn" onclick="copyCode(this)">
+                    <i class="fa-regular fa-copy"></i> کپی
+                </button>
+            </div>
+            <div class="code-block-body">
+                <pre><code><span class="cm"># افزودن قهرمان داستان</span>
+hero = toolkit.add_character_to_story(
+    story,
+    <span class="str">"کای"</span>,
+    <span class="str">"protagonist"</span>
+)
+
+<span class="cm"># توسعه شخصیت قهرمان</span>
+hero.add_trait(<span class="str">"brave"</span>)         <span class="cm"># شجاع</span>
+hero.add_trait(<span class="str">"determined"</span>)     <span class="cm"># مصمم</span>
+hero.add_trait(<span class="str">"compassionate"</span>)  <span class="cm"># دلسوز</span>
+hero.add_goal(<span class="str">"Save the kingdom"</span>)   <span class="cm"># نجات پادشاهی</span>
+hero.add_skill(<span class="str">"sword_mastery"</span>)    <span class="cm"># شمشیرزنی</span>
+hero.add_skill(<span class="str">"stealth"</span>)         <span class="cm"># حرکت بی‌صدا</span>
+
+<span class="cm"># افزودن ضدقهرمان</span>
+villain = toolkit.add_character_to_story(
+    story,
+    <span class="str">"مورگان"</span>,
+    <span class="str">"antagonist"</span>
+)
+villain.add_trait(<span class="str">"manipulative"</span>)  <span class="cm"># حیله‌گر</span>
+villain.add_trait(<span class="str">"charismatic"</span>)   <span class="cm"># کاریزماتیک</span>
+villain.add_goal(<span class="str">"Control the kingdom"</span>)  <span class="cm"># تسخیر پادشاهی</span>
+
+<span class="cm"># ایجاد رابطه بین شخصیت‌ها</span>
+hero.add_relationship(<span class="str">"مورگان"</span>, <span class="str">"enemy"</span>, strength=9)</code></pre>
+            </div>
+        </div>
+
+        <div class="note mb-5">
+            <strong><i class="fa-solid fa-lightbulb"></i> نقش‌های قابل استفاده:</strong>
+            <code>protagonist</code> (قهرمان)، <code>antagonist</code> (ضدقهرمان)، <code>supporting</code> (مکمل)، <code>mentor</code> (راهنما)
+        </div>
+
+        <!-- Step 5 - Legacy Dialogue (unchanged) -->
+        <h2 class="mb-3">مرحله ۵: تولید دیالوگ (حالت معمولی)</h2>
+        <div class="code-block-wrapper">
+            <div class="code-block-header">
+                <span class="lang-label">python</span>
+                <button class="copy-btn" onclick="copyCode(this)">
+                    <i class="fa-regular fa-copy"></i> کپی
+                </button>
+            </div>
+            <div class="code-block-body">
+                <pre><code><span class="cm"># دیالوگ درگیری بین قهرمان و ضدقهرمان</span>
+dialogue = toolkit.dialogue_gen.generate_dialogue(
+    <span class="str">"کای"</span>,
+    <span class="str">"مورگان"</span>,
+    context=<span class="str">"conflict"</span>,
+    mood=<span class="str">"tense"</span>
+)
+
+<span class="kw">for</span> line <span class="kw">in</span> dialogue:
+    <span class="fn">print</span>(line)</code></pre>
+            </div>
+        </div>
+
+        <div class="output-block mb-5">
+            <i class="fa-solid fa-terminal"></i> خروجی:<br><br>
+            کای: نمی‌تونم باور کنم این کار رو کردی!<br>
+            مورگان: چاره‌ای برام نذاشتی.<br>
+            کای: همیشه یه راه هست. تو فقط اشتباه انتخاب کردی.
+        </div>
+
+        <!-- NEW: Advanced Dialogue Section -->
+        <h2 class="mb-3">مرحله ۵-الف: تولید دیالوگ پیشرفته با هوش مصنوعی <span class="badge" style="background:var(--green);">جدید در نسخه ۲.۰.۰</span></h2>
+        <div class="code-block-wrapper">
+            <div class="code-block-header">
+                <span class="lang-label">python</span>
+                <button class="copy-btn" onclick="copyCode(this)">
+                    <i class="fa-regular fa-copy"></i> کپی
+                </button>
+            </div>
+            <div class="code-block-body">
+                <pre><code><span class="kw">from</span> story_toolkit.llm <span class="kw">import</span> LLMFactory, LLMProvider
+
+<span class="cm"># مرحله ۱: ایجاد پشتیبان LLM (مثلاً Mock برای تست)</span>
+llm = LLMFactory.create_backend(provider=LLMProvider.MOCK)
+
+<span class="cm"># مرحله ۲: ایجاد Toolkit با قابلیت LLM</span>
+toolkit_advanced = StoryToolkit(llm_backend=llm)
+
+<span class="cm"># مرحله ۳: تولید دیالوگ پیشرفته</span>
+advanced_dialogue = toolkit_advanced.dialogue_gen.generate_dialogue(
+    <span class="str">"کای"</span>,
+    <span class="str">"مورگان"</span>,
+    context=<span class="str">"نبرد نهایی"</span>,
+    use_advanced=<span class="kw">True</span>,      <span class="cm"># فعال‌سازی هوش مصنوعی</span>
+    style=<span class="str">"دراماتیک"</span>,        <span class="cm"># سبک: natural, dramatic, poetic, humorous</span>
+    num_lines=8
+)
+
+<span class="kw">for</span> line <span class="kw">in</span> advanced_dialogue:
+    <span class="fn">print</span>(line)</code></pre>
+            </div>
+        </div>
+
+        <div class="output-block mb-5">
+            <i class="fa-solid fa-terminal"></i> خروجی (نمونه با پشتیبان Mock):<br><br>
+            کای: نمی‌تونم باور کنم چه کردی!<br>
+            مورگان: چاره‌ای برام نذاشتی، کای.<br>
+            کای: همیشه یه راه هست. تو اشتباه انتخاب کردی.<br>
+            مورگان: ببینیم در نهایت کی اشتباه کرده.<br>
+            کای: این تموم نشده.<br>
+            مورگان: درست می‌گی. تازه اولشه.<br>
+            کای: آماده باش. دفعه بعد شانس نمیاری.<br>
+            مورگان: همینطوره.
+        </div>
+
+        <div class="note mb-5">
+            <strong><i class="fa-solid fa-lightbulb"></i> توجه:</strong>
+            برای استفاده از هوش مصنوعی واقعی (OpenAI یا Claude)، به کلید API نیاز دارید. پشتیبان <code>MOCK</code> برای تست بدون API مناسب است.<br>
+            سبک‌های قابل استفاده: <code>natural</code> (طبیعی)، <code>dramatic</code> (دراماتیک)، <code>poetic</code> (شاعرانه)، <code>humorous</code> (طنزآمیز)
+        </div>
+
+        <!-- Step 6 -->
+        <h2 class="mb-3">مرحله ۶: بررسی انسجام داستان</h2>
+        <div class="code-block-wrapper">
+            <div class="code-block-header">
+                <span class="lang-label">python</span>
+                <button class="copy-btn" onclick="copyCode(this)">
+                    <i class="fa-regular fa-copy"></i> کپی
+                </button>
+            </div>
+            <div class="code-block-body">
+                <pre><code><span class="cm"># بررسی انسجام و پیوستگی داستان</span>
+report = toolkit.check_story_coherence(story)
+
+<span class="cm"># نمایش امتیاز کلی</span>
+<span class="fn">print</span>(<span class="str">f"امتیاز انسجام: {report['overall_score']:.0%}"</span>)
+
+<span class="cm"># بررسی حفره‌های داستانی</span>
+<span class="kw">if</span> report[<span class="str">'plot_holes'</span>]:
+    <span class="fn">print</span>(<span class="str">"\n⚠️ حفره‌های داستانی:"</span>)
+    <span class="kw">for</span> hole <span class="kw">in</span> report[<span class="str">'plot_holes'</span>]:
+        <span class="fn">print</span>(<span class="str">f"  - {hole}"</span>)
+
+<span class="cm"># نمایش پیشنهادات بهبود</span>
+<span class="kw">if</span> report[<span class="str">'recommendations'</span>]:
+    <span class="fn">print</span>(<span class="str">"\n💡 پیشنهادات:"</span>)
+    <span class="kw">for</span> rec <span class="kw">in</span> report[<span class="str">'recommendations'</span>]:
+        <span class="fn">print</span>(<span class="str">f"  - {rec}"</span>)</code></pre>
+            </div>
+        </div>
+
+        <div class="output-block mb-5">
+            <i class="fa-solid fa-terminal"></i> خروجی:<br><br>
+            امتیاز انسجام: 100%<br><br>
+            💡 پیشنهادات:<br>
+            - Story appears coherent - maintain this quality throughout!
+        </div>
+
+        <!-- Step 7 -->
+        <h2 class="mb-3">مرحله ۷: ذخیره و خروجی</h2>
+        <div class="code-block-wrapper">
+            <div class="code-block-header">
+                <span class="lang-label">python</span>
+                <button class="copy-btn" onclick="copyCode(this)">
+                    <i class="fa-regular fa-copy"></i> کپی
+                </button>
+            </div>
+            <div class="code-block-body">
+                <pre><code><span class="kw">from</span> story_toolkit.utils.helpers <span class="kw">import</span> save_story, export_to_markdown
+
+<span class="cm"># ذخیره به فرمت JSON</span>
+save_story(story, <span class="str">"my_story.json"</span>)
+
+<span class="cm"># خروجی Markdown برای نمایش در گیت‌هاب</span>
+export_to_markdown(story, <span class="str">"my_story.md"</span>)
+
+<span class="cm"># یا استفاده از متد export خود Toolkit</span>
+toolkit.export_story(story, format=<span class="str">"json"</span>, filename=<span class="str">"my_story"</span>)
+toolkit.export_story(story, format=<span class="str">"markdown"</span>, filename=<span class="str">"my_story"</span>)
+
+<span class="fn">print</span>(<span class="str">"✅ داستان با موفقیت ذخیره شد!"</span>)</code></pre>
+            </div>
+        </div>
+
+        <!-- NEW: LLM Status Check -->
+        <h2 class="mb-3">مرحله ۷-الف: بررسی وضعیت هوش مصنوعی <span class="badge" style="background:var(--green);">جدید در نسخه ۲.۰.۰</span></h2>
+        <div class="code-block-wrapper">
+            <div class="code-block-header">
+                <span class="lang-label">python</span>
+                <button class="copy-btn" onclick="copyCode(this)">
+                    <i class="fa-regular fa-copy"></i> کپی
+                </button>
+            </div>
+            <div class="code-block-body">
+                <pre><code><span class="cm"># بررسی وضعیت LLM</span>
+status = toolkit_advanced.get_llm_status()
+<span class="fn">print</span>(<span class="str">f"وضعیت LLM: {status}"</span>)
+
+<span class="cm"># خروجی: {'available': True, 'provider': 'mock', 'model': 'mock'}</span>
+
+<span class="cm"># بررسی در دسترس بودن در DialogueGenerator</span>
+<span class="kw">if</span> toolkit_advanced.dialogue_gen.has_llm():
+    info = toolkit_advanced.dialogue_gen.get_llm_info()
+    <span class="fn">print</span>(<span class="str">f"استفاده از {info['provider']} - {info['model']}"</span>)</code></pre>
+            </div>
+        </div>
+
+        <!-- Step 8: Full Code -->
+        <h2 class="mb-3">🎯 کد کامل یک‌جا (نسخه پایه)</h2>
+        <div class="code-block-wrapper">
+            <div class="code-block-header">
+                <span class="lang-label">python</span>
+                <button class="copy-btn" onclick="copyCode(this)">
+                    <i class="fa-regular fa-copy"></i> کپی
+                </button>
+            </div>
+            <div class="code-block-body">
+                <pre><code><span class="kw">from</span> story_toolkit <span class="kw">import</span> StoryToolkit
+<span class="kw">from</span> story_toolkit.utils.helpers <span class="kw">import</span> save_story
+
+<span class="cm"># ۱. ایجاد نمونه</span>
+toolkit = StoryToolkit()
+
+<span class="cm"># ۲. ساخت داستان</span>
+story = toolkit.create_story(<span class="str">"fantasy"</span>, <span class="str">"courage"</span>, complexity=4)
+
+<span class="cm"># ۳. افزودن شخصیت‌ها</span>
+hero = toolkit.add_character_to_story(story, <span class="str">"کای"</span>, <span class="str">"protagonist"</span>)
+hero.add_trait(<span class="str">"brave"</span>)
+hero.add_goal(<span class="str">"Save the kingdom"</span>)
+
+villain = toolkit.add_character_to_story(story, <span class="str">"مورگان"</span>, <span class="str">"antagonist"</span>)
+villain.add_trait(<span class="str">"manipulative"</span>)
+
+<span class="cm"># ۴. ایجاد رابطه</span>
+hero.add_relationship(<span class="str">"مورگان"</span>, <span class="str">"enemy"</span>, strength=9)
+
+<span class="cm"># ۵. تولید دیالوگ</span>
+dialogue = toolkit.dialogue_gen.generate_dialogue(
+    <span class="str">"کای"</span>, <span class="str">"مورگان"</span>, context=<span class="str">"conflict"</span>
+)
+<span class="kw">for</span> line <span class="kw">in</span> dialogue:
+    <span class="fn">print</span>(line)
+
+<span class="cm"># ۶. بررسی انسجام</span>
+report = toolkit.check_story_coherence(story)
+<span class="fn">print</span>(<span class="str">f"\n✅ امتیاز انسجام: {report['overall_score']:.0%}"</span>)
+
+<span class="cm"># ۷. ذخیره داستان</span>
+save_story(story, <span class="str">"my_story.json"</span>)
+<span class="fn">print</span>(<span class="str">"📁 داستان در my_story.json ذخیره شد"</span>)</code></pre>
+            </div>
+        </div>
+
+        <!-- NEW: Full Code with LLM -->
+        <h2 class="mb-3 mt-4">🤖 کد کامل با قابلیت هوش مصنوعی <span class="badge" style="background:var(--green);">جدید در نسخه ۲.۰.۰</span></h2>
+        <div class="code-block-wrapper">
+            <div class="code-block-header">
+                <span class="lang-label">python</span>
+                <button class="copy-btn" onclick="copyCode(this)">
+                    <i class="fa-regular fa-copy"></i> کپی
+                </button>
+            </div>
+            <div class="code-block-body">
+                <pre><code><span class="kw">from</span> story_toolkit <span class="kw">import</span> StoryToolkit
+<span class="kw">from</span> story_toolkit.llm <span class="kw">import</span> LLMFactory, LLMProvider
+<span class="kw">from</span> story_toolkit.utils.helpers <span class="kw">import</span> save_story
+
+<span class="cm"># ۱. ایجاد پشتیبان LLM (Mock برای تست)</span>
+llm = LLMFactory.create_backend(provider=LLMProvider.MOCK)
+
+<span class="cm"># ۲. ایجاد Toolkit با قابلیت LLM</span>
+toolkit = StoryToolkit(llm_backend=llm)
+
+<span class="cm"># ۳. ساخت داستان</span>
+story = toolkit.create_story(<span class="str">"fantasy"</span>, <span class="str">"courage"</span>, complexity=4)
+
+<span class="cm"># ۴. افزودن شخصیت‌ها</span>
+hero = toolkit.add_character_to_story(story, <span class="str">"کای"</span>, <span class="str">"protagonist"</span>)
+hero.add_trait(<span class="str">"brave"</span>)
+hero.add_goal(<span class="str">"Save the kingdom"</span>)
+
+villain = toolkit.add_character_to_story(story, <span class="str">"مورگان"</span>, <span class="str">"antagonist"</span>)
+villain.add_trait(<span class="str">"cunning"</span>)
+
+<span class="cm"># ۵. تولید دیالوگ پیشرفته با LLM</span>
+advanced_dialogue = toolkit.dialogue_gen.generate_dialogue(
+    <span class="str">"کای"</span>, <span class="str">"مورگان"</span>,
+    context=<span class="str">"نبرد نهایی"</span>,
+    use_advanced=<span class="kw">True</span>,
+    style=<span class="str">"دراماتیک"</span>,
+    num_lines=8
+)
+
+<span class="kw">for</span> line <span class="kw">in</span> advanced_dialogue:
+    <span class="fn">print</span>(line)
+
+<span class="cm"># ۶. بررسی وضعیت LLM</span>
+<span class="fn">print</span>(<span class="str">f"\n🤖 وضعیت LLM: {toolkit.get_llm_status()}"</span>)
+
+<span class="cm"># ۷. ذخیره داستان</span>
+save_story(story, <span class="str">"my_story_with_llm.json"</span>)
+<span class="fn">print</span>(<span class="str">"📁 داستان ذخیره شد"</span>)</code></pre>
+            </div>
+        </div>
+
+        <!-- Next Steps -->
+        <h2 class="mb-3 mt-5">📖 گام‌های بعدی</h2>
+        <div class="row g-4">
+            <div class="col-md-6">
+                <a href="api.html" class="doc-card">
+                    <div class="doc-icon"><i class="fa-solid fa-code"></i></div>
+                    <h3>مستندات کامل API</h3>
+                    <p>همه کلاس‌ها، متدها، پارامترها و مثال‌ها</p>
+                    <span class="lang-tag">🇮🇷 فارسی</span>
+                </a>
+            </div>
+            <div class="col-md-6">
+                <a href="https://github.com/miladrezanezhad/story-toolkit" class="doc-card" target="_blank">
+                    <div class="doc-icon"><i class="fa-brands fa-github"></i></div>
+                    <h3>سورس کد در گیت‌هاب</h3>
+                    <p>مشاهده کد منبع، مثال‌ها و تست‌ها</p>
+                    <span class="lang-tag">🔗 GitHub</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Compatibility Note -->
+        <div class="note mt-5">
+            <i class="fa-solid fa-shield-alt"></i>
+            <strong>سازگاری با نسخه قبل:</strong> تمام کدهای نوشته شده برای نسخه ۱.۰.۰ بدون هیچ تغییری در نسخه ۲.۰.۰ کار می‌کنند. قابلیت‌های LLM کاملاً اختیاری هستند.
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer py-4 mt-5">
+        <div class="container text-center">
+            <p class="mb-2">
+                ساخته شده با <i class="fa-solid fa-heart" style="color:var(--red);"></i> توسط
+                <a href="https://github.com/miladrezanezhad">میلاد رضانژاد</a>
+            </p>
+            <div class="d-flex justify-content-center gap-3 flex-wrap">
+                <a href="index.html"><i class="fa-solid fa-house"></i> خانه</a>
+                <span class="text-muted">•</span>
+                <a href="api.html"><i class="fa-solid fa-book"></i> مستندات API</a>
+                <span class="text-muted">•</span>
+                <a href="https://github.com/miladrezanezhad/story-toolkit"><i class="fa-brands fa-github"></i> گیت‌هاب</a>
+            </div>
+            <p class="mt-2 text-muted">Story Development Toolkit • نسخه ۲.۰.۰ • مجوز MIT</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://lib.arvancloud.ir/bootstrap/5.2.3/js/bootstrap.js"></script>
+    <!-- Custom Script -->
+    <script src="script.js"></script>
+</body>
+</html>

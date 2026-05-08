@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quick Start - Story Development Toolkit v2.0.0</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://lib.arvancloud.ir/bootstrap/5.2.3/css/bootstrap.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://lib.arvancloud.ir/font-awesome/6.3.0/css/all.min.css">
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fa-solid fa-book-open"></i> Story Toolkit
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    style="border-color:var(--border);">
+                <span class="navbar-toggler-icon" style="filter:invert(1);"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html"><i class="fa-solid fa-house"></i> Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="quickstart.html"><i class="fa-solid fa-rocket"></i> Quick Start</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="api.html"><i class="fa-solid fa-code"></i> API Docs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://github.com/miladrezanezhad/story-toolkit" target="_blank">
+                            <i class="fa-brands fa-github"></i> GitHub
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../fa-ir/quickstart.html"><i class="fa-solid fa-globe"></i> فارسی</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container py-5" style="max-width: 860px;">
+
+        <!-- Breadcrumb -->
+        <nav aria-label="breadcrumb" class="mb-4">
+            <ol class="breadcrumb" style="--bs-breadcrumb-divider-color: var(--text-muted);">
+                <li class="breadcrumb-item"><a href="index.html" style="color:var(--accent);">Home</a></li>
+                <li class="breadcrumb-item active" style="color:var(--text-secondary);">Quick Start</li>
+            </ol>
+        </nav>
+
+        <!-- Header -->
+        <h1 class="mb-2"><i class="fa-solid fa-rocket"></i> Quick Start</h1>
+        <p class="mb-3" style="font-size:1.1rem;color:var(--text-secondary);">
+            Build your first story with Story Development Toolkit <strong>v2.0.0</strong> in 5 minutes
+        </p>
+        <div class="note mb-4">
+            <i class="fa-solid fa-star-of-life" style="color:var(--green);"></i>
+            <strong>NEW in v2.0.0:</strong> Optional LLM support for advanced dialogue generation with OpenAI, Anthropic, and local models!
+        </div>
+
+        <!-- Step 1 -->
+        <h2 class="mb-3">Step 1: Installation</h2>
+        <div class="code-block-wrapper">
+            <div class="code-block-header">
+                <span class="lang-label">bash</span>
+                <button class="copy-btn" onclick="copyCode(this)">
+                    <i class="fa-regular fa-copy"></i> Copy
+                </button>
+            </div>
+            <div class="code-block-body">
+                <pre><code>git clone https://github.com/miladrezanezhad/story-toolkit.git
+cd story-toolkit
+pip install -r requirements.txt
+
+<span class="cm"># NEW in v2.0.0 - Install with LLM support</span>
+pip install story-toolkit[openai]      <span class="cm"># OpenAI support (GPT-4, GPT-3.5)</span>
+pip install story-toolkit[anthropic]   <span class="cm"># Anthropic support (Claude)</span>
+pip install story-toolkit[local]       <span class="cm"># Local LLM support (Ollama, free)</span>
+pip install story-toolkit[all]         <span class="cm"># All backends</span></code></pre>
+            </div>
+        </div>
+        <p class="text-muted mb-5">
+            Or install directly with <code style="background:var(--bg-tertiary);padding:2px 8px;border-radius:4px;color:var(--pink);">pip install -e .</code>
+        </p>
+
+        <!-- Step 2 -->
+        <h2 class="mb-3">Step 2: Import the Library</h2>
+        <div class="code-block-wrapper">
+            <div class="code-block-header">
+                <span class="lang-label">python</span>
+                <button class="copy-btn" onclick="copyCode(this)">
+                    <i class="fa-regular fa-copy"></i> Copy
+                </button>
+            </div>
+            <div class="code-block-body">
+                <pre><code><span class="kw">from</span> story_toolkit <span class="kw">import</span> StoryToolkit
+
+<span class="cm"># Create a Toolkit instance</span>
+toolkit = StoryToolkit()</code></pre>
+            </div>
+        </div>
+        <p class="text-muted mb-5">
+            The <code>StoryToolkit</code> class provides unified access to all features.
+        </p>
+
+        <!-- NEW: LLM Setup Section -->
+        <div class="note mb-5" style="background:rgba(63,185,80,0.1); border-left-color:var(--green);">
+            <strong><i class="fa-solid fa-brain" style="color:var(--green);"></i> NEW in v2.0.0 - Enable AI-Powered Features:</strong>
+            <div class="mt-2">
+                <pre style="background:var(--bg-primary); padding:12px; border-radius:8px; margin-bottom:0;"><code><span class="kw">from</span> story_toolkit.llm <span class="kw">import</span> LLMFactory, LLMProvider
+
+<span class="cm"># Create Mock backend for testing (no API key required)</span>
+llm = LLMFactory.create_backend(provider=LLMProvider.MOCK)
+
+<span class="cm"># Create Toolkit with LLM capabilities</span>
+toolkit = StoryToolkit(llm_backend=llm)</code></pre>
+            </div>
+        </div>
+
+        <!-- Step 3 -->
+        <h2 class="mb-3">Step 3: Create a Story</h2>
+        <div class="code-block-wrapper">
+            <div class="code-block-header">
+                <span class="lang-label">python</span>
+                <button class="copy-btn" onclick="copyCode(this)">
+                    <i class="fa-regular fa-copy"></i> Copy
+                </button>
+            </div>
+            <div class="code-block-body">
+                <pre><code><span class="cm"># Create a fantasy story with the theme of courage</span>
+story = toolkit.create_story(
+    genre=<span class="str">"fantasy"</span>,
+    theme=<span class="str">"courage"</span>,
+    complexity=4
+)
+
+<span class="fn">print</span>(story[<span class="str">"metadata"</span>][<span class="str">"genre"</span>])      <span class="cm"># "fantasy"</span>
+<span class="fn">print</span>(story[<span class="str">"metadata"</span>][<span class="str">"theme"</span>])      <span class="cm"># "courage"</span>
+<span class="fn">print</span>(story[<span class="str">"metadata"</span>][<span class="str">"complexity"</span>]) <span class="cm"># 4</span></code></pre>
+            </div>
+        </div>
+
+        <div class="note mb-5">
+            <strong><i class="fa-solid fa-lightbulb"></i> Supported genres:</strong>
+            <code>fantasy</code>, <code>mystery</code>, <code>romance</code>, <code>adventure</code>, <code>sci_fi</code>
+        </div>
+
+        <!-- Step 4 -->
+        <h2 class="mb-3">Step 4: Add Characters</h2>
+        <div class="code-block-wrapper">
+            <div class="code-block-header">
+                <span class="lang-label">python</span>
+                <button class="copy-btn" onclick="copyCode(this)">
+                    <i class="fa-regular fa-copy"></i> Copy
+                </button>
+            </div>
+            <div class="code-block-body">
+                <pre><code><span class="cm"># Add the hero</span>
+hero = toolkit.add_character_to_story(
+    story,
+    <span class="str">"Kai"</span>,
+    <span class="str">"protagonist"</span>
+)
+
+<span class="cm"># Develop the hero's personality</span>
+hero.add_trait(<span class="str">"brave"</span>)
+hero.add_trait(<span class="str">"determined"</span>)
+hero.add_trait(<span class="str">"compassionate"</span>)
+hero.add_goal(<span class="str">"Save the kingdom"</span>)
+hero.add_skill(<span class="str">"sword_mastery"</span>)
+hero.add_skill(<span class="str">"stealth"</span>)
+hero.add_weakness(<span class="str">"overconfidence"</span>)
+hero.add_fear(<span class="str">"failure"</span>)
+
+<span class="cm"># Add the villain</span>
+villain = toolkit.add_character_to_story(
+    story,
+    <span class="str">"Morgan"</span>,
+    <span class="str">"antagonist"</span>
+)
+villain.add_trait(<span class="str">"manipulative"</span>)
+villain.add_trait(<span class="str">"charismatic"</span>)
+villain.add_goal(<span class="str">"Control the kingdom"</span>)
+villain.add_skill(<span class="str">"strategic_planning"</span>)
+
+<span class="cm"># Add a mentor</span>
+mentor = toolkit.add_character_to_story(
+    story,
+    <span class="str">"Master Yuki"</span>,
+    <span class="str">"mentor"</span>
+)
+mentor.add_trait(<span class="str">"wise"</span>)
+mentor.add_trait(<span class="str">"mysterious"</span>)
+
+<span class="cm"># Create relationships</span>
+hero.add_relationship(<span class="str">"Morgan"</span>, <span class="str">"enemy"</span>, strength=9)
+hero.add_relationship(<span class="str">"Master Yuki"</span>, <span class="str">"mentor"</span>, strength=10)</code></pre>
+            </div>
+        </div>
+
+        <div class="note mb-5">
+            <strong><i class="fa-solid fa-lightbulb"></i> Available roles:</strong>
+            <code>protagonist</code>, <code>antagonist</code>, <code>supporting</code>, <code>mentor</code>
+        </div>
+
+        <!-- Step 5 - Legacy Dialogue (unchanged) -->
+        <h2 class="mb-3">Step 5: Generate Dialogue (Basic Mode)</h2>
+        <div class="code-block-wrapper">
+            <div class="code-block-header">
+                <span class="lang-label">python</span>
+                <button class="copy-btn" onclick="copyCode(this)">
+                    <i class="fa-regular fa-copy"></i> Copy
+                </button>
+            </div>
+            <div class="code-block-body">
+                <pre><code><span class="cm"># Generate a conflict dialogue</span>
+dialogue = toolkit.dialogue_gen.generate_dialogue(
+    <span class="str">"Kai"</span>,
+    <span class="str">"Morgan"</span>,
+    context=<span class="str">"conflict"</span>,
+    mood=<span class="str">"tense"</span>
+)
+
+<span class="kw">for</span> line <span class="kw">in</span> dialogue:
+    <span class="fn">print</span>(line)</code></pre>
+            </div>
+        </div>
+
+        <div class="output-block mb-5">
+            <i class="fa-solid fa-terminal"></i> Output:<br><br>
+            Kai: I can't believe you would do this!<br>
+            Morgan: You left me no choice.<br>
+            Kai: There's always a choice. You just chose wrong.
+        </div>
+
+        <!-- NEW: Advanced Dialogue Section -->
+        <h2 class="mb-3">Step 5-A: Generate Advanced Dialogue with AI <span class="badge" style="background:var(--green);">NEW in v2.0.0</span></h2>
+        <div class="code-block-wrapper">
+            <div class="code-block-header">
+                <span class="lang-label">python</span>
+                <button class="copy-btn" onclick="copyCode(this)">
+                    <i class="fa-regular fa-copy"></i> Copy
+                </button>
+            </div>
+            <div class="code-block-body">
+                <pre><code><span class="kw">from</span> story_toolkit.llm <span class="kw">import</span> LLMFactory, LLMProvider
+
+<span class="cm"># Step 1: Create LLM backend (Mock for testing, no API key)</span>
+llm = LLMFactory.create_backend(provider=LLMProvider.MOCK)
+
+<span class="cm"># Step 2: Create Toolkit with LLM capabilities</span>
+toolkit_advanced = StoryToolkit(llm_backend=llm)
+
+<span class="cm"># Step 3: Generate advanced dialogue</span>
+advanced_dialogue = toolkit_advanced.dialogue_gen.generate_dialogue(
+    <span class="str">"Kai"</span>,
+    <span class="str">"Morgan"</span>,
+    context=<span class="str">"final_battle"</span>,
+    use_advanced=<span class="kw">True</span>,      <span class="cm"># Enable AI</span>
+    style=<span class="str">"dramatic"</span>,         <span class="cm"># Options: natural, dramatic, poetic, humorous</span>
+    num_lines=8
+)
+
+<span class="kw">for</span> line <span class="kw">in</span> advanced_dialogue:
+    <span class="fn">print</span>(line)</code></pre>
+            </div>
+        </div>
+
+        <div class="output-block mb-5">
+            <i class="fa-solid fa-terminal"></i> Output (Mock backend example):<br><br>
+            Kai: I can't believe what you've done!<br>
+            Morgan: You left me no choice, Kai.<br>
+            Kai: There's always a choice. You chose wrong.<br>
+            Morgan: We'll see who was wrong in the end.<br>
+            Kai: This isn't over.<br>
+            Morgan: You're right about that.<br>
+            Kai: Next time, you won't be so lucky.<br>
+            Morgan: We'll see about that.
+        </div>
+
+        <div class="note mb-5">
+            <strong><i class="fa-solid fa-lightbulb"></i> Note:</strong>
+            For real AI (OpenAI or Claude), you'll need an API key. The <code>MOCK</code> backend is perfect for testing without any API key.<br>
+            Available styles: <code>natural</code>, <code>dramatic</code>, <code>poetic</code>, <code>humorous</code>
+        </div>
+
+        <!-- Step 6 -->
+        <h2 class="mb-3">Step 6: Build a World</h2>
+        <div class="code-block-wrapper">
+            <div class="code-block-header">
+                <span class="lang-label">python</span>
+                <button class="copy-btn" onclick="copyCode(this)">
+                    <i class="fa-regular fa-copy"></i> Copy
+                </button>
+            </div>
+            <div class="code-block-body">
+                <pre><code><span class="kw">from</span> story_toolkit.core.world_builder <span class="kw">import</span> WorldBuilder
+
+world = WorldBuilder()
+world.create_world(<span class="str">"Eldoria"</span>, <span class="str">"fantasy"</span>)
+
+<span class="cm"># Add locations</span>
+world.add_location(<span class="str">"Crystal City"</span>, <span class="str">"Ancient metropolis"</span>, <span class="str">"city"</span>)
+world.add_location(<span class="str">"Shadow Forest"</span>, <span class="str">"Mysterious dark forest"</span>, <span class="str">"forest"</span>)
+world.add_location(<span class="str">"Thunder Mountains"</span>, <span class="str">"Storm-peaked mountains"</span>, <span class="str">"mountains"</span>)
+
+<span class="cm"># Connect locations</span>
+world.connect_locations(<span class="str">"Crystal City"</span>, <span class="str">"Shadow Forest"</span>)
+
+<span class="cm"># Add world rules</span>
+world.add_rule(<span class="str">"magical"</span>, <span class="str">"Only eclipse-born can wield magic"</span>)
+world.add_rule(<span class="str">"social"</span>, <span class="str">"The Council of Seven rules all"</span>)
+
+<span class="cm"># Add a faction</span>
+world.add_faction(
+    <span class="str">"Shadow Guild"</span>,
+    <span class="str">"Secret underground organization"</span>,
+    goals=[<span class="str">"Control magic"</span>, <span class="str">"Overthrow council"</span>]
+)</code></pre>
+            </div>
+        </div>
+
+        <!-- Step 7 -->
+        <h2 class="mb-3">Step 7: Check Story Coherence</h2>
+        <div class="code-block-wrapper">
+            <div class="code-block-header">
+                <span class="lang-label">python</span>
+                <button class="copy-btn" onclick="copyCode(this)">
+                    <i class="fa-regular fa-copy"></i> Copy
+                </button>
+            </div>
+            <div class="code-block-body">
+                <pre><code><span class="cm"># Check story coherence and get a report</span>
+report = toolkit.check_story_coherence(story)
+
+<span class="cm"># Display overall score</span>
+<span class="fn">print</span>(<span class="str">f"Coherence Score: {report['overall_score']:.0%}"</span>)
+
+<span class="cm"># Check for plot holes</span>
+<span class="kw">if</span> report[<span class="str">'plot_holes'</span>]:
+    <span class="fn">print</span>(<span class="str">"\n⚠️ Plot Holes Found:"</span>)
+    <span class="kw">for</span> hole <span class="kw">in</span> report[<span class="str">'plot_holes'</span>]:
+        <span class="fn">print</span>(<span class="str">f"  - {hole}"</span>)
+
+<span class="cm"># Show recommendations</span>
+<span class="kw">if</span> report[<span class="str">'recommendations'</span>]:
+    <span class="fn">print</span>(<span class="str">"\n💡 Recommendations:"</span>)
+    <span class="kw">for</span> rec <span class="kw">in</span> report[<span class="str">'recommendations'</span>]:
+        <span class="fn">print</span>(<span class="str">f"  - {rec}"</span>)</code></pre>
+            </div>
+        </div>
+
+        <div class="output-block mb-5">
+            <i class="fa-solid fa-terminal"></i> Output:<br><br>
+            Coherence Score: 100%<br><br>
+            💡 Recommendations:<br>
+            - Story appears coherent - maintain this quality throughout!
+        </div>
+
+        <!-- Step 8 -->
+        <h2 class="mb-3">Step 8: Save & Export</h2>
+        <div class="code-block-wrapper">
+            <div class="code-block-header">
+                <span class="lang-label">python</span>
+                <button class="copy-btn" onclick="copyCode(this)">
+                    <i class="fa-regular fa-copy"></i> Copy
+                </button>
+            </div>
+            <div class="code-block-body">
+                <pre><code><span class="kw">from</span> story_toolkit.utils.helpers <span class="kw">import</span> save_story, export_to_markdown
+
+<span class="cm"># Save as JSON</span>
+save_story(story, <span class="str">"my_story.json"</span>)
+
+<span class="cm"># Export as Markdown (great for GitHub)</span>
+export_to_markdown(story, <span class="str">"my_story.md"</span>)
+
+<span class="cm"># Or use the Toolkit's built-in export</span>
+toolkit.export_story(story, format=<span class="str">"json"</span>, filename=<span class="str">"my_story"</span>)
+toolkit.export_story(story, format=<span class="str">"markdown"</span>, filename=<span class="str">"my_story"</span>)
+
+<span class="fn">print</span>(<span class="str">"✅ Story saved successfully!"</span>)</code></pre>
+            </div>
+        </div>
+
+        <!-- NEW: LLM Status Check -->
+        <h2 class="mb-3">Step 8-A: Check LLM Status <span class="badge" style="background:var(--green);">NEW in v2.0.0</span></h2>
+        <div class="code-block-wrapper">
+            <div class="code-block-header">
+                <span class="lang-label">python</span>
+                <button class="copy-btn" onclick="copyCode(this)">
+                    <i class="fa-regular fa-copy"></i> Copy
+                </button>
+            </div>
+            <div class="code-block-body">
+                <pre><code><span class="cm"># Check LLM status</span>
+status = toolkit_advanced.get_llm_status()
+<span class="fn">print</span>(<span class="str">f"LLM Status: {status}"</span>)
+
+<span class="cm"># Output: {'available': True, 'provider': 'mock', 'model': 'mock'}</span>
+
+<span class="cm"># Check availability in DialogueGenerator</span>
+<span class="kw">if</span> toolkit_advanced.dialogue_gen.has_llm():
+    info = toolkit_advanced.dialogue_gen.get_llm_info()
+    <span class="fn">print</span>(<span class="str">f"Using {info['provider']} - {info['model']}"</span>)</code></pre>
+            </div>
+        </div>
+
+        <!-- Step 9: Full Code -->
+        <h2 class="mb-3">🎯 Complete Code (Basic)</h2>
+        <div class="code-block-wrapper">
+            <div class="code-block-header">
+                <span class="lang-label">python</span>
+                <button class="copy-btn" onclick="copyCode(this)">
+                    <i class="fa-regular fa-copy"></i> Copy
+                </button>
+            </div>
+            <div class="code-block-body">
+                <pre><code><span class="kw">from</span> story_toolkit <span class="kw">import</span> StoryToolkit
+<span class="kw">from</span> story_toolkit.utils.helpers <span class="kw">import</span> save_story
+
+<span class="cm"># 1. Create instance</span>
+toolkit = StoryToolkit()
+
+<span class="cm"># 2. Create story</span>
+story = toolkit.create_story(<span class="str">"fantasy"</span>, <span class="str">"courage"</span>, complexity=4)
+
+<span class="cm"># 3. Add characters</span>
+hero = toolkit.add_character_to_story(story, <span class="str">"Kai"</span>, <span class="str">"protagonist"</span>)
+hero.add_trait(<span class="str">"brave"</span>)
+hero.add_goal(<span class="str">"Save the kingdom"</span>)
+
+villain = toolkit.add_character_to_story(story, <span class="str">"Morgan"</span>, <span class="str">"antagonist"</span>)
+villain.add_trait(<span class="str">"manipulative"</span>)
+
+<span class="cm"># 4. Create relationship</span>
+hero.add_relationship(<span class="str">"Morgan"</span>, <span class="str">"enemy"</span>, strength=9)
+
+<span class="cm"># 5. Generate dialogue</span>
+dialogue = toolkit.dialogue_gen.generate_dialogue(
+    <span class="str">"Kai"</span>, <span class="str">"Morgan"</span>, context=<span class="str">"conflict"</span>
+)
+<span class="kw">for</span> line <span class="kw">in</span> dialogue:
+    <span class="fn">print</span>(line)
+
+<span class="cm"># 6. Check coherence</span>
+report = toolkit.check_story_coherence(story)
+<span class="fn">print</span>(<span class="str">f"\n✅ Coherence Score: {report['overall_score']:.0%}"</span>)
+
+<span class="cm"># 7. Save story</span>
+save_story(story, <span class="str">"my_story.json"</span>)
+<span class="fn">print</span>(<span class="str">"📁 Story saved to my_story.json"</span>)</code></pre>
+            </div>
+        </div>
+
+        <!-- NEW: Full Code with LLM -->
+        <h2 class="mb-3 mt-4">🤖 Complete Code with AI <span class="badge" style="background:var(--green);">NEW in v2.0.0</span></h2>
+        <div class="code-block-wrapper">
+            <div class="code-block-header">
+                <span class="lang-label">python</span>
+                <button class="copy-btn" onclick="copyCode(this)">
+                    <i class="fa-regular fa-copy"></i> Copy
+                </button>
+            </div>
+            <div class="code-block-body">
+                <pre><code><span class="kw">from</span> story_toolkit <span class="kw">import</span> StoryToolkit
+<span class="kw">from</span> story_toolkit.llm <span class="kw">import</span> LLMFactory, LLMProvider
+<span class="kw">from</span> story_toolkit.utils.helpers <span class="kw">import</span> save_story
+
+<span class="cm"># 1. Create LLM backend (Mock for testing)</span>
+llm = LLMFactory.create_backend(provider=LLMProvider.MOCK)
+
+<span class="cm"># 2. Create Toolkit with LLM</span>
+toolkit = StoryToolkit(llm_backend=llm)
+
+<span class="cm"># 3. Create story</span>
+story = toolkit.create_story(<span class="str">"fantasy"</span>, <span class="str">"courage"</span>, complexity=4)
+
+<span class="cm"># 4. Add characters</span>
+hero = toolkit.add_character_to_story(story, <span class="str">"Kai"</span>, <span class="str">"protagonist"</span>)
+hero.add_trait(<span class="str">"brave"</span>)
+hero.add_goal(<span class="str">"Save the kingdom"</span>)
+
+villain = toolkit.add_character_to_story(story, <span class="str">"Morgan"</span>, <span class="str">"antagonist"</span>)
+villain.add_trait(<span class="str">"cunning"</span>)
+
+<span class="cm"># 5. Generate advanced dialogue with AI</span>
+advanced_dialogue = toolkit.dialogue_gen.generate_dialogue(
+    <span class="str">"Kai"</span>, <span class="str">"Morgan"</span>,
+    context=<span class="str">"final_battle"</span>,
+    use_advanced=<span class="kw">True</span>,
+    style=<span class="str">"dramatic"</span>,
+    num_lines=8
+)
+
+<span class="kw">for</span> line <span class="kw">in</span> advanced_dialogue:
+    <span class="fn">print</span>(line)
+
+<span class="cm"># 6. Check LLM status</span>
+<span class="fn">print</span>(<span class="str">f"\n🤖 LLM Status: {toolkit.get_llm_status()}"</span>)
+
+<span class="cm"># 7. Save story</span>
+save_story(story, <span class="str">"my_story_with_ai.json"</span>)
+<span class="fn">print</span>(<span class="str">"📁 Story saved successfully"</span>)</code></pre>
+            </div>
+        </div>
+
+        <!-- Next Steps -->
+        <h2 class="mb-3 mt-5">📖 Next Steps</h2>
+        <div class="row g-4">
+            <div class="col-md-6">
+                <a href="api.html" class="doc-card">
+                    <div class="doc-icon"><i class="fa-solid fa-code"></i></div>
+                    <h3>Full API Reference</h3>
+                    <p>Complete documentation for all classes, methods, and parameters</p>
+                    <span class="lang-tag">🇬🇧 English</span>
+                </a>
+            </div>
+            <div class="col-md-6">
+                <a href="https://github.com/miladrezanezhad/story-toolkit" class="doc-card" target="_blank">
+                    <div class="doc-icon"><i class="fa-brands fa-github"></i></div>
+                    <h3>Source Code on GitHub</h3>
+                    <p>View source code, examples, and tests</p>
+                    <span class="lang-tag">🔗 GitHub</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Compatibility Note -->
+        <div class="note mt-5">
+            <i class="fa-solid fa-shield-alt"></i>
+            <strong>Backward Compatibility:</strong> All code written for v1.0.0 works unchanged in v2.0.0. LLM features are completely optional.
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer py-4 mt-5">
+        <div class="container text-center">
+            <p class="mb-2">
+                Built with <i class="fa-solid fa-heart" style="color:var(--red);"></i> by
+                <a href="https://github.com/miladrezanezhad">Milad Rezanezhad</a>
+            </p>
+            <div class="d-flex justify-content-center gap-3 flex-wrap">
+                <a href="index.html"><i class="fa-solid fa-house"></i> Home</a>
+                <span class="text-muted">•</span>
+                <a href="api.html"><i class="fa-solid fa-book"></i> API Docs</a>
+                <span class="text-muted">•</span>
+                <a href="https://github.com/miladrezanezhad/story-toolkit"><i class="fa-brands fa-github"></i> GitHub</a>
+            </div>
+            <p class="mt-2 text-muted">Story Development Toolkit • v2.0.0 • MIT License</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://lib.arvancloud.ir/bootstrap/5.2.3/js/bootstrap.js"></script>
+    <!-- Custom Script -->
+    <script src="script.js"></script>
+</body>
+</html>

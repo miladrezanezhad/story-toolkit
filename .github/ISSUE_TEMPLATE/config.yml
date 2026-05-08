@@ -1,0 +1,14 @@
+blank_issues_enabled: true
+
+contact_links:
+  - name: 💬 Ask a Question
+    url: https://github.com/miladrezanezhad/story-toolkit/discussions
+    about: Ask questions and get help from the community
+  
+  - name: 📚 Documentation
+    url: https://miladrezanezhad.github.io/story-toolkit/
+    about: Read the official documentation
+  
+  - name: 📖 Wiki
+    url: https://github.com/miladrezanezhad/story-toolkit/wiki
+    about: Read the wiki for guides and examples

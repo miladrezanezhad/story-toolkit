@@ -1,0 +1,99 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "story-toolkit"
+version = "2.0.0"
+description = "A comprehensive toolkit for generating engaging and coherent stories with optional LLM support"
+readme = "README.md"
+requires-python = ">=3.11"
+license = {text = "MIT"}
+authors = [
+    {name = "Milad Rezanezhad", email = "milad.rezanezhad@example.com"}
+]
+keywords = [
+    "story", "writing", "narrative", "dialogue", "character",
+    "plot", "world-building", "nlp", "creative-writing",
+    "fiction", "story-generator", "llm", "openai", "claude"
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Text Processing :: Linguistic",
+    "Topic :: Artistic Software",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Operating System :: OS Independent",
+]
+
+dependencies = [
+    "nltk>=3.8.1",
+    "spacy>=3.7.0",
+    "textblob>=0.17.1",
+    "pydantic>=2.5.0",
+    "pyyaml>=6.0",
+]
+
+[project.optional-dependencies]
+openai = ["openai>=1.0.0"]
+anthropic = ["anthropic>=0.18.0"]
+local = ["ollama>=0.1.0"]
+llm = ["openai>=1.0.0", "anthropic>=0.18.0", "ollama>=0.1.0"]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+    "pytest-asyncio>=0.21.0",
+    "pytest-mock>=3.11.0",
+    "black>=23.0.0",
+    "isort>=5.12.0",
+    "flake8>=6.0.0",
+    "mypy>=1.0.0",
+]
+all = ["story-toolkit[openai,anthropic,local,dev]"]
+
+[project.urls]
+"Homepage" = "https://github.com/miladrezanezhad/story-toolkit"
+"Bug Reports" = "https://github.com/miladrezanezhad/story-toolkit/issues"
+"Source" = "https://github.com/miladrezanezhad/story-toolkit"
+"Documentation" = "https://miladrezanezhad.github.io/story-toolkit/"
+
+[project.scripts]
+story-toolkit = "story_toolkit.cli:main"
+
+[tool.black]
+line-length = 100
+target-version = ['py311', 'py312', 'py313']
+
+[tool.isort]
+profile = "black"
+line_length = 100
+
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "-v --cov=story_toolkit --cov-report=html --cov-report=term"
+
+[tool.coverage.run]
+source = ["story_toolkit"]
+omit = ["tests/*", "docs/*", "examples/*"]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "if self.debug:",
+    "if __name__ == .__main__.:"
+]
