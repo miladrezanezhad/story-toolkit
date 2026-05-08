@@ -58,6 +58,8 @@
                     <h5 class="mb-3"><i class="fa-solid fa-list"></i> Contents</h5>
                     <nav class="nav flex-column">
                         <a class="nav-link-sidebar" href="#installation"><i class="fa-solid fa-download"></i> Installation</a>
+                        <!-- NEW: LLM Section -->
+                        <a class="nav-link-sidebar" href="#llm"><i class="fa-solid fa-brain"></i> LLM Layer <span class="badge" style="background:var(--green); font-size:10px;">NEW</span></a>
                         <a class="nav-link-sidebar" href="#storytoolkit"><i class="fa-solid fa-layer-group"></i> StoryToolkit</a>
                         <a class="nav-link-sidebar" href="#storyengine"><i class="fa-solid fa-gear"></i> StoryEngine</a>
                         <a class="nav-link-sidebar" href="#character"><i class="fa-solid fa-user"></i> Character</a>
@@ -87,13 +89,15 @@
                 <!-- Header -->
                 <h1><i class="fa-solid fa-code"></i> API Documentation</h1>
                 <p style="font-size:1.1rem;color:var(--text-secondary);margin-bottom:2rem;">
-                    Complete reference for all classes, methods, and parameters — Story Development Toolkit v1.0.0
+                    Complete reference for all classes, methods, and parameters — Story Development Toolkit v2.0.0
                 </p>
 
                 <div class="d-flex gap-3 flex-wrap mb-5">
-                    <span class="badge-custom badge-python"><i class="fa-brands fa-python"></i> Python 3.8+</span>
-                    <span class="badge-custom badge-version"><i class="fa-solid fa-code-branch"></i> v1.0.0</span>
+                    <span class="badge-custom badge-python"><i class="fa-brands fa-python"></i> Python 3.11+</span>
+                    <span class="badge-custom badge-version"><i class="fa-solid fa-code-branch"></i> v2.0.0</span>
                     <span class="badge-custom badge-license"><i class="fa-regular fa-file-lines"></i> MIT</span>
+                    <span class="badge-custom badge-author"><i class="fa-solid fa-user"></i> Milad Rezanezhad</span>
+                    <span class="badge-custom" style="background:rgba(88,166,255,0.1);color:#58a6ff;"><i class="fa-solid fa-brain"></i> LLM Ready</span>
                 </div>
 
                 <!-- ==================== Installation ==================== -->
@@ -106,11 +110,91 @@
                     <div class="code-block-body">
                         <pre><code>git clone https://github.com/miladrezanezhad/story-toolkit.git
 cd story-toolkit
-pip install -r requirements.txt</code></pre>
+pip install -r requirements.txt
+
+<span class="cm"># Or install as editable package</span>
+pip install -e .
+
+<span class="cm"># NEW in v2.0.0 - Install with LLM support</span>
+pip install story-toolkit[openai]      <span class="cm"># OpenAI support</span>
+pip install story-toolkit[anthropic]   <span class="cm"># Anthropic support</span>
+pip install story-toolkit[local]       <span class="cm"># Local LLM support</span>
+pip install story-toolkit[all]         <span class="cm"># All backends</span></code></pre>
                     </div>
                 </div>
 
-                <!-- ==================== StoryToolkit ==================== -->
+                <!-- ==================== NEW: LLM Layer (v2.0.0) ==================== -->
+                <h2 id="llm"><i class="fa-solid fa-brain"></i> LLM Layer <span class="badge" style="background:var(--green); font-size:12px;">NEW in v2.0.0</span></h2>
+                <p>Optional integration with Large Language Models for advanced dialogue generation and text enhancement.</p>
+
+                <h4>LLMProvider Enum</h4>
+                <div class="table-responsive">
+                    <table class="table table-dark table-striped">
+                        <thead><tr><th>Provider</th><th>Value</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>OPENAI</code></td><td>"openai"</td><td>OpenAI GPT models (GPT-4, GPT-3.5)</td></tr>
+                            <tr><td><code>ANTHROPIC</code></td><td>"anthropic"</td><td>Anthropic Claude models</td></tr>
+                            <tr><td><code>LOCAL</code></td><td>"local"</td><td>Local models (Ollama, llama.cpp)</td></tr>
+                            <tr><td><code>MOCK</code></td><td>"mock"</td><td>Mock backend for testing (no API key needed)</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h4>LLMConfig</h4>
+                <div class="code-block-wrapper">
+                    <div class="code-block-header"><span class="lang-label">python</span><button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> Copy</button></div>
+                    <div class="code-block-body"><pre><code><span class="kw">from</span> story_toolkit.llm <span class="kw">import</span> LLMConfig, LLMProvider
+
+config = LLMConfig(
+    provider=LLMProvider.OPENAI,
+    model=<span class="str">"gpt-3.5-turbo"</span>,
+    temperature=0.8,
+    max_tokens=1000,
+    api_key=<span class="str">"sk-..."</span>
+)</code></pre></div>
+                </div>
+
+                <h4>LLMFactory</h4>
+                <div class="code-block-wrapper">
+                    <div class="code-block-header"><span class="lang-label">python</span><button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> Copy</button></div>
+                    <div class="code-block-body"><pre><code><span class="kw">from</span> story_toolkit.llm <span class="kw">import</span> LLMFactory, LLMProvider
+
+<span class="cm"># Create mock backend (no API key needed - for testing)</span>
+llm = LLMFactory.create_backend(provider=LLMProvider.MOCK)
+
+<span class="cm"># Create OpenAI backend</span>
+llm = LLMFactory.create_backend(
+    provider=LLMProvider.OPENAI,
+    api_key=<span class="str">"sk-..."</span>,
+    model=<span class="str">"gpt-3.5-turbo"</span>,
+    temperature=0.8
+)
+
+<span class="cm"># Create local backend (Ollama)</span>
+llm = LLMFactory.create_backend(
+    provider=LLMProvider.LOCAL,
+    model=<span class="str">"llama2"</span>,
+    temperature=0.7
+)
+
+<span class="cm"># Create from environment variables</span>
+llm = LLMFactory.create_from_env()</code></pre></div>
+                </div>
+
+                <h4>BaseLLMBackend Methods</h4>
+                <div class="table-responsive">
+                    <table class="table table-dark table-striped">
+                        <thead><tr><th>Method</th><th>Parameters</th><th>Returns</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>generate(prompt)</code></td><td>str</td><td>str</td><td>Generate text from prompt</td></tr>
+                            <tr><td><code>generate_dialogue(speaker, listener, context, style, num_lines)</code></td><td>str, str, str, str, int</td><td>List[str]</td><td>Generate advanced dialogue between characters</td></tr>
+                            <tr><td><code>enhance_description(text, style)</code></td><td>str, str</td><td>str</td><td>Enhance descriptive text</td></tr>
+                            <tr><td><code>suggest_plot_twist(genre, current_plot, complexity)</code></td><td>str, str, int</td><td>str</td><td>Suggest plot twists</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- ==================== StoryToolkit (updated) ==================== -->
                 <h2 id="storytoolkit"><i class="fa-solid fa-layer-group"></i> StoryToolkit</h2>
                 <p>Main facade class providing unified access to all toolkit features.</p>
 
@@ -119,7 +203,11 @@ pip install -r requirements.txt</code></pre>
                     <div class="code-block-header"><span class="lang-label">python</span><button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> Copy</button></div>
                     <div class="code-block-body"><pre><code><span class="kw">from</span> story_toolkit <span class="kw">import</span> StoryToolkit
 
-toolkit = StoryToolkit()</code></pre></div>
+<span class="cm"># Legacy mode (v1 compatible)</span>
+toolkit = StoryToolkit()
+
+<span class="cm"># NEW in v2.0.0 - With LLM backend</span>
+toolkit = StoryToolkit(llm_backend=llm)</code></pre></div>
                 </div>
 
                 <h4>Attributes</h4>
@@ -139,7 +227,7 @@ toolkit = StoryToolkit()</code></pre></div>
 
                 <h4>Methods</h4>
 
-                <!-- create_story -->
+                <!-- create_story (unchanged) -->
                 <div class="api-method mb-4">
                     <h5>create_story(genre, theme, complexity=3) → dict</h5>
                     <p>Creates a new story framework with all necessary components.</p>
@@ -161,44 +249,96 @@ toolkit = StoryToolkit()</code></pre></div>
                     </div>
                 </div>
 
-                <!-- add_character_to_story -->
-                <h5>add_character_to_story(story, name, role) → Character</h5>
-                <p>Adds a new character to an existing story.</p>
-                <div class="code-block-wrapper">
-                    <div class="code-block-header"><span class="lang-label">python</span><button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> Copy</button></div>
-                    <div class="code-block-body"><pre><code>hero = toolkit.add_character_to_story(story, <span class="str">"Kai"</span>, <span class="str">"protagonist"</span>)
+                <!-- add_character_to_story (unchanged) -->
+                <div class="api-method mb-4">
+                    <h5>add_character_to_story(story, name, role) → Character</h5>
+                    <p>Adds a new character to an existing story.</p>
+                    <div class="code-block-wrapper">
+                        <div class="code-block-header"><span class="lang-label">python</span><button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> Copy</button></div>
+                        <div class="code-block-body"><pre><code>hero = toolkit.add_character_to_story(story, <span class="str">"Kai"</span>, <span class="str">"protagonist"</span>)
 hero.add_trait(<span class="str">"brave"</span>)</code></pre></div>
+                    </div>
                 </div>
 
-                <!-- check_story_coherence -->
-                <h5>check_story_coherence(story_data) → dict</h5>
-                <p>Checks story coherence and generates a detailed report.</p>
-                <div class="code-block-wrapper">
-                    <div class="code-block-header"><span class="lang-label">python</span><button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> Copy</button></div>
-                    <div class="code-block-body"><pre><code>report = toolkit.check_story_coherence(story)
+                <!-- check_story_coherence (unchanged) -->
+                <div class="api-method mb-4">
+                    <h5>check_story_coherence(story_data) → dict</h5>
+                    <p>Checks story coherence and generates a detailed report.</p>
+                    <div class="code-block-wrapper">
+                        <div class="code-block-header"><span class="lang-label">python</span><button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> Copy</button></div>
+                        <div class="code-block-body"><pre><code>report = toolkit.check_story_coherence(story)
 <span class="fn">print</span>(<span class="str">f"Score: {report['overall_score']:.0%}"</span>)</code></pre></div>
+                    </div>
                 </div>
 
-                <!-- generate_full_story -->
-                <h5>generate_full_story(genre, theme, num_characters=3) → dict</h5>
-                <p>Generates a complete story with all elements automatically.</p>
-                <div class="code-block-wrapper">
-                    <div class="code-block-header"><span class="lang-label">python</span><button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> Copy</button></div>
-                    <div class="code-block-body"><pre><code>full_story = toolkit.generate_full_story(
-    <span class="str">"mystery"</span>, <span class="str">"justice"</span>, num_characters=4
+                <!-- generate_full_story (updated) -->
+                <div class="api-method mb-4">
+                    <h5>generate_full_story(genre, theme, num_characters=3, use_advanced_dialogue=False) → dict</h5>
+                    <p>Generates a complete story with all elements automatically.</p>
+                    <div class="table-responsive">
+                        <table class="table table-dark table-striped">
+                            <thead><tr><th>Parameter</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+                            <tbody>
+                                <tr><td><code>genre</code></td><td>str</td><td>Required</td><td>Story genre</td></tr>
+                                <tr><td><code>theme</code></td><td>str</td><td>Required</td><td>Story theme</td></tr>
+                                <tr><td><code>num_characters</code></td><td>int</td><td>3</td><td>Number of characters to generate</td></tr>
+                                <tr><td><code>use_advanced_dialogue</code></td><td>bool</td><td>False</td><td><span class="badge" style="background:var(--green);">NEW</span> Use LLM for dialogue generation</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="code-block-wrapper">
+                        <div class="code-block-header"><span class="lang-label">python</span><button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> Copy</button></div>
+                        <div class="code-block-body"><pre><code><span class="cm"># Legacy mode</span>
+full_story = toolkit.generate_full_story(<span class="str">"mystery"</span>, <span class="str">"justice"</span>, num_characters=4)
+
+<span class="cm"># NEW in v2.0.0 - With advanced dialogue</span>
+full_story = toolkit.generate_full_story(
+    <span class="str">"mystery"</span>, <span class="str">"justice"</span>,
+    num_characters=4,
+    use_advanced_dialogue=<span class="kw">True</span>
 )</code></pre></div>
+                    </div>
                 </div>
 
-                <!-- export_story -->
-                <h5>export_story(story, format="json", filename=None) → str</h5>
-                <p>Exports story to a file in the specified format.</p>
-                <div class="code-block-wrapper">
-                    <div class="code-block-header"><span class="lang-label">python</span><button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> Copy</button></div>
-                    <div class="code-block-body"><pre><code>path = toolkit.export_story(story, format=<span class="str">"markdown"</span>, filename=<span class="str">"my_story"</span>)
+                <!-- export_story (unchanged) -->
+                <div class="api-method mb-4">
+                    <h5>export_story(story, format="json", filename=None) → str</h5>
+                    <p>Exports story to a file in the specified format.</p>
+                    <div class="code-block-wrapper">
+                        <div class="code-block-header"><span class="lang-label">python</span><button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> Copy</button></div>
+                        <div class="code-block-body"><pre><code>path = toolkit.export_story(story, format=<span class="str">"markdown"</span>, filename=<span class="str">"my_story"</span>)
 <span class="fn">print</span>(<span class="str">f"Saved to: {path}"</span>)</code></pre></div>
+                    </div>
                 </div>
 
-                <!-- ==================== StoryEngine ==================== -->
+                <!-- NEW: get_llm_status -->
+                <div class="api-method mb-4">
+                    <h5>get_llm_status() → dict <span class="badge" style="background:var(--green);">NEW in v2.0.0</span></h5>
+                    <p>Get status of the LLM backend if configured.</p>
+                    <div class="code-block-wrapper">
+                        <div class="code-block-header"><span class="lang-label">python</span><button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> Copy</button></div>
+                        <div class="code-block-body"><pre><code>status = toolkit.get_llm_status()
+<span class="fn">print</span>(status)  <span class="cm"># {'available': True, 'provider': 'openai', 'model': 'gpt-3.5-turbo'}</span></code></pre></div>
+                    </div>
+                </div>
+
+                <!-- NEW: generate_advanced_dialogue -->
+                <div class="api-method mb-4">
+                    <h5>generate_advanced_dialogue(speaker, listener, context, style="natural", num_lines=5) → List[str] <span class="badge" style="background:var(--green);">NEW in v2.0.0</span></h5>
+                    <p>Generate advanced dialogue using the configured LLM backend.</p>
+                    <div class="code-block-wrapper">
+                        <div class="code-block-header"><span class="lang-label">python</span><button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> Copy</button></div>
+                        <div class="code-block-body"><pre><code>dialogue = toolkit.generate_advanced_dialogue(
+    speaker=<span class="str">"Knight"</span>,
+    listener=<span class="str">"Dragon"</span>,
+    context=<span class="str">"final_battle"</span>,
+    style=<span class="str">"epic"</span>,
+    num_lines=6
+)</code></pre></div>
+                    </div>
+                </div>
+
+                <!-- ==================== StoryEngine (unchanged) ==================== -->
                 <h2 id="storyengine"><i class="fa-solid fa-gear"></i> StoryEngine</h2>
                 <p>Core story creation and management engine.</p>
 
@@ -225,7 +365,7 @@ progress = engine.get_story_progress()</code></pre></div>
                     </table>
                 </div>
 
-                <!-- ==================== Character ==================== -->
+                <!-- ==================== Character (unchanged) ==================== -->
                 <h2 id="character"><i class="fa-solid fa-user"></i> Character</h2>
                 <p>Character creation and management with full attribute system.</p>
 
@@ -300,7 +440,7 @@ data = hero.to_dict()</code></pre></div>
                     </table>
                 </div>
 
-                <!-- ==================== Plot ==================== -->
+                <!-- ==================== Plot (unchanged) ==================== -->
                 <h2 id="plot"><i class="fa-solid fa-chart-line"></i> Plot</h2>
                 <p>Plot structure management system.</p>
 
@@ -357,7 +497,7 @@ issues = plot.validate_plot()</code></pre></div>
                     </table>
                 </div>
 
-                <!-- ==================== WorldBuilder ==================== -->
+                <!-- ==================== WorldBuilder (unchanged) ==================== -->
                 <h2 id="worldbuilder"><i class="fa-solid fa-globe"></i> WorldBuilder</h2>
                 <p>World building and setting management system.</p>
 
@@ -419,7 +559,7 @@ summary = world.get_world_summary()</code></pre></div>
                     </table>
                 </div>
 
-                <!-- ==================== CharacterGenerator ==================== -->
+                <!-- ==================== CharacterGenerator (unchanged) ==================== -->
                 <h2 id="charactergenerator"><i class="fa-solid fa-dice"></i> CharacterGenerator</h2>
                 <p>Generates random or templated characters.</p>
 
@@ -455,7 +595,7 @@ hero2 = gen.generate_with_backstory(<span class="str">"protagonist"</span>, <spa
                     </table>
                 </div>
 
-                <!-- ==================== PlotGenerator ==================== -->
+                <!-- ==================== PlotGenerator (unchanged) ==================== -->
                 <h2 id="plotgenerator"><i class="fa-solid fa-sitemap"></i> PlotGenerator</h2>
                 <p>Generates plot structures for various genres.</p>
 
@@ -473,48 +613,113 @@ plot = gen.generate_plot(<span class="str">"mystery"</span>, complexity=4)
 <span class="fn">print</span>(<span class="str">f"Words: {plot['estimated_length']['estimated_words']:,}"</span>)</code></pre></div>
                 </div>
 
-                <!-- ==================== DialogueGenerator ==================== -->
+                <!-- ==================== DialogueGenerator (updated) ==================== -->
                 <h2 id="dialoguegenerator"><i class="fa-solid fa-comments"></i> DialogueGenerator</h2>
-                <p>Generates natural-sounding dialogues between characters.</p>
+                <p>Generates natural-sounding dialogues between characters with optional LLM support.</p>
 
+                <h4>Constructor</h4>
                 <div class="code-block-wrapper">
                     <div class="code-block-header"><span class="lang-label">python</span><button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> Copy</button></div>
                     <div class="code-block-body"><pre><code><span class="kw">from</span> story_toolkit.generators.dialogue_generator <span class="kw">import</span> DialogueGenerator
 
+<span class="cm"># Legacy mode (v1 compatible)</span>
 gen = DialogueGenerator()
 
-<span class="cm"># Generate dialogue</span>
+<span class="cm"># NEW in v2.0.0 - With LLM support</span>
+gen = DialogueGenerator(llm_backend=llm)</code></pre></div>
+                </div>
+
+                <h4>Methods</h4>
+
+                <!-- generate_dialogue (updated) -->
+                <div class="api-method mb-4">
+                    <h5>generate_dialogue(character1, character2, context, mood="neutral", num_lines=3, use_advanced=False, style="natural") → List[str]</h5>
+                    <p>Generate dialogue between two characters.</p>
+                    <div class="code-block-wrapper">
+                        <div class="code-block-header"><span class="lang-label">python</span><button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> Copy</button></div>
+                        <div class="code-block-body"><pre><code><span class="cm"># Legacy mode (no LLM)</span>
 dialogue = gen.generate_dialogue(
     <span class="str">"Hero"</span>, <span class="str">"Villain"</span>,
     context=<span class="str">"conflict"</span>,
     mood=<span class="str">"tense"</span>
 )
 
-<span class="cm"># Create full scene</span>
-scene = gen.create_conversation_scene(
+<span class="cm"># NEW in v2.0.0 - Advanced mode (with LLM)</span>
+dialogue = gen.generate_dialogue(
+    <span class="str">"Hero"</span>, <span class="str">"Villain"</span>,
+    context=<span class="str">"final_battle"</span>,
+    use_advanced=<span class="kw">True</span>,   <span class="cm"># Enable LLM</span>
+    style=<span class="str">"dramatic"</span>,      <span class="cm"># natural, dramatic, poetic, humorous</span>
+    num_lines=10
+)</code></pre></div>
+                    </div>
+                </div>
+
+                <!-- create_conversation_scene (unchanged) -->
+                <div class="api-method mb-4">
+                    <h5>create_conversation_scene(characters, scene_purpose, use_advanced=False) → dict</h5>
+                    <p>Create a complete conversation scene.</p>
+                    <div class="code-block-wrapper">
+                        <div class="code-block-header"><span class="lang-label">python</span><button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> Copy</button></div>
+                        <div class="code-block-body"><pre><code>scene = gen.create_conversation_scene(
     [{<span class="str">"name"</span>: <span class="str">"Elena"</span>, <span class="str">"role"</span>: <span class="str">"protagonist"</span>},
      {<span class="str">"name"</span>: <span class="str">"Victor"</span>, <span class="str">"role"</span>: <span class="str">"antagonist"</span>}],
-    <span class="str">"confrontation"</span>
+    <span class="str">"confrontation"</span>,
+    use_advanced=<span class="kw">True</span>  <span class="cm"># NEW</span>
 )
 <span class="fn">print</span>(scene[<span class="str">"setting"</span>])     <span class="cm"># "an abandoned warehouse in the rain"</span>
-<span class="fn">print</span>(scene[<span class="str">"atmosphere"</span>])  <span class="cm"># "charged and volatile"</span>
+<span class="fn">print</span>(scene[<span class="str">"atmosphere"</span>])  <span class="cm"># "charged and volatile"</span></code></pre></div>
+                    </div>
+                </div>
 
-<span class="cm"># Generate monologue</span>
-monologue = gen.generate_monologue(<span class="str">"Hero"</span>, <span class="str">"destiny"</span>, <span class="str">"reflective"</span>)</code></pre></div>
+                <!-- generate_monologue (updated) -->
+                <div class="api-method mb-4">
+                    <h5>generate_monologue(character, topic, mood="reflective", use_advanced=False) → List[str]</h5>
+                    <p>Generate a character monologue.</p>
+                    <div class="code-block-wrapper">
+                        <div class="code-block-header"><span class="lang-label">python</span><button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> Copy</button></div>
+                        <div class="code-block-body"><pre><code><span class="cm"># Legacy mode</span>
+monologue = gen.generate_monologue(<span class="str">"Hero"</span>, <span class="str">"destiny"</span>, <span class="str">"reflective"</span>)
+
+<span class="cm"># NEW in v2.0.0 - With LLM</span>
+monologue = gen.generate_monologue(
+    <span class="str">"Hero"</span>, <span class="str">"destiny"</span>,
+    mood=<span class="str">"reflective"</span>,
+    use_advanced=<span class="kw">True</span>
+)</code></pre></div>
+                    </div>
+                </div>
+
+                <!-- NEW: has_llm / get_llm_info -->
+                <div class="api-method mb-4">
+                    <h5>has_llm() → bool <span class="badge" style="background:var(--green);">NEW</span></h5>
+                    <p>Check if LLM backend is available.</p>
+                </div>
+
+                <div class="api-method mb-4">
+                    <h5>get_llm_info() → dict <span class="badge" style="background:var(--green);">NEW</span></h5>
+                    <p>Get information about the LLM backend if available.</p>
+                    <div class="code-block-wrapper">
+                        <div class="code-block-header"><span class="lang-label">python</span><button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> Copy</button></div>
+                        <div class="code-block-body"><pre><code>info = gen.get_llm_info()
+<span class="fn">print</span>(info)  <span class="cm"># {'available': True, 'provider': 'mock', 'model': 'mock'}</span></code></pre></div>
+                    </div>
                 </div>
 
                 <div class="table-responsive">
                     <table class="table table-dark table-striped">
                         <thead><tr><th>Method</th><th>Parameters</th><th>Description</th></tr></thead>
                         <tbody>
-                            <tr><td><code>generate_dialogue(char1, char2, context, mood)</code></td><td>str, str, str, str</td><td>Generate dialogue. context: conflict, revelation, emotional, romantic, mysterious</td></tr>
-                            <tr><td><code>create_conversation_scene(chars, purpose)</code></td><td>list, str</td><td>Create full scene. purpose: confession, confrontation, romantic, mystery</td></tr>
-                            <tr><td><code>generate_monologue(char, topic, mood)</code></td><td>str, str, str</td><td>Generate monologue. mood: reflective, determined</td></tr>
+                            <tr><td><code>generate_dialogue(char1, char2, context, mood, num_lines, use_advanced, style)</code></td><td>str, str, str, str, int, bool, str</td><td>Generate dialogue. context: conflict, revelation, emotional, romantic, mysterious. style: natural, dramatic, poetic, humorous <span class="badge" style="background:var(--green);">NEW</span></td></tr>
+                            <tr><td><code>create_conversation_scene(chars, purpose, use_advanced)</code></td><td>list, str, bool</td><td>Create full scene. purpose: confession, confrontation, romantic, mystery</td></tr>
+                            <tr><td><code>generate_monologue(char, topic, mood, use_advanced)</code></td><td>str, str, str, bool</td><td>Generate monologue. mood: reflective, determined, sad, hopeful</td></tr>
+                            <tr><td><code>has_llm()</code></td><td>—</td><td><span class="badge" style="background:var(--green);">NEW</span> Check if LLM available</td><tr>
+                            <tr><td><code>get_llm_info()</code></td><td>—</td><td><span class="badge" style="background:var(--green);">NEW</span> Get LLM info</td></tr>
                         </tbody>
                     </table>
                 </div>
 
-                <!-- ==================== CoherenceChecker ==================== -->
+                <!-- ==================== CoherenceChecker (unchanged) ==================== -->
                 <h2 id="coherencechecker"><i class="fa-solid fa-magnifying-glass"></i> CoherenceChecker</h2>
                 <p>Analyzes story coherence and identifies narrative issues.</p>
 
@@ -534,7 +739,7 @@ is_ok = checker.quick_check(story_data)
 details = checker.get_detailed_issues(story_data)</code></pre></div>
                 </div>
 
-                <!-- ==================== TextAnalyzer ==================== -->
+                <!-- ==================== TextAnalyzer (unchanged) ==================== -->
                 <h2 id="textanalyzer"><i class="fa-solid fa-chart-bar"></i> TextAnalyzer</h2>
                 <p>Analyzes text characteristics for readability, pacing, and dialogue.</p>
 
@@ -562,7 +767,7 @@ dialogue_analysis = analyzer.analyze_dialogue([
 pacing = analyzer.analyze_pacing(long_text, chunk_size=100)</code></pre></div>
                 </div>
 
-                <!-- ==================== Helpers ==================== -->
+                <!-- ==================== Helpers (unchanged) ==================== -->
                 <h2 id="helpers"><i class="fa-solid fa-toolbox"></i> Utility Functions</h2>
 
                 <div class="code-block-wrapper">
@@ -595,6 +800,12 @@ stats = format_story_stats(story_data)
                     </table>
                 </div>
 
+                <!-- Note about backward compatibility -->
+                <div class="note mt-4 mb-4">
+                    <i class="fa-solid fa-info-circle"></i>
+                    <strong>Backward Compatibility:</strong> All v1.0.0 code continues to work unchanged in v2.0.0. The LLM features are completely optional and only activate when you explicitly pass an LLM backend.
+                </div>
+
             </div><!-- /col-lg-9 -->
         </div><!-- /row -->
     </div><!-- /container-fluid -->
@@ -613,7 +824,7 @@ stats = format_story_stats(story_data)
                 <span class="text-muted">•</span>
                 <a href="https://github.com/miladrezanezhad/story-toolkit"><i class="fa-brands fa-github"></i> GitHub</a>
             </div>
-            <p class="mt-2 text-muted">Story Development Toolkit • v1.0.0 • MIT License</p>
+            <p class="mt-2 text-muted">Story Development Toolkit • v2.0.0 • MIT License</p>
         </div>
     </footer>
 
