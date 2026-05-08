@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مستندات API - Story Development Toolkit</title>
+    <title>مستندات API - Story Development Toolkit v2.2.2</title>
 
     <!-- Bootstrap RTL -->
     <link rel="stylesheet" href="https://lib.arvancloud.ir/bootstrap/5.2.3/css/bootstrap.rtl.css">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://lib.arvancloud.ir/font-awesome/6.3.0/css/all.min.css">
     <!-- Custom Styles -->
-    <link rel="stylesheet" href="styles.css">
+     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="../eng/styles.css">
 </head>
+
 <body>
 
     <!-- Navbar -->
@@ -21,7 +24,7 @@
                 <i class="fa-solid fa-book-open"></i> Story Toolkit
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                    style="border-color:var(--border);">
+                style="border-color:var(--border);">
                 <span class="navbar-toggler-icon" style="filter:invert(1);"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
@@ -55,27 +58,42 @@
             <!-- Sidebar -->
             <div class="col-lg-3 d-none d-lg-block">
                 <div class="sidebar-custom sticky-top pt-4" style="top:76px;">
-                    <h5 class="mb-3"><i class="fa-solid fa-list"></i> فهرست</h5>
+                    <h5 class="mb-3"><i class="fa-solid fa-list"></i> فهرست مطالب</h5>
                     <nav class="nav flex-column">
-                        <a class="nav-link-sidebar" href="#installation"><i class="fa-solid fa-download"></i> نصب</a>
-                        <!-- NEW: بخش LLM -->
-                        <a class="nav-link-sidebar" href="#llm"><i class="fa-solid fa-brain"></i> لایه LLM <span class="badge" style="background:var(--green); font-size:10px;">جدید</span></a>
-                        <a class="nav-link-sidebar" href="#storytoolkit"><i class="fa-solid fa-layer-group"></i> StoryToolkit</a>
+                        <a class="nav-link-sidebar" href="#version-history"><i class="fa-solid fa-timeline"></i> تاریخچه
+                            نسخه‌ها</a>
+                        <a class="nav-link-sidebar" href="#v1"><i class="fa-brands fa-python"></i> نسخه 1 - هسته
+                            اصلی</a>
+                        <a class="nav-link-sidebar" href="#v2"><i class="fa-solid fa-brain"></i> نسخه 2 - هوش مصنوعی</a>
+                        <a class="nav-link-sidebar" href="#v21"><i class="fa-solid fa-database"></i> نسخه 2.1 -
+                            حافظه</a>
+                        <a class="nav-link-sidebar" href="#v22"><i class="fa-solid fa-file-export"></i> نسخه 2.2 -
+                            خروجی‌ها</a>
+                        <a class="nav-link-sidebar" href="#v221"><i class="fa-solid fa-clone"></i> نسخه 2.2.1 -
+                            قالب‌ها</a>
+                        <a class="nav-link-sidebar" href="#v222"><i class="fa-solid fa-terminal"></i> نسخه 2.2.2 - خط
+                            فرمان</a>
+                        <hr class="my-2" style="border-color:var(--border);">
+                        <a class="nav-link-sidebar" href="#storytoolkit"><i class="fa-solid fa-layer-group"></i>
+                            StoryToolkit</a>
                         <a class="nav-link-sidebar" href="#storyengine"><i class="fa-solid fa-gear"></i> StoryEngine</a>
                         <a class="nav-link-sidebar" href="#character"><i class="fa-solid fa-user"></i> Character</a>
                         <a class="nav-link-sidebar" href="#plot"><i class="fa-solid fa-chart-line"></i> Plot</a>
-                        <a class="nav-link-sidebar" href="#worldbuilder"><i class="fa-solid fa-globe"></i> WorldBuilder</a>
-                        <a class="nav-link-sidebar" href="#charactergenerator"><i class="fa-solid fa-dice"></i> CharacterGenerator</a>
-                        <a class="nav-link-sidebar" href="#plotgenerator"><i class="fa-solid fa-sitemap"></i> PlotGenerator</a>
-                        <a class="nav-link-sidebar" href="#dialoguegenerator"><i class="fa-solid fa-comments"></i> DialogueGenerator</a>
-                        <a class="nav-link-sidebar" href="#coherencechecker"><i class="fa-solid fa-magnifying-glass"></i> CoherenceChecker</a>
-                        <a class="nav-link-sidebar" href="#textanalyzer"><i class="fa-solid fa-chart-bar"></i> TextAnalyzer</a>
+                        <a class="nav-link-sidebar" href="#worldbuilder"><i class="fa-solid fa-globe"></i>
+                            WorldBuilder</a>
+                        <a class="nav-link-sidebar" href="#generators"><i class="fa-solid fa-dice"></i> Generators</a>
+                        <a class="nav-link-sidebar" href="#dialoguegenerator"><i class="fa-solid fa-comments"></i>
+                            DialogueGenerator</a>
+                        <a class="nav-link-sidebar" href="#coherencechecker"><i
+                                class="fa-solid fa-magnifying-glass"></i> CoherenceChecker</a>
+                        <a class="nav-link-sidebar" href="#textanalyzer"><i class="fa-solid fa-chart-bar"></i>
+                            TextAnalyzer</a>
                         <a class="nav-link-sidebar" href="#helpers"><i class="fa-solid fa-toolbox"></i> توابع کمکی</a>
                     </nav>
                 </div>
             </div>
 
-            <!-- Main -->
+            <!-- Main Content -->
             <div class="col-lg-9 py-4" style="max-width:900px;">
 
                 <!-- Breadcrumb -->
@@ -89,570 +107,781 @@
                 <!-- Header -->
                 <h1><i class="fa-solid fa-code"></i> مستندات API</h1>
                 <p style="font-size:1.1rem;color:var(--text-secondary);margin-bottom:1rem;">
-                    مرجع کامل تمام کلاس‌ها، متدها و پارامترهای Story Development Toolkit <strong>نسخه ۲.۰.۰</strong>
+                    مرجع کامل تمام کلاس‌ها، متدها و پارامترها — <strong>Story Development Toolkit نسخه 2.2.2</strong>
                 </p>
-                <div class="note mb-4">
-                    <i class="fa-solid fa-star-of-life" style="color:var(--green);"></i>
-                    <strong>جدید در نسخه ۲.۰.۰:</strong> لایه اختیاری LLM با پشتیبانی از OpenAI، Anthropic و مدل‌های محلی!
-                </div>
 
-                <div class="d-flex gap-3 flex-wrap mb-5">
+                <!-- Version Badges -->
+                <div class="d-flex gap-3 flex-wrap mb-4">
                     <span class="badge-custom badge-python"><i class="fa-brands fa-python"></i> Python 3.11+</span>
-                    <span class="badge-custom badge-version"><i class="fa-solid fa-code-branch"></i> نسخه ۲.۰.۰</span>
+                    <span class="badge-custom badge-version"><i class="fa-solid fa-code-branch"></i> نسخه 2.2.2</span>
                     <span class="badge-custom badge-license"><i class="fa-regular fa-file-lines"></i> MIT</span>
-                    <span class="badge-custom" style="background:rgba(88,166,255,0.1);color:#58a6ff;"><i class="fa-solid fa-brain"></i> آماده LLM</span>
+                    <span class="badge-custom" style="background:rgba(88,166,255,0.1);color:#58a6ff;"><i
+                            class="fa-solid fa-brain"></i> آماده هوش مصنوعی</span>
+                    <span class="badge-custom" style="background:rgba(63,185,80,0.1);color:#3fb950;"><i
+                            class="fa-solid fa-database"></i> آماده حافظه</span>
+                    <span class="badge-custom" style="background:rgba(210,153,29,0.1);color:#d2991d;"><i
+                            class="fa-solid fa-file-pdf"></i> آماده خروجی</span>
+                    <span class="badge-custom" style="background:rgba(163,113,247,0.1);color:#a371f7;"><i
+                            class="fa-solid fa-clone"></i> آماده قالب</span>
+                    <span class="badge-custom" style="background:rgba(219,97,162,0.1);color:#db61a2;"><i
+                            class="fa-solid fa-terminal"></i> آماده خط فرمان</span>
                 </div>
 
-                <!-- ==================== Installation ==================== -->
-                <h2 id="installation"><i class="fa-solid fa-download"></i> نصب</h2>
-                <div class="code-block-wrapper">
-                    <div class="code-block-header">
-                        <span class="lang-label">bash</span>
-                        <button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> کپی</button>
-                    </div>
-                    <div class="code-block-body">
-                        <pre><code>git clone https://github.com/miladrezanezhad/story-toolkit.git
-cd story-toolkit
-pip install -r requirements.txt
-
-<span class="cm"># جدید در نسخه ۲.۰.۰ - نصب با پشتیبانی از LLM</span>
-pip install story-toolkit[openai]      <span class="cm"># پشتیبانی از OpenAI</span>
-pip install story-toolkit[anthropic]   <span class="cm"># پشتیبانی از Anthropic</span>
-pip install story-toolkit[local]       <span class="cm"># پشتیبانی از مدل‌های محلی</span>
-pip install story-toolkit[all]         <span class="cm"># همه پشتیبان‌ها</span></code></pre>
-                    </div>
+                <!-- ==================== VERSION HISTORY ==================== -->
+                <div class="note mb-5" style="background:rgba(88,166,255,0.1); border-right-color:var(--accent);">
+                    <i class="fa-solid fa-timeline" style="color:var(--accent);"></i>
+                    <strong>تاریخچه نسخه‌ها - از نسخه 1.0.0 تا 2.2.2</strong><br>
+                    <span class="text-muted">۸ می ۲۰۲۶ - تکامل کامل ویژگی‌ها</span>
                 </div>
 
-                <!-- ==================== NEW: LLM Layer (v2.0.0) ==================== -->
-                <h2 id="llm"><i class="fa-solid fa-brain"></i> لایه LLM <span class="badge" style="background:var(--green); font-size:12px;">جدید در نسخه ۲.۰.۰</span></h2>
-                <p>یکپارچگی اختیاری با مدل‌های زبانی بزرگ برای تولید دیالوگ پیشرفته و بهبود متن.</p>
+                <!-- ==================== V1.0.0 ==================== -->
+<div class="card mb-4" style="background:var(--bg-card); border-color:var(--border);">
+    <div class="card-header" style="background:var(--bg-tertiary); border-bottom-color:var(--border);">
+        <h3 id="v1" class="mb-0" style="color:var(--green);"><i class="fa-brands fa-python"></i> نسخه
+            1.0.0 - ویژگی‌های هسته</h3>
+    </div>
+    <div class="card-body">
+        <p><strong>تاریخ انتشار:</strong> ۷ می ۲۰۲۶ &nbsp;|&nbsp; <strong>پایتون:</strong> 3.8+</p>
+        <p><strong>توضیح:</strong> اولین نسخه با قابلیت‌های اصلی ساخت داستان.</p>
 
-                <h4>LLMProvider (ارائه‌دهندگان)</h4>
-                <div class="table-responsive">
-                    <table class="table table-dark table-striped">
-                        <thead><tr><th>ارائه‌دهنده</th><th>مقدار</th><th>توضیح</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>OPENAI</code></td><td>"openai"</td><td>مدل‌های OpenAI (GPT-4، GPT-3.5)</td></tr>
-                            <tr><td><code>ANTHROPIC</code></td><td>"anthropic"</td><td>مدل‌های Anthropic (Claude)</td></tr>
-                            <tr><td><code>LOCAL</code></td><td>"local"</td><td>مدل‌های محلی (Ollama، llama.cpp)</td></tr>
-                            <tr><td><code>MOCK</code></td><td>"mock"</td><td>پشتیبان تست (بدون نیاز به کلید API)</td></tr>
-                        </tbody>
+        <h5>📦 ماژول‌های اصلی</h5>
+        <div class="table-responsive">
+            <table class="table table-dark table-striped">
+                <thead>
+                    <tr>
+                        <th>ماژول</th>
+                        <th>توضیح</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>StoryEngine</code></span></td>
+
+
+
+                        <td>موتور اصلی ساخت و مدیریت داستان</span></td>
+
+
+
+                    </tr>
+                    <tr>
+                        <td><code>Character</code></span></td>
+
+
+
+                        <td>ساخت شخصیت با ویژگی‌ها، اهداف، مهارت‌ها، ترس‌ها و روابط</span></td>
+
+
+
+                    </tr>
+                    <tr>
+                        <td><code>Plot</code></span></td>
+
+
+
+                        <td>مدیریت پیرنگ با نقاط عطف و زیرپیرنگ‌ها</span></td>
+
+
+
+                    </tr>
+                    <tr>
+                        <td><code>WorldBuilder</code></span></td>
+
+
+
+                        <td>جهان‌سازی با مکان‌ها، فرهنگ‌ها، قوانین و جناح‌ها</span></td>
+
+
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h5>🎲 تولیدکننده‌ها</h5>
+        <div class="table-responsive">
+            <table class="table table-dark table-striped">
+                <thead>
+                    <tr>
+                        <th>تولیدکننده</th>
+                        <th>توضیح</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>CharacterGenerator</code></span></td>
+
+
+
+                        <td>تولید شخصیت تصادفی</span></td>
+
+
+
+                    </tr>
+                    <tr>
+                        <td><code>PlotGenerator</code></span></td>
+
+
+
+                        <td>تولید پیرنگ بر اساس ژانر</span></td>
+
+
+
+                    </tr>
+                    <tr>
+                        <td><code>DialogueGenerator</code></span></td>
+
+
+
+                        <td>تولید دیالوگ (الگو محور)</span></td>
+
+
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h5>🔍 ابزارهای NLP</h5>
+        <div class="table-responsive">
+            <table class="table table-dark table-striped">
+                <thead>
+                    <tr>
+                        <th>ابزار</th>
+                        <th>توضیح</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>CoherenceChecker</code></span></td>
+
+
+
+                        <td>تحلیل انسجام داستان و تشخیص حفره‌ها</span></td>
+
+
+
+                    </tr>
+                    <tr>
+                        <td><code>TextAnalyzer</code></span></td>
+
+
+
+                        <td>تحلیل خوانایی و کیفیت متن</span></td>
+
+
+
                     </table>
-                </div>
+                </tbody>
+            </table>
+        </div>
 
-                <h4>LLMConfig</h4>
-                <div class="code-block-wrapper">
-                    <div class="code-block-header"><span class="lang-label">python</span><button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> کپی</button></div>
-                    <div class="code-block-body"><pre><code><span class="kw">from</span> story_toolkit.llm <span class="kw">import</span> LLMConfig, LLMProvider
+        <div class="code-block-wrapper mt-3">
+            <div class="code-block-header"><span class="lang-label">python</span><button
+                    class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i>
+                    کپی</button></div>
+            <div class="code-block-body">
+                <pre><code><span class="kw">from</span> story_toolkit <span class="kw">import</span> StoryToolkit
 
-config = LLMConfig(
-    provider=LLMProvider.OPENAI,
-    model=<span class="str">"gpt-3.5-turbo"</span>,
-    temperature=0.8,
-    max_tokens=1000,
-    api_key=<span class="str">"sk-..."</span>
-)</code></pre></div>
-                </div>
+toolkit = StoryToolkit()
+story = toolkit.create_story(<span class="str">"fantasy"</span>, <span class="str">"courage"</span>)
+hero = toolkit.add_character_to_story(story, <span class="str">"کای"</span>, <span class="str">"protagonist"</span>)
+hero.add_trait(<span class="str">"brave"</span>)</code></pre>
+            </div>
+        </div>
+    </div>
+</div>
 
-                <h4>LLMFactory</h4>
-                <div class="code-block-wrapper">
-                    <div class="code-block-header"><span class="lang-label">python</span><button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> کپی</button></div>
-                    <div class="code-block-body"><pre><code><span class="kw">from</span> story_toolkit.llm <span class="kw">import</span> LLMFactory, LLMProvider
+               <!-- ==================== V2.0.0 ==================== -->
+<div class="card mb-4" style="background:var(--bg-card); border-color:var(--border);">
+    <div class="card-header" style="background:var(--bg-tertiary); border-bottom-color:var(--border);">
+        <h3 id="v2" class="mb-0" style="color:var(--yellow);"><i class="fa-solid fa-brain"></i> نسخه
+            2.0.0 - لایه هوش مصنوعی (LLM)</h3>
+    </div>
+    <div class="card-body">
+        <p><strong>تاریخ انتشار:</strong> ۷ می ۲۰۲۶ &nbsp;|&nbsp; <strong>پایتون:</strong> 3.11+</p>
+        <p><strong>توضیح:</strong> اضافه شدن قابلیت اتصال به هوش مصنوعی برای تولید دیالوگ‌های پیشرفته.
+        </p>
 
-<span class="cm"># ایجاد پشتیبان Mock (بدون نیاز به کلید API - برای تست)</span>
+        <h5>🤖 ماژول جدید هوش مصنوعی (LLM)</h5>
+        <div class="table-responsive">
+            <table class="table table-dark table-striped">
+                <thead>
+                    <tr>
+                        <th>کامپوننت</th>
+                        <th>توضیح</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>LLMFactory</code></td>
+                        <td>کارخانه ساخت پشتیبان‌های هوش مصنوعی</span></td>
+
+
+
+                    </tr>
+                    <tr>
+                        <td><code>LLMProvider</code></span></td>
+
+
+
+                        <td>ارائه‌دهندگان: OPENAI, ANTHROPIC, LOCAL, MOCK</span></td>
+
+
+
+                    </tr>
+                    <tr>
+                        <td><code>BaseLLMBackend</code></span></td>
+
+
+
+                        <td>کلاس پایه برای پشتیبان‌های هوش مصنوعی</span></td>
+
+
+
+                    </tr>
+                    <tr>
+                        <td><code>MockLLMBackend</code></span></td>
+
+
+
+                        <td>پشتیبان تست (بدون نیاز به کلید API)</span></td>
+
+
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h5>💬 دیالوگ پیشرفته</h5>
+        <ul>
+            <li><code>use_advanced</code> - فعال‌سازی هوش مصنوعی برای دیالوگ</li>
+            <li><code>style</code> - سبک‌های دیالوگ: natural, dramatic, poetic, humorous</li>
+            <li><code>num_lines</code> - کنترل تعداد خطوط دیالوگ</li>
+        </ul>
+
+        <div class="code-block-wrapper mt-3">
+            <div class="code-block-header"><span class="lang-label">python</span><button
+                    class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i>
+                    کپی</button></div>
+            <div class="code-block-body">
+                <pre><code><span class="kw">from</span> story_toolkit.llm <span class="kw">import</span> LLMFactory, LLMProvider
+
 llm = LLMFactory.create_backend(provider=LLMProvider.MOCK)
+toolkit = StoryToolkit(llm_backend=llm)
 
-<span class="cm"># ایجاد پشتیبان OpenAI</span>
-llm = LLMFactory.create_backend(
-    provider=LLMProvider.OPENAI,
-    api_key=<span class="str">"sk-..."</span>,
-    model=<span class="str">"gpt-3.5-turbo"</span>,
-    temperature=0.8
-)
+dialogue = toolkit.dialogue_gen.generate_dialogue(
+    <span class="str">"قهرمان"</span>, <span class="str">"شرور"</span>,
+    use_advanced=<span class="kw">True</span>,
+    style=<span class="str">"dramatic"</span>,
+    num_lines=8
+)</code></pre>
+            </div>
+        </div>
+    </div>
+</div>
 
-<span class="cm"># ایجاد پشتیبان محلی (Ollama)</span>
-llm = LLMFactory.create_backend(
-    provider=LLMProvider.LOCAL,
-    model=<span class="str">"llama2"</span>,
-    temperature=0.7
-)
-
-<span class="cm"># ایجاد از متغیرهای محیطی</span>
-llm = LLMFactory.create_from_env()</code></pre></div>
-                </div>
-
-                <h4>متدهای BaseLLMBackend</h4>
-                <div class="table-responsive">
-                    <table class="table table-dark table-striped">
-                        <thead><tr><th>متد</th><th>پارامترها</th><th>خروجی</th><th>توضیح</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>generate(prompt)</code></td><td>str</td><td>str</td><td>تولید متن از پرامپت</td></tr>
-                            <tr><td><code>generate_dialogue(speaker, listener, context, style, num_lines)</code></td><td>str, str, str, str, int</td><td>List[str]</td><td>تولید دیالوگ پیشرفته</td></tr>
-                            <tr><td><code>enhance_description(text, style)</code></td><td>str, str</td><td>str</td><td>بهبود توصیف متن</td></tr>
-                            <tr><td><code>suggest_plot_twist(genre, current_plot, complexity)</code></td><td>str, str, int</td><td>str</td><td>پیشنهاد پیچش داستانی</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <!-- ==================== StoryToolkit (updated) ==================== -->
-                <h2 id="storytoolkit"><i class="fa-solid fa-layer-group"></i> StoryToolkit</h2>
-                <p>کلاس اصلی که دسترسی یکپارچه به تمام امکانات toolkit را فراهم می‌کند.</p>
-
-                <h4>سازنده (Constructor)</h4>
-                <div class="code-block-wrapper">
-                    <div class="code-block-header">
-                        <span class="lang-label">python</span>
-                        <button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> کپی</button>
+                <!-- ==================== V2.1.0 ==================== -->
+                <div class="card mb-4" style="background:var(--bg-card); border-color:var(--border);">
+                    <div class="card-header" style="background:var(--bg-tertiary); border-bottom-color:var(--border);">
+                        <h3 id="v21" class="mb-0" style="color:var(--orange);"><i class="fa-solid fa-database"></i> نسخه
+                            2.1.0 - لایه حافظه (SQLite)</h3>
                     </div>
-                    <div class="code-block-body">
-                        <pre><code><span class="kw">from</span> story_toolkit <span class="kw">import</span> StoryToolkit
+                    <div class="card-body">
+                        <p><strong>تاریخ انتشار:</strong> ۸ می ۲۰۲۶ &nbsp;|&nbsp; <strong>پایتون:</strong> 3.11+</p>
+                        <p><strong>توضیح:</strong> اضافه شدن حافظه بلندمدت با پایگاه داده SQLite.</p>
 
-<span class="cm"># حالت معمولی (سازگار با نسخه ۱)</span>
+                        <h5>💾 قابلیت‌های حافظه</h5>
+                        <ul>
+                            <li><code>add_event()</code> - افزودن رویداد به تایم‌لاین داستان</li>
+                            <li><code>get_timeline()</code> - دریافت تایم‌لاین زمانی</li>
+                            <li><code>list_stored_stories()</code> - لیست داستان‌های ذخیره شده</li>
+                            <li><code>load_story_from_memory()</code> - بارگذاری داستان از حافظه</li>
+                            <li><code>search_memory()</code> - جستجوی رویدادها با کلمه کلیدی</li>
+                        </ul>
+
+                        <div class="code-block-wrapper mt-3">
+                            <div class="code-block-header"><span class="lang-label">python</span><button
+                                    class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i>
+                                    کپی</button></div>
+                            <div class="code-block-body">
+                                <pre><code>toolkit = StoryToolkit(memory_backend=<span class="str">"sqlite"</span>, db_path=<span class="str">"stories.db"</span>)
+story = toolkit.create_story(<span class="str">"fantasy"</span>, <span class="str">"courage"</span>, save_to_memory=<span class="kw">True</span>)
+toolkit.add_event(1, <span class="str">"قهرمان نقشه را پیدا می‌کند"</span>, <span class="str">"plot"</span>, 9)
+timeline = toolkit.get_timeline()</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ==================== V2.2.0 ==================== -->
+<div class="card mb-4" style="background:var(--bg-card); border-color:var(--border);">
+    <div class="card-header" style="background:var(--bg-tertiary); border-bottom-color:var(--border);">
+        <h3 id="v22" class="mb-0" style="color:var(--purple);"><i class="fa-solid fa-file-export"></i>
+            نسخه 2.2.0 - خروجی‌های چندفرمتی</h3>
+    </div>
+    <div class="card-body">
+        <p><strong>تاریخ انتشار:</strong> ۸ می ۲۰۲۶ &nbsp;|&nbsp; <strong>پایتون:</strong> 3.11+</p>
+        <p><strong>توضیح:</strong> قابلیت خروجی به فرمت‌های مختلف.</p>
+
+        <h5>📄 فرمت‌های خروجی</h5>
+        <div class="table-responsive">
+            <table class="table table-dark table-striped">
+                <thead>
+                    <tr>
+                        <th>فرمت</th>
+                        <th>توضیح</th>
+                        <th>سبک‌ها</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>PDF</code></td>
+                        <td>چاپ/دست‌نویس/کتاب الکترونیک</span>
+
+
+
+                        <td>PRINT, MANUSCRIPT, EBOOK</span>
+
+
+
+                    </tr>
+                    <tr>
+                        <td><code>EPUB</code></span>
+
+
+
+                        <td>کتاب الکترونیک</span>
+
+
+
+                        <td>سازگار با آمازون، کیندل، اپل بوک</span>
+
+
+
+                    </tr>
+                    <tr>
+                        <td><code>HTML</code></span>
+
+
+
+                        <td>صفحه وب</span>
+
+
+
+                        <td>MODERN, CLASSIC, DARK, MINIMAL</span>
+
+
+
+                    </tr>
+                    <tr>
+                        <td><code>Bionic</code></span>
+
+
+
+                        <td>خواندن سریع</span>
+
+
+
+                        <td>قابل تنظیم (۱-۳ حرف)</span>
+
+
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="code-block-wrapper mt-3">
+            <div class="code-block-header"><span class="lang-label">python</span><button
+                    class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i>
+                    کپی</button></div>
+            <div class="code-block-body">
+                <pre><code><span class="kw">from</span> story_toolkit.exporters <span class="kw">import</span> PDFExporter, ExportConfig, PDFStyle
+
+config = ExportConfig(title=<span class="str">"داستان من"</span>, author=<span class="str">"من"</span>, pdf_style=PDFStyle.PRINT)
+exporter = PDFExporter(config)
+exporter.export(story, <span class="str">"my_story.pdf"</span>)</code></pre>
+            </div>
+        </div>
+    </div>
+</div>
+                <!-- ==================== V2.2.1 ==================== -->
+<div class="card mb-4" style="background:var(--bg-card); border-color:var(--border);">
+    <div class="card-header" style="background:var(--bg-tertiary); border-bottom-color:var(--border);">
+        <h3 id="v221" class="mb-0" style="color:var(--pink);"><i class="fa-solid fa-clone"></i> نسخه
+            2.2.1 - قالب‌های آماده داستان</h3>
+    </div>
+    <div class="card-body">
+        <p><strong>تاریخ انتشار:</strong> ۸ می ۲۰۲۶ &nbsp;|&nbsp; <strong>پایتون:</strong> 3.11+</p>
+        <p><strong>توضیح:</strong> ۵ قالب آماده برای شروع سریع.</p>
+
+        <h5>📋 قالب‌های موجود</h5>
+        <div class="table-responsive">
+            <table class="table table-dark table-striped">
+                <thead>
+                    <tr>
+                        <th>قالب</th>
+                        <th>ژانر</th>
+                        <th>مراحل</th>
+                        <th>توضیح</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>hero_journey</code></td>
+                        <td>فانتزی/ماجراجویی</td>
+                        <td>۱۲</td>
+                        <td>سفر قهرمان (کمپبل)</td>
+                    </tr>
+                    <tr>
+                        <td><code>three_act</code></td>
+                        <td>عمومی</td>
+                        <td>۳</td>
+                        <td>ساختار ۳ پرده</td>
+                    </tr>
+                    <tr>
+                        <td><code>mystery_clues</code></td>
+                        <td>معمایی</td>
+                        <td>۵</td>
+                        <td>ساختار داستان کارآگاهی</td>
+                    </tr>
+                    <tr>
+                        <td><code>romance_beat</code></td>
+                        <td>عاشقانه</td>
+                        <td>۱۵</td>
+                        <td>ساختار ۱۵ مرحله‌ای عاشقانه</td>
+                    </tr>
+                    <tr>
+                        <td><code>horror_cycle</code></td>
+                        <td>ترسناک</td>
+                        <td>۶</td>
+                        <td>ساختار داستان ترسناک</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="code-block-wrapper mt-3">
+            <div class="code-block-header"><span class="lang-label">python</span><button
+                    class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i>
+                    کپی</button></div>
+            <div class="code-block-body">
+                <pre><code>story = toolkit.use_template(<span class="str">"hero_journey"</span>, genre=<span class="str">"fantasy"</span>, theme=<span class="str">"redemption"</span>)
+templates = toolkit.list_templates()</code></pre>
+            </div>
+        </div>
+    </div>
+</div>
+
+                <!-- ==================== V2.2.2 ==================== -->
+<div class="card mb-5" style="background:var(--bg-card); border-color:var(--green);">
+    <div class="card-header" style="background:var(--bg-tertiary); border-bottom-color:var(--green);">
+        <h3 id="v222" class="mb-0" style="color:var(--green);"><i class="fa-solid fa-terminal"></i> نسخه
+            2.2.2 - ابزار خط فرمان (CLI)</h3>
+    </div>
+    <div class="card-body">
+        <p><strong>تاریخ انتشار:</strong> ۸ می ۲۰۲۶ &nbsp;|&nbsp; <strong>پایتون:</strong> 3.11+</p>
+        <p><strong>توضیح:</strong> رابط خط فرمان کامل برای استفاده آسان.</p>
+
+        <h5>💻 دستورات خط فرمان</h5>
+        <div class="table-responsive">
+            <table class="table table-dark table-striped">
+                <thead>
+                    <tr>
+                        <th>دستور</th>
+                        <th>توضیح</th>
+                        <th>مثال</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>story new</code></td>
+                        <td>ایجاد داستان جدید</td>
+                        <td><code>story-toolkit story new --genre fantasy --theme courage</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>story list</code></td>
+                        <td>لیست داستان‌های ذخیره شده</td>
+                        <td><code>story-toolkit story list</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>template list</code></td>
+                        <td>لیست قالب‌ها</td>
+                        <td><code>story-toolkit template list</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>template use</code></td>
+                        <td>استفاده از قالب</td>
+                        <td><code>story-toolkit template use hero_journey</code></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="code-block-wrapper mt-3">
+            <div class="code-block-header"><span class="lang-label">bash</span><button class="copy-btn"
+                    onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> کپی</button></div>
+            <div class="code-block-body">
+                <pre><code>story-toolkit story new --genre fantasy --theme courage
+story-toolkit template list
+story-toolkit template use hero_journey</code></pre>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+      <!-- ==================== STORYTOOLKIT ==================== -->
+<h2 id="storytoolkit"><i class="fa-solid fa-layer-group"></i> StoryToolkit (کلاس اصلی)</h2>
+
+<h4>روش‌های ساخت</h4>
+<div class="code-block-wrapper mb-3">
+    <div class="code-block-header"><span class="lang-label">python</span><button class="copy-btn"
+            onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> کپی</button></div>
+    <div class="code-block-body">
+        <pre><code><span class="kw">from</span> story_toolkit <span class="kw">import</span> StoryToolkit
+
+<span class="cm"># نسخه 1 - بدون افزونه</span>
 toolkit = StoryToolkit()
 
-<span class="cm"># جدید در نسخه ۲.۰.۰ - با پشتیبان LLM</span>
-toolkit = StoryToolkit(llm_backend=llm)</code></pre>
-                    </div>
-                </div>
+<span class="cm"># نسخه 2 - با هوش مصنوعی</span>
+toolkit = StoryToolkit(llm_backend=llm)
 
-                <h4>ویژگی‌ها (Attributes)</h4>
-                <div class="table-responsive">
-                    <table class="table table-dark table-striped">
-                        <thead><tr><th>ویژگی</th><th>نوع</th><th>توضیح</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>engine</code></td><td>StoryEngine</td><td>موتور اصلی داستان</td></tr>
-                            <tr><td><code>character_gen</code></td><td>CharacterGenerator</td><td>تولید شخصیت تصادفی</td></tr>
-                            <tr><td><code>plot_gen</code></td><td>PlotGenerator</td><td>تولید ساختار پیرنگ</td></tr>
-                            <tr><td><code>dialogue_gen</code></td><td>DialogueGenerator</td><td>تولید دیالوگ</td></tr>
-                            <tr><td><code>coherence_checker</code></td><td>CoherenceChecker</td><td>بررسی انسجام داستان</td></tr>
-                            <tr><td><code>text_analyzer</code></td><td>TextAnalyzer</td><td>تحلیل متن و خوانایی</td></tr>
-                        </tbody>
-                    </table>
-                </div>
+<span class="cm"># نسخه 2.1 - با حافظه</span>
+toolkit = StoryToolkit(memory_backend=<span class="str">"sqlite"</span>, db_path=<span class="str">"stories.db"</span>)
 
-                <h4>متدها</h4>
+<span class="cm"># نسخه 2.2.2 - همه قابلیت‌ها</span>
+toolkit = StoryToolkit(llm_backend=llm, memory_backend=<span class="str">"sqlite"</span>)</code></pre>
+    </div>
+</div>
 
-                <!-- create_story (unchanged) -->
-                <div class="api-method mb-4">
-                    <h5>create_story(genre, theme, complexity=3) → dict</h5>
-                    <p>یک داستان جدید با تمام اجزای لازم ایجاد می‌کند.</p>
-                    <div class="table-responsive">
-                        <table class="table table-dark table-striped">
-                            <thead><tr><th>پارامتر</th><th>نوع</th><th>پیش‌فرض</th><th>توضیح</th></tr></thead>
-                            <tbody>
-                                <tr>:<td><code>genre</code></td><td>str</td><td>الزامی</td><td>ژانر: fantasy, mystery, romance, adventure, sci_fi</td></tr>
-                                <tr><td><code>theme</code></td><td>str</td><td>الزامی</td><td>تم اصلی مانند courage, redemption, identity</td></tr>
-                                <tr><td><code>complexity</code></td><td>int</td><td>3</td><td>سطح پیچیدگی از ۱ تا ۵</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <p><strong>خروجی:</strong> دیکشنری با کلیدهای <code>metadata</code>، <code>outline</code>، <code>plot</code>، <code>characters</code>، <code>world</code>، <code>dialogue_scenes</code>، <code>coherence_report</code></p>
-                    <div class="code-block-wrapper">
-                        <div class="code-block-header"><span class="lang-label">python</span><button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> کپی</button></div>
-                        <div class="code-block-body"><pre><code>story = toolkit.create_story(genre=<span class="str">"fantasy"</span>, theme=<span class="str">"courage"</span>, complexity=4)
-<span class="fn">print</span>(story[<span class="str">"metadata"</span>][<span class="str">"genre"</span>])  <span class="cm"># "fantasy"</span></code></pre></div>
-                    </div>
-                </div>
+<h4>متدهای اصلی (بر اساس نسخه)</h4>
+<div class="table-responsive mb-4">
+    <table class="table table-dark table-striped">
+        <thead>
+            <tr>
+                <th>متد</th>
+                <th>نسخه</th>
+                <th>توضیح</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><code>create_story()</code></td>
+                <td>v1.0.0</td>
+                <td>ساخت داستان جدید</td>
+            </tr>
+            <tr>
+                <td><code>add_character_to_story()</code></td>
+                <td>v1.0.0</td>
+                <td>افزودن شخصیت</td>
+            </tr>
+            <tr>
+                <td><code>check_story_coherence()</code></td>
+                <td>v1.0.0</td>
+                <td>بررسی انسجام</td>
+            </tr>
+            <tr>
+                <td><code>export_story()</code></td>
+                <td>v1.0.0</td>
+                <td>خروجی به JSON/Markdown/TXT</td>
+            </tr>
+            <tr>
+                <td><code>get_llm_status()</code></td>
+                <td>v2.0.0</td>
+                <td>وضعیت هوش مصنوعی</td>
+            </tr>
+            <tr>
+                <td><code>generate_advanced_dialogue()</code></td>
+                <td>v2.0.0</td>
+                <td>دیالوگ با هوش مصنوعی</td>
+            </tr>
+            <tr>
+                <td><code>add_event()</code></td>
+                <td>v2.1.0</td>
+                <td>افزودن رویداد به تایم‌لاین</td>
+            </tr>
+            <tr>
+                <td><code>get_timeline()</code></td>
+                <td>v2.1.0</td>
+                <td>دریافت تایم‌لاین</td>
+            </tr>
+            <tr>
+                <td><code>list_stored_stories()</code></td>
+                <td>v2.1.0</td>
+                <td>لیست داستان‌های ذخیره شده</td>
+            </tr>
+            <tr>
+                <td><code>use_template()</code></td>
+                <td>v2.2.1</td>
+                <td>استفاده از قالب آماده</td>
+            </tr>
+            <tr>
+                <td><code>list_templates()</code></td>
+                <td>v2.2.1</td>
+                <td>لیست قالب‌های موجود</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 
-                <!-- add_character_to_story (unchanged) -->
-                <div class="api-method mb-4">
-                    <h5>add_character_to_story(story, name, role) → Character</h5>
-                    <p>یک شخصیت جدید به داستان اضافه می‌کند.</p>
-                    <div class="code-block-wrapper">
-                        <div class="code-block-header"><span class="lang-label">python</span><button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> کپی</button></div>
-                        <div class="code-block-body"><pre><code>hero = toolkit.add_character_to_story(story, <span class="str">"کای"</span>, <span class="str">"protagonist"</span>)
-hero.add_trait(<span class="str">"brave"</span>)</code></pre></div>
-                    </div>
-                </div>
-
-                <!-- check_story_coherence (unchanged) -->
-                <div class="api-method mb-4">
-                    <h5>check_story_coherence(story_data) → dict</h5>
-                    <p>انسجام داستان را بررسی و گزارش کامل تولید می‌کند.</p>
-                    <div class="code-block-wrapper">
-                        <div class="code-block-header"><span class="lang-label">python</span><button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> کپی</button></div>
-                        <div class="code-block-body"><pre><code>report = toolkit.check_story_coherence(story)
-<span class="fn">print</span>(<span class="str">f"امتیاز: {report['overall_score']:.0%}"</span>)</code></pre></div>
-                    </div>
-                </div>
-
-                <!-- generate_full_story (updated) -->
-                <div class="api-method mb-4">
-                    <h5>generate_full_story(genre, theme, num_characters=3, use_advanced_dialogue=False) → dict</h5>
-                    <p>یک داستان کامل با تمام عناصر به صورت خودکار تولید می‌کند.</p>
-                    <div class="table-responsive">
-                        <table class="table table-dark table-striped">
-                            <thead><tr><th>پارامتر</th><th>نوع</th><th>پیش‌فرض</th><th>توضیح</th></tr></thead>
-                            <tbody>
-                                <tr>:<td><code>genre</code></td><td>str</td><td>الزامی</td><td>ژانر داستان</td></tr>
-                                <tr><td><code>theme</code></td><td>str</td><td>الزامی</td><td>تم داستان</td></tr>
-                                <tr><td><code>num_characters</code></td><td>int</td><td>3</td><td>تعداد شخصیت‌ها</td></tr>
-                                <tr><td><code>use_advanced_dialogue</code></td><td>bool</td><td>False</td><td><span class="badge" style="background:var(--green);">جدید</span> استفاده از LLM برای دیالوگ</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="code-block-wrapper">
-                        <div class="code-block-header"><span class="lang-label">python</span><button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> کپی</button></div>
-                        <div class="code-block-body"><pre><code><span class="cm"># حالت معمولی</span>
-full_story = toolkit.generate_full_story(<span class="str">"mystery"</span>, <span class="str">"justice"</span>, num_characters=4)
-
-<span class="cm"># جدید در نسخه ۲.۰.۰ - با دیالوگ پیشرفته</span>
-full_story = toolkit.generate_full_story(
-    <span class="str">"mystery"</span>, <span class="str">"justice"</span>,
-    num_characters=4,
-    use_advanced_dialogue=<span class="kw">True</span>
-)</code></pre></div>
-                    </div>
-                </div>
-
-                <!-- export_story (unchanged) -->
-                <div class="api-method mb-4">
-                    <h5>export_story(story, format="json", filename=None) → str</h5>
-                    <p>داستان را در قالب مشخص خروجی می‌گیرد.</p>
-                    <div class="code-block-wrapper">
-                        <div class="code-block-header"><span class="lang-label">python</span><button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> کپی</button></div>
-                        <div class="code-block-body"><pre><code>path = toolkit.export_story(story, format=<span class="str">"markdown"</span>, filename=<span class="str">"my_story"</span>)
-<span class="fn">print</span>(<span class="str">f"ذخیره شد: {path}"</span>)</code></pre></div>
-                    </div>
-                </div>
-
-                <!-- NEW: get_llm_status -->
-                <div class="api-method mb-4">
-                    <h5>get_llm_status() → dict <span class="badge" style="background:var(--green);">جدید در نسخه ۲.۰.۰</span></h5>
-                    <p>وضعیت پشتیبان LLM را نمایش می‌دهد.</p>
-                    <div class="code-block-wrapper">
-                        <div class="code-block-header"><span class="lang-label">python</span><button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> کپی</button></div>
-                        <div class="code-block-body"><pre><code>status = toolkit.get_llm_status()
-<span class="fn">print</span>(status)  <span class="cm"># {'available': True, 'provider': 'openai', 'model': 'gpt-3.5-turbo'}</span></code></pre></div>
-                    </div>
-                </div>
-
-                <!-- NEW: generate_advanced_dialogue -->
-                <div class="api-method mb-4">
-                    <h5>generate_advanced_dialogue(speaker, listener, context, style="natural", num_lines=5) → List[str] <span class="badge" style="background:var(--green);">جدید در نسخه ۲.۰.۰</span></h5>
-                    <p>تولید دیالوگ پیشرفته با استفاده از پشتیبان LLM.</p>
-                    <div class="code-block-wrapper">
-                        <div class="code-block-header"><span class="lang-label">python</span><button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> کپی</button></div>
-                        <div class="code-block-body"><pre><code>dialogue = toolkit.generate_advanced_dialogue(
-    speaker=<span class="str">"شوالیه"</span>,
-    listener=<span class="str">"اژدها"</span>,
-    context=<span class="str">"نبرد نهایی"</span>,
-    style=<span class="str">"حماسی"</span>,
-    num_lines=6
-)</code></pre></div>
-                    </div>
-                </div>
-
-                <!-- ==================== StoryEngine (unchanged) ==================== -->
-                <h2 id="storyengine"><i class="fa-solid fa-gear"></i> StoryEngine</h2>
-                <p>موتور اصلی ایجاد و مدیریت داستان.</p>
-
-                <div class="code-block-wrapper">
-                    <div class="code-block-header"><span class="lang-label">python</span><button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> کپی</button></div>
-                    <div class="code-block-body"><pre><code><span class="kw">from</span> story_toolkit.core.story_engine <span class="kw">import</span> StoryEngine
-
-engine = StoryEngine()
+                <!-- ==================== CORE COMPONENTS ==================== -->
+                <h2 id="storyengine"><i class="fa-solid fa-gear"></i> StoryEngine (نسخه 1)</h2>
+                <div class="code-block-wrapper mb-4">
+                    <div class="code-block-header"><span class="lang-label">python</span><button class="copy-btn"
+                            onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> کپی</button></div>
+                    <div class="code-block-body">
+                        <pre><code>engine = StoryEngine()
 outline = engine.create_story_outline(<span class="str">"fantasy"</span>, <span class="str">"courage"</span>)
-chapter = engine.add_chapter(<span class="str">"The Awakening"</span>, {<span class="str">"summary"</span>: <span class="str">"..."</span>})
-progress = engine.get_story_progress()</code></pre></div>
-                </div>
-
-                <div class="table-responsive">
-                    <table class="table table-dark table-striped">
-                        <thead><tr><th>متد</th><th>پارامترها</th><th>خروجی</th><th>توضیح</th></tr></thead>
-                        <tbody>
-                            <tr>:<td><code>create_story_outline</code></td><td>genre, theme</td><td>dict</td><td>طرح کلی داستان با ساختار پنج‌پرده‌ای</td></tr>
-                            <tr><td><code>add_chapter</code></td><td>title, content=None</td><td>dict</td><td>افزودن فصل جدید</td></tr>
-                            <tr><td><code>get_story_progress</code></td><td>—</td><td>dict</td><td>آمار پیشرفت داستان</td></tr>
-                            <tr><td><code>set_story_metadata</code></td><td>title, author, description</td><td>None</td><td>به‌روزرسانی متادیتا</td></tr>
-                            <tr><td><code>validate_structure</code></td><td>—</td><td>list</td><td>اعتبارسنجی و بازگشت مشکلات</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <!-- ==================== Character (unchanged content preserved) ==================== -->
-                <h2 id="character"><i class="fa-solid fa-user"></i> Character</h2>
-                <p>سیستم ایجاد و مدیریت شخصیت با ویژگی‌های کامل.</p>
-
-                <div class="code-block-wrapper">
-                    <div class="code-block-header"><span class="lang-label">python</span><button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> کپی</button></div>
-                    <div class="code-block-body"><pre><code><span class="kw">from</span> story_toolkit.core.character <span class="kw">import</span> Character
-
-<span class="cm"># ایجاد شخصیت</span>
-hero = Character(name=<span class="str">"النا"</span>, age=32, role=<span class="str">"protagonist"</span>)
-
-<span class="cm"># افزودن ویژگی‌ها</span>
-hero.add_trait(<span class="str">"brave"</span>)         <span class="cm"># شجاع</span>
-hero.add_trait(<span class="str">"intelligent"</span>)   <span class="cm"># باهوش</span>
-
-<span class="cm"># افزودن اهداف</span>
-hero.add_goal(<span class="str">"Save the kingdom"</span>)
-hero.add_goal(<span class="str">"Find the lost artifact"</span>)
-
-<span class="cm"># افزودن مهارت‌ها</span>
-hero.add_skill(<span class="str">"sword_mastery"</span>)
-hero.add_skill(<span class="str">"stealth"</span>)
-hero.add_skill(<span class="str">"diplomacy"</span>)
-
-<span class="cm"># افزودن نقاط ضعف</span>
-hero.add_weakness(<span class="str">"overconfidence"</span>)
-hero.add_weakness(<span class="str">"impatience"</span>)
-
-<span class="cm"># افزودن ترس‌ها</span>
-hero.add_fear(<span class="str">"darkness"</span>)
-hero.add_fear(<span class="str">"failure"</span>)
-
-<span class="cm"># افزودن انگیزه‌ها</span>
-hero.add_motivation(<span class="str">"justice"</span>)
-hero.add_motivation(<span class="str">"honor"</span>)
-
-<span class="cm"># افزودن روابط</span>
-hero.add_relationship(<span class="str">"Villain"</span>, <span class="str">"enemy"</span>, strength=9)
-hero.add_relationship(<span class="str">"Mentor"</span>, <span class="str">"mentor"</span>, strength=10)
-hero.add_relationship(<span class="str">"Sidekick"</span>, <span class="str">"friend"</span>, strength=8)
-
-<span class="cm"># ایجاد تعارض</span>
-conflict = hero.add_conflict(<span class="str">"internal"</span>)
-
-<span class="cm"># قوس شخصیتی</span>
-<span class="fn">print</span>(hero.arc_stage)  <span class="cm"># "initial"</span>
-hero.advance_arc()
-<span class="fn">print</span>(hero.arc_stage)  <span class="cm"># "challenged"</span>
-
-<span class="cm"># تبدیل به دیکشنری</span>
-data = hero.to_dict()</code></pre></div>
-                </div>
-
-                <div class="table-responsive">
-                    <table class="table table-dark table-striped">
-                        <thead><tr><th>متد</th><th>پارامترها</th><th>توضیح</th></tr></thead>
-                        <tbody>
-                            <tr>:<td><code>add_trait(trait)</code></td><td>str</td><td>افزودن ویژگی شخصیتی</td></tr>
-                            <tr><td><code>remove_trait(trait)</code></td><td>str</td><td>حذف ویژگی شخصیتی</td></tr>
-                            <tr><td><code>add_goal(goal)</code></td><td>str</td><td>افزودن هدف</td></tr>
-                            <tr><td><code>add_skill(skill)</code></td><td>str</td><td>افزودن مهارت</td></tr>
-                            <tr><td><code>add_weakness(weakness)</code></td><td>str</td><td>افزودن نقطه ضعف</td></tr>
-                            <tr><td><code>add_fear(fear)</code></td><td>str</td><td>افزودن ترس</td></tr>
-                            <tr><td><code>add_motivation(motivation)</code></td><td>str</td><td>افزودن انگیزه</td></tr>
-                            <tr><td><code>add_relationship(name, type, strength=5)</code></td><td>str, str, int</td><td>افزودن رابطه: friend, enemy, family, mentor, ally, rival</td></tr>
-                            <tr><td><code>update_relationship_status(name, status)</code></td><td>str, str</td><td>به‌روزرسانی وضعیت رابطه</td></tr>
-                            <tr><td><code>add_conflict(type)</code></td><td>str</td><td>ایجاد تعارض: internal, external, moral, relationship, societal</td></tr>
-                            <tr><td><code>get_character_arc()</code></td><td>—</td><td>دریافت قوس شخصیتی</td></tr>
-                            <tr><td><code>advance_arc()</code></td><td>—</td><td>پیشبرد: initial → challenged → transformation → new_equilibrium</td></tr>
-                            <tr><td><code>get_strengths_weaknesses()</code></td><td>—</td><td>خلاصه نقاط قوت و ضعف</td></tr>
-                            <tr><td><code>to_dict()</code></td><td>—</td><td>تبدیل به دیکشنری</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <!-- ==================== Plot (unchanged) ==================== -->
-                <h2 id="plot"><i class="fa-solid fa-chart-line"></i> Plot</h2>
-                <p>سیستم مدیریت ساختار پیرنگ داستان.</p>
-
-                <div class="code-block-wrapper">
-                    <div class="code-block-header"><span class="lang-label">python</span><button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> کپی</button></div>
-                    <div class="code-block-body"><pre><code><span class="kw">from</span> story_toolkit.core.plot <span class="kw">import</span> Plot
-
-plot = Plot()
-
-<span class="cm"># افزودن نقاط عطف</span>
-point1 = plot.add_plot_point(
-    <span class="str">"The Discovery"</span>,
-    <span class="str">"Hero finds the ancient map"</span>,
-    chapter=3,
-    importance=8
-)
-point2 = plot.add_plot_point(
-    <span class="str">"The Climax"</span>,
-    <span class="str">"Final battle with the villain"</span>,
-    chapter=18,
-    importance=10
-)
-
-<span class="cm"># اتصال نقاط</span>
-plot.connect_plot_points(point1.id, point2.id)
-
-<span class="cm"># افزودن زیرپیرنگ</span>
-subplot = plot.add_subplot(
-    <span class="str">"Forbidden Love"</span>,
-    <span class="str">"Hero falls for enemy's daughter"</span>,
-    connected_characters=[<span class="str">"Hero"</span>, <span class="str">"Princess"</span>]
-)
-
-<span class="cm"># دریافت جدول زمانی</span>
-timeline = plot.get_plot_timeline()
-<span class="kw">for</span> event <span class="kw">in</span> timeline:
-    <span class="fn">print</span>(<span class="str">f"Ch.{event['chapter']}: {event['title']}"</span>)
-
-<span class="cm"># اعتبارسنجی</span>
-issues = plot.validate_plot()</code></pre></div>
-                </div>
-
-                <div class="table-responsive">
-                    <table class="table table-dark table-striped">
-                        <thead><tr><th>متد</th><th>پارامترها</th><th>توضیح</th></tr></thead>
-                        <tbody>
-                            <tr>:<td><code>add_plot_point(title, desc, chapter, importance)</code></td><td>str, str, int, int</td><td>افزودن نقطه عطف</td></tr>
-                            <tr><td><code>add_subplot(title, desc, characters)</code></td><td>str, str, list</td><td>افزودن زیرپیرنگ</td></tr>
-                            <tr><td><code>connect_plot_points(id1, id2)</code></td><td>str, str</td><td>اتصال دو نقطه عطف</td></tr>
-                            <tr><td><code>get_plot_summary()</code></td><td>—</td><td>خلاصه آمار پیرنگ</td></tr>
-                            <tr><td><code>get_plot_timeline()</code></td><td>—</td><td>جدول زمانی وقایع</td></tr>
-                            <tr><td><code>validate_plot()</code></td><td>—</td><td>اعتبارسنجی ساختار</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <!-- ==================== WorldBuilder (unchanged) ==================== -->
-                <h2 id="worldbuilder"><i class="fa-solid fa-globe"></i> WorldBuilder</h2>
-                <p>سیستم ساخت و مدیریت جهان داستان.</p>
-
-                <div class="code-block-wrapper">
-                    <div class="code-block-header"><span class="lang-label">python</span><button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> Copy</button></div>
-                    <div class="code-block-body"><pre><code><span class="kw">from</span> story_toolkit.core.world_builder <span class="kw">import</span> WorldBuilder
-
-world = WorldBuilder()
-world.create_world(<span class="str">"الدوریا"</span>, <span class="str">"fantasy"</span>)
-
-<span class="cm"># افزودن مکان‌ها</span>
-world.add_location(<span class="str">"شهر کریستال"</span>, <span class="str">"کلانشهر باستانی"</span>, <span class="str">"city"</span>)
-world.add_location(<span class="str">"جنگل سایه‌ها"</span>, <span class="str">"جنگل مرموز"</span>, <span class="str">"forest"</span>)
-
-<span class="cm"># افزودن قوانین</span>
-world.add_rule(<span class="str">"magical"</span>, <span class="str">"فقط متولدان ماه‌گرفتگی جادو دارند"</span>)
-
-<span class="cm"># افزودن گروه</span>
-world.add_faction(<span class="str">"انجمن سایه"</span>, <span class="str">"سازمان مخفی"</span>, goals=[<span class="str">"کنترل جادو"</span>])
-
-<span class="cm"># تولید خودکار جهان</span>
-template = world.generate_world(<span class="str">"fantasy"</span>)</code></pre></div>
-                </div>
-
-                <!-- ==================== CharacterGenerator (unchanged) ==================== -->
-                <h2 id="charactergenerator"><i class="fa-solid fa-dice"></i> CharacterGenerator</h2>
-                <p>تولید شخصیت‌های تصادفی یا قالبی.</p>
-
-                <div class="code-block-wrapper">
-                    <div class="code-block-header"><span class="lang-label">python</span><button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> کپی</button></div>
-                    <div class="code-block-body"><pre><code><span class="kw">from</span> story_toolkit.generators.character_generator <span class="kw">import</span> CharacterGenerator
-
-gen = CharacterGenerator()
-hero = gen.generate_character(<span class="str">"protagonist"</span>, complexity=4)
-ensemble = gen.generate_ensemble(4)</code></pre></div>
-                </div>
-
-                <!-- ==================== PlotGenerator (unchanged) ==================== -->
-                <h2 id="plotgenerator"><i class="fa-solid fa-sitemap"></i> PlotGenerator</h2>
-                <p>تولید ساختار پیرنگ برای ژانرهای مختلف.</p>
-
-                <div class="code-block-wrapper">
-                    <div class="code-block-header"><span class="lang-label">python</span><button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> کپی</button></div>
-                    <div class="code-block-body"><pre><code><span class="kw">from</span> story_toolkit.generators.plot_generator <span class="kw">import</span> PlotGenerator
-
-gen = PlotGenerator()
-plot = gen.generate_plot(<span class="str">"mystery"</span>, complexity=4)
-
-<span class="fn">print</span>(<span class="str">f"فصل‌ها: {plot['estimated_length']['estimated_chapters']}"</span>)</code></pre></div>
-                </div>
-
-                <!-- ==================== DialogueGenerator (updated) ==================== -->
-                <h2 id="dialoguegenerator"><i class="fa-solid fa-comments"></i> DialogueGenerator</h2>
-                <p>تولید دیالوگ‌های طبیعی بین شخصیت‌ها با پشتیبانی اختیاری از LLM.</p>
-
-                <h4>سازنده (Constructor)</h4>
-                <div class="code-block-wrapper">
-                    <div class="code-block-header"><span class="lang-label">python</span><button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> کپی</button></div>
-                    <div class="code-block-body"><pre><code><span class="cm"># حالت معمولی (سازگار با نسخه ۱)</span>
-gen = DialogueGenerator()
-
-<span class="cm"># جدید در نسخه ۲.۰.۰ - با پشتیبانی LLM</span>
-gen = DialogueGenerator(llm_backend=llm)</code></pre></div>
-                </div>
-
-                <h4>متد generate_dialogue (بروز شده)</h4>
-                <div class="code-block-wrapper">
-                    <div class="code-block-header"><span class="lang-label">python</span><button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> کپی</button></div>
-                    <div class="code-block-body"><pre><code><span class="cm"># حالت معمولی (بدون LLM)</span>
-dialogue = gen.generate_dialogue(<span class="str">"قهرمان"</span>, <span class="str">"شرور"</span>, context=<span class="str">"conflict"</span>)
-
-<span class="cm"># جدید - حالت پیشرفته (با LLM)</span>
-dialogue = gen.generate_dialogue(
-    <span class="str">"قهرمان"</span>, <span class="str">"شرور"</span>,
-    context=<span class="str">"نبرد نهایی"</span>,
-    use_advanced=<span class="kw">True</span>,      <span class="cm"># فعال‌سازی LLM</span>
-    style=<span class="str">"دراماتیک"</span>,        <span class="cm"># natural, dramatic, poetic, humorous</span>
-    num_lines=10
-)</code></pre></div>
-                </div>
-
-                <!-- NEW: has_llm / get_llm_info -->
-                <div class="api-method mb-4">
-                    <h5>has_llm() → bool <span class="badge" style="background:var(--green);">جدید</span></h5>
-                    <p>بررسی در دسترس بودن پشتیبان LLM.</p>
-                </div>
-
-                <div class="api-method mb-4">
-                    <h5>get_llm_info() → dict <span class="badge" style="background:var(--green);">جدید</span></h5>
-                    <p>دریافت اطلاعات پشتیبان LLM.</p>
-                    <div class="code-block-wrapper">
-                        <div class="code-block-header"><span class="lang-label">python</span><button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> کپی</button></div>
-                        <div class="code-block-body"><pre><code>info = gen.get_llm_info()
-<span class="fn">print</span>(info)  <span class="cm"># {'available': True, 'provider': 'mock', 'model': 'mock'}</span></code></pre></div>
+engine.add_chapter(<span class="str">"The Beginning"</span>)
+progress = engine.get_story_progress()</code></pre>
                     </div>
                 </div>
 
-                <div class="table-responsive">
-                    <table class="table table-dark table-striped">
-                        <thead><tr><th>متد</th><th>پارامترها</th><th>توضیح</th></tr></thead>
-                        <tbody>
-                            <tr>:<td><code>generate_dialogue(char1, char2, context, mood, num_lines, use_advanced, style)</code></td><td>str, str, str, str, int, bool, str</td><td>تولید دیالوگ. context: conflict, revelation, emotional, romantic, mysterious. style: natural, dramatic, poetic, humorous <span class="badge" style="background:var(--green);">جدید</span></td></tr>
-                            <tr><td><code>create_conversation_scene(chars, purpose, use_advanced)</code></td><td>list, str, bool</td><td>ایجاد صحنه کامل</td></tr>
-                            <tr><td><code>generate_monologue(char, topic, mood, use_advanced)</code></td><td>str, str, str, bool</td><td>تولید مونولوگ</td></tr>
-                            <tr><td><code>has_llm()</code></td><td>—</td><td><span class="badge" style="background:var(--green);">جدید</span> بررسی وجود LLM</td></tr>
-                            <tr><td><code>get_llm_info()</code></td><td>—</td><td><span class="badge" style="background:var(--green);">جدید</span> اطلاعات LLM</td></tr>
-                        </tbody>
-                    </table>
+                <h2 id="character"><i class="fa-solid fa-user"></i> Character (نسخه 1)</h2>
+                <div class="code-block-wrapper mb-4">
+                    <div class="code-block-header"><span class="lang-label">python</span><button class="copy-btn"
+                            onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> کپی</button></div>
+                    <div class="code-block-body">
+                        <pre><code>hero = Character(name=<span class="str">"النا"</span>, age=32, role=<span class="str">"protagonist"</span>)
+hero.add_trait(<span class="str">"brave"</span>)          <span class="cm"># شجاع</span>
+hero.add_goal(<span class="str">"Save the kingdom"</span>)   <span class="cm"># نجات پادشاهی</span>
+hero.add_skill(<span class="str">"sword_mastery"</span>)    <span class="cm"># شمشیرزنی</span>
+hero.add_relationship(<span class="str">"Villain"</span>, <span class="str">"enemy"</span>, strength=9)
+hero.advance_arc()  <span class="cm"># پیشرفت قوس شخصیتی</span></code></pre>
+                    </div>
                 </div>
 
-                <!-- ==================== CoherenceChecker (unchanged) ==================== -->
-                <h2 id="coherencechecker"><i class="fa-solid fa-magnifying-glass"></i> CoherenceChecker</h2>
-                <p>تحلیل انسجام داستان و شناسایی مشکلات روایی.</p>
-
-                <div class="code-block-wrapper">
-                    <div class="code-block-header"><span class="lang-label">python</span><button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> کپی</button></div>
-                    <div class="code-block-body"><pre><code><span class="kw">from</span> story_toolkit.nlp.coherence_checker <span class="kw">import</span> CoherenceChecker
-
-checker = CoherenceChecker()
-report = checker.generate_coherence_report(story_data)</code></pre></div>
+                <h2 id="plot"><i class="fa-solid fa-chart-line"></i> Plot (نسخه 1)</h2>
+                <div class="code-block-wrapper mb-4">
+                    <div class="code-block-header"><span class="lang-label">python</span><button class="copy-btn"
+                            onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> کپی</button></div>
+                    <div class="code-block-body">
+                        <pre><code>plot = Plot()
+point = plot.add_plot_point(<span class="str">"Discovery"</span>, <span class="str">"Hero finds map"</span>, 3, 8)
+subplot = plot.add_subplot(<span class="str">"Love Story"</span>, <span class="str">"Romance subplot"</span>, [<span class="str">"Hero"</span>, <span class="str">"Heroine"</span>])
+timeline = plot.get_plot_timeline()</code></pre>
+                    </div>
                 </div>
 
-                <!-- ==================== TextAnalyzer (unchanged) ==================== -->
-                <h2 id="textanalyzer"><i class="fa-solid fa-chart-bar"></i> TextAnalyzer</h2>
-                <p>تحلیل ویژگی‌های متن، خوانایی و ریتم.</p>
+                <h2 id="worldbuilder"><i class="fa-solid fa-globe"></i> WorldBuilder (نسخه 1)</h2>
+                <div class="code-block-wrapper mb-4">
+                    <div class="code-block-header"><span class="lang-label">python</span><button class="copy-btn"
+                            onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> کپی</button></div>
+                    <div class="code-block-body">
+                        <pre><code>world = WorldBuilder()
+world.create_world(<span class="str">"الدوریا"</span>, <span class="str">"fantasy"</span>)
+world.add_location(<span class="str">"شهر کریستال"</span>, <span class="str">"کلانشهر باستانی"</span>, <span class="str">"city"</span>)
+world.add_rule(<span class="str">"magical"</span>, <span class="str">"فقط متولدان ماه‌گرفتگی جادو دارند"</span>)
+world.add_faction(<span class="str">"انجمن سایه"</span>, <span class="str">"سازمان مخفی"</span>, goals=[<span class="str">"کنترل جادو"</span>])</code></pre>
+                    </div>
+                </div>
 
-                <div class="code-block-wrapper">
-                    <div class="code-block-header"><span class="lang-label">python</span><button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> کپی</button></div>
-                    <div class="code-block-body"><pre><code><span class="kw">from</span> story_toolkit.nlp.text_analyzer <span class="kw">import</span> TextAnalyzer
+                <h2 id="generators"><i class="fa-solid fa-dice"></i> Generators (نسخه 1)</h2>
+                <div class="code-block-wrapper mb-4">
+                    <div class="code-block-header"><span class="lang-label">python</span><button class="copy-btn"
+                            onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> کپی</button></div>
+                    <div class="code-block-body">
+                        <pre><code><span class="kw">from</span> story_toolkit.generators <span class="kw">import</span> CharacterGenerator, PlotGenerator
+
+char_gen = CharacterGenerator()
+hero = char_gen.generate_character(<span class="str">"protagonist"</span>, complexity=4)
+
+plot_gen = PlotGenerator()
+plot = plot_gen.generate_plot(<span class="str">"mystery"</span>, complexity=3)</code></pre>
+                    </div>
+                </div>
+
+                <h2 id="dialoguegenerator"><i class="fa-solid fa-comments"></i> DialogueGenerator (بروز شده در نسخه 2)
+                </h2>
+                <div class="code-block-wrapper mb-4">
+                    <div class="code-block-header"><span class="lang-label">python</span><button class="copy-btn"
+                            onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> کپی</button></div>
+                    <div class="code-block-body">
+                        <pre><code><span class="cm"># روش قدیمی (نسخه 1 - بدون هوش مصنوعی)</span>
+dialogue = toolkit.dialogue_gen.generate_dialogue(<span class="str">"قهرمان"</span>, <span class="str">"شرور"</span>, context=<span class="str">"conflict"</span>)
+
+<span class="cm"># روش جدید (نسخه 2 - با هوش مصنوعی)</span>
+dialogue = toolkit.dialogue_gen.generate_dialogue(
+    <span class="str">"قهرمان"</span>, <span class="str">"شرور"</span>,
+    use_advanced=<span class="kw">True</span>,
+    style=<span class="str">"dramatic"</span>,
+    num_lines=10
+)</code></pre>
+                    </div>
+                </div>
+
+                <h2 id="coherencechecker"><i class="fa-solid fa-magnifying-glass"></i> CoherenceChecker (نسخه 1)</h2>
+                <div class="code-block-wrapper mb-4">
+                    <div class="code-block-header"><span class="lang-label">python</span><button class="copy-btn"
+                            onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> کپی</button></div>
+                    <div class="code-block-body">
+                        <pre><code>report = toolkit.check_story_coherence(story)
+<span class="fn">print</span>(<span class="str">f"امتیاز انسجام: {report['overall_score']:.0%}"</span>)
+
+<span class="kw">if</span> report[<span class="str">'plot_holes'</span>]:
+    <span class="kw">for</span> hole <span class="kw">in</span> report[<span class="str">'plot_holes'</span>]:
+        <span class="fn">print</span>(<span class="str">f"⚠️ {hole}"</span>)</code></pre>
+                    </div>
+                </div>
+
+                <h2 id="textanalyzer"><i class="fa-solid fa-chart-bar"></i> TextAnalyzer (نسخه 1)</h2>
+                <div class="code-block-wrapper mb-4">
+                    <div class="code-block-header"><span class="lang-label">python</span><button class="copy-btn"
+                            onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> کپی</button></div>
+                    <div class="code-block-body">
+                        <pre><code><span class="kw">from</span> story_toolkit.nlp.text_analyzer <span class="kw">import</span> TextAnalyzer
 
 analyzer = TextAnalyzer()
-analysis = analyzer.analyze_text(<span class="str">"متن نمونه"</span>)</code></pre></div>
+analysis = analyzer.analyze_text(<span class="str">"The old house stood on the hill."</span>)
+<span class="fn">print</span>(analysis[<span class="str">"readability_score"</span>])</code></pre>
+                    </div>
                 </div>
 
-                <!-- ==================== Helpers (unchanged) ==================== -->
-                <h2 id="helpers"><i class="fa-solid fa-toolbox"></i> توابع کمکی</h2>
+                <h2 id="helpers"><i class="fa-solid fa-toolbox"></i> توابع کمکی (نسخه 1)</h2>
+                <div class="code-block-wrapper mb-4">
+                    <div class="code-block-header"><span class="lang-label">python</span><button class="copy-btn"
+                            onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> کپی</button></div>
+                    <div class="code-block-body">
+                        <pre><code><span class="kw">from</span> story_toolkit.utils.helpers <span class="kw">import</span> save_story, load_story, export_to_markdown
 
+save_story(story, <span class="str">"my_story.json"</span>)
+loaded = load_story(<span class="str">"my_story.json"</span>)
+export_to_markdown(story, <span class="str">"my_story.md"</span>)</code></pre>
+                    </div>
+                </div>
+
+                <!-- Easy Upgrade Note -->
+                <div class="note mt-5 mb-4" style="background:rgba(63,185,80,0.1); border-right-color:var(--green);">
+                    <i class="fa-solid fa-shield-alt" style="color:var(--green);"></i>
+                    <strong>ارتقا آسان - بدون تغییر در کدهای قبلی!</strong><br>
+                    تمام کدهای نوشته شده برای نسخه 1 در نسخه 2.2.2 بدون هیچ تغییری کار می‌کنند.<br>
+                    فقط کافی است آپدیت کنید:
+                    <code>pip install --upgrade story-toolkit</code>
+                </div>
+
+                <!-- Installation Options -->
+                <h2 class="mt-4"><i class="fa-solid fa-download"></i> روش‌های نصب</h2>
                 <div class="code-block-wrapper">
-                    <div class="code-block-header"><span class="lang-label">python</span><button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> کپی</button></div>
-                    <div class="code-block-body"><pre><code><span class="kw">from</span> story_toolkit.utils.helpers <span class="kw">import</span> save_story, load_story, export_to_markdown
+                    <div class="code-block-header"><span class="lang-label">bash</span><button class="copy-btn"
+                            onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> کپی</button></div>
+                    <div class="code-block-body">
+                        <pre><code><span class="cm"># فقط هسته (نسخه 1)</span>
+pip install story-toolkit
 
-save_story(story_data, <span class="str">"output.json"</span>)
-loaded = load_story(<span class="str">"output.json"</span>)
-export_to_markdown(story_data, <span class="str">"output.md"</span>)</code></pre></div>
-                </div>
+<span class="cm"># با هوش مصنوعی (نسخه 2)</span>
+pip install story-toolkit[openai]
+pip install story-toolkit[anthropic]
+pip install story-toolkit[local]
 
-                <!-- Note about backward compatibility -->
-                <div class="note mt-4 mb-4">
-                    <i class="fa-solid fa-info-circle"></i>
-                    <strong>سازگاری با نسخه قبل:</strong> تمام کدهای نوشته شده برای نسخه ۱.۰.۰ بدون هیچ تغییری در نسخه ۲.۰.۰ کار می‌کنند. قابلیت‌های LLM کاملاً اختیاری هستند و فقط زمانی فعال می‌شوند که شما یک پشتیبان LLM را به toolkit پاس دهید.
+<span class="cm"># با خروجی‌ها (نسخه 2.2)</span>
+pip install story-toolkit[export]
+
+<span class="cm"># همه قابلیت‌ها (نسخه 2.2.2)</span>
+pip install story-toolkit[all]</code></pre>
+                    </div>
                 </div>
 
             </div><!-- /col-lg-9 -->
@@ -671,9 +900,10 @@ export_to_markdown(story_data, <span class="str">"output.md"</span>)</code></pre
                 <span class="text-muted">•</span>
                 <a href="quickstart.html"><i class="fa-solid fa-rocket"></i> شروع سریع</a>
                 <span class="text-muted">•</span>
-                <a href="https://github.com/miladrezanezhad/story-toolkit"><i class="fa-brands fa-github"></i> گیت‌هاب</a>
+                <a href="https://github.com/miladrezanezhad/story-toolkit"><i class="fa-brands fa-github"></i>
+                    گیت‌هاب</a>
             </div>
-            <p class="mt-2 text-muted">Story Development Toolkit • نسخه ۲.۰.۰ • مجوز MIT</p>
+            <p class="mt-2 text-muted">Story Development Toolkit • نسخه 2.2.2 • مجوز MIT</p>
         </div>
     </footer>
 
@@ -682,4 +912,5 @@ export_to_markdown(story_data, <span class="str">"output.md"</span>)</code></pre
     <!-- Custom Script -->
     <script src="script.js"></script>
 </body>
+
 </html>
