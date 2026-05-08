@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Story Development Toolkit - Documentation</title>
+    <title>Story Development Toolkit v2.0.0 - Documentation</title>
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://lib.arvancloud.ir/bootstrap/5.2.3/css/bootstrap.css">
@@ -13,176 +13,7 @@
     <link rel="stylesheet" href="eng/styles.css">
 
     <style>
-        .lang-select-section {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(180deg, #0d1117 0%, #161b22 100%);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .lang-select-section::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle at 30% 50%, rgba(88, 166, 255, 0.04) 0%, transparent 50%),
-                        radial-gradient(circle at 70% 50%, rgba(163, 113, 247, 0.04) 0%, transparent 50%);
-            animation: heroGlow 10s ease-in-out infinite;
-        }
-
-        @keyframes heroGlow {
-            0%, 100% { transform: rotate(0deg); }
-            50% { transform: rotate(180deg); }
-        }
-
-        .lang-card {
-            background: var(--bg-card);
-            border: 2px solid var(--border);
-            border-radius: var(--radius);
-            padding: 3rem 2rem;
-            text-align: center;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            display: block;
-            height: 100%;
-        }
-
-        .lang-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, #58a6ff, #a371f7, #db61a2);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .lang-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
-            border-color: var(--accent);
-            text-decoration: none;
-            color: var(--text-primary);
-        }
-
-        .lang-card:hover::before {
-            opacity: 1;
-        }
-
-        .lang-flag {
-            font-size: 5rem;
-            margin-bottom: 1.5rem;
-            display: block;
-            animation: float 3s ease-in-out infinite;
-        }
-
-        .lang-card:hover .lang-flag {
-            animation: bounce 0.6s ease;
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            40% { transform: translateY(-15px); }
-            60% { transform: translateY(-5px); }
-        }
-
-        .lang-name {
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin-bottom: 0.75rem;
-            color: var(--text-primary);
-        }
-
-        .lang-native {
-            font-size: 1.2rem;
-            color: var(--text-secondary);
-            margin-bottom: 1rem;
-        }
-
-        .lang-desc {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            line-height: 1.6;
-        }
-
-        .lang-badge {
-            display: inline-block;
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            margin-top: 1rem;
-            background: rgba(88, 166, 255, 0.1);
-            color: var(--accent);
-            border: 1px solid rgba(88, 166, 255, 0.2);
-        }
-
-        .logo-section {
-            position: relative;
-            z-index: 1;
-            margin-bottom: 3rem;
-        }
-
-        .logo-icon {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-            animation: float 3s ease-in-out infinite;
-        }
-
-        .logo-title {
-            font-size: 2.5rem;
-            font-weight: 900;
-            background: linear-gradient(135deg, #58a6ff, #a371f7, #db61a2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .logo-subtitle {
-            color: var(--text-secondary);
-            font-size: 1.1rem;
-            margin-top: 0.5rem;
-        }
-
-        .divider-text {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            color: var(--text-muted);
-            font-size: 0.85rem;
-            margin: 1.5rem 0;
-        }
-
-        .divider-text::before,
-        .divider-text::after {
-            content: '';
-            flex: 1;
-            height: 1px;
-            background: var(--border);
-        }
-
-        .footer-note {
-            color: var(--text-muted);
-            font-size: 0.8rem;
-        }
-
-        .footer-note a {
-            color: var(--accent);
-            text-decoration: none;
-        }
-
-        .footer-note a:hover {
-            text-decoration: underline;
-        }
+        
     </style>
 </head>
 <body>
@@ -194,8 +25,14 @@
             <!-- Logo -->
             <div class="logo-section">
                 <div class="logo-icon">📚</div>
-                <h1 class="logo-title">Story Development Toolkit</h1>
-                <p class="logo-subtitle">Choose your language to view the documentation</p>
+                <h1 class="logo-title">
+                    Story Development Toolkit 
+                    <span class="version-badge">v2.0.0</span>
+                </h1>
+                <p class="logo-subtitle">
+                    Choose your language to view the documentation 
+                    <span class="llm-badge"><i class="fa-solid fa-brain"></i> LLM Ready</span>
+                </p>
             </div>
 
             <!-- Language Cards -->
@@ -208,7 +45,8 @@
                         <p class="lang-native">English</p>
                         <p class="lang-desc">
                             Full documentation in English.<br>
-                            API reference, quick start guide, and examples.
+                            API reference, quick start guide, and examples.<br>
+                            <strong>NEW:</strong> LLM integration guide (Optional)
                         </p>
                         <span class="lang-badge">
                             <i class="fa-solid fa-arrow-right"></i> View Docs
@@ -224,7 +62,8 @@
                         <p class="lang-native">فارسی</p>
                         <p class="lang-desc">
                             مستندات کامل به زبان فارسی.<br>
-                            راهنمای شروع سریع، API و مثال‌ها.
+                            راهنمای شروع سریع، API و مثال‌ها.<br>
+                            <strong>جدید:</strong> راهنمای یکپارچگی با هوش مصنوعی
                         </p>
                         <span class="lang-badge">
                             <i class="fa-solid fa-arrow-left"></i> مشاهده مستندات
@@ -248,9 +87,10 @@
 
             <!-- Footer Note -->
             <p class="footer-note mt-4">
-                Story Development Toolkit v1.0.0 • 
+                Story Development Toolkit v2.0.0 • 
                 <a href="https://github.com/miladrezanezhad">Milad Rezanezhad</a> • 
-                MIT License
+                MIT License • 
+                <i class="fa-solid fa-brain"></i> Optional LLM Support (OpenAI, Anthropic, Local)
             </p>
 
         </div>
