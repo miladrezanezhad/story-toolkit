@@ -1,0 +1,12 @@
+# Optional export dependencies for story-toolkit
+
+# EPUB export
+ebooklib>=0.18
+
+# PDF export
+reportlab>=4.0
+
+# Note: Install with:
+# pip install -r requirements-export.txt
+# or
+# pip install story-toolkit[export]
