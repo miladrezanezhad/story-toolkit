@@ -10,7 +10,7 @@ If you discover a security vulnerability in Story Development Toolkit, please re
 
 Instead, please email the maintainer directly:
 
-📧 **Email:** [miladrezanezhad@gmail.com](mailto:miladrezanezhad@gmail.com)
+📧 **Email:** [miladvf2014@gmail.com](mailto:miladvf2014@gmail.com)
 
 ### 📋 What to Include
 
