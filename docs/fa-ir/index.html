@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Story Development Toolkit - ابزار توسعه داستان</title>
+    <title>Story Development Toolkit v2.0.0 - ابزار توسعه داستان با هوش مصنوعی</title>
 
     <!-- Bootstrap RTL -->
     <link rel="stylesheet" href="https://lib.arvancloud.ir/bootstrap/5.2.3/css/bootstrap.rtl.css">
@@ -54,14 +54,15 @@
             <div class="hero-logo mb-4">📚</div>
             <h1 class="hero-title mb-3">Story Development Toolkit</h1>
             <p class="hero-subtitle mb-4">
-                ابزار جامع پایتون برای تولید داستان‌های جذاب و منسجم
+                ابزار جامع پایتون برای تولید داستان‌های جذاب و منسجم با پشتیبانی اختیاری از هوش مصنوعی <span class="badge" style="background:var(--green);">جدید در نسخه ۲.۰.۰</span>
             </p>
 
             <div class="d-flex justify-content-center gap-2 flex-wrap mb-4">
-                <span class="badge-custom badge-python"><i class="fa-brands fa-python"></i> Python 3.8+</span>
-                <span class="badge-custom badge-version"><i class="fa-solid fa-code-branch"></i> نسخه ۱.۰.۰</span>
+                <span class="badge-custom badge-python"><i class="fa-brands fa-python"></i> Python 3.11+</span>
+                <span class="badge-custom badge-version"><i class="fa-solid fa-code-branch"></i> نسخه ۲.۰.۰</span>
                 <span class="badge-custom badge-license"><i class="fa-regular fa-file-lines"></i> MIT</span>
                 <span class="badge-custom badge-author"><i class="fa-solid fa-user"></i> میلاد رضانژاد</span>
+                <span class="badge-custom" style="background:rgba(88,166,255,0.1);color:#58a6ff;"><i class="fa-solid fa-brain"></i> آماده LLM</span>
             </div>
 
             <div class="d-flex justify-content-center gap-3 flex-wrap">
@@ -94,7 +95,13 @@
                         <div class="code-block-body">
                             <pre><code>git clone https://github.com/miladrezanezhad/story-toolkit.git
 cd story-toolkit
-pip install -r requirements.txt</code></pre>
+pip install -r requirements.txt
+
+<span class="cm"># جدید در نسخه ۲.۰.۰ - نصب با پشتیبانی از هوش مصنوعی</span>
+pip install story-toolkit[openai]      <span class="cm"># پشتیبانی از OpenAI</span>
+pip install story-toolkit[anthropic]   <span class="cm"># پشتیبانی از Anthropic</span>
+pip install story-toolkit[local]       <span class="cm"># پشتیبانی از مدل‌های محلی (رایگان)</span>
+pip install story-toolkit[all]         <span class="cm"># همه پشتیبان‌ها</span></code></pre>
                         </div>
                     </div>
                     <p class="text-center text-muted mt-3">
@@ -128,7 +135,7 @@ pip install -r requirements.txt</code></pre>
                     <div class="feature-card">
                         <div class="feature-icon">💬</div>
                         <h3>نوشتن دیالوگ</h3>
-                        <p>ایجاد دیالوگ‌های طبیعی با قالب‌های آماده برای موقعیت‌های درگیری، افشاگری، عاطفی و عاشقانه.</p>
+                        <p>ایجاد دیالوگ‌های طبیعی با قالب‌های آماده. <strong>جدید:</strong> یکپارچگی اختیاری با هوش مصنوعی برای دیالوگ‌های پیشرفته و دراماتیک.</p>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-4">
@@ -156,12 +163,35 @@ pip install -r requirements.txt</code></pre>
         </div>
     </section>
 
-    <!-- Quick Start Preview -->
+    <!-- NEW: LLM Feature Highlight -->
     <section class="py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="note" style="background:rgba(63,185,80,0.1); border-right-color:var(--green); text-align:center;">
+                        <i class="fa-solid fa-brain" style="font-size:2rem; color:var(--green); margin-bottom:10px; display:inline-block;"></i>
+                        <h3 style="color:var(--green);">🤖 جدید در نسخه ۲.۰.۰: پشتیبانی اختیاری از هوش مصنوعی</h3>
+                        <p>یکپارچگی با OpenAI، Anthropic یا مدل‌های محلی (Ollama) برای تولید دیالوگ‌های پیشرفته!<br>
+                        <strong>۱۰۰٪ اختیاری</strong> - کدهای نسخه ۱ شما بدون تغییر کار می‌کنند.</p>
+                        <div class="mt-3">
+                            <span class="badge-custom" style="background:rgba(88,166,255,0.1);"><i class="fa-brands fa-openai"></i> OpenAI GPT-4</span>
+                            <span class="badge-custom" style="background:rgba(163,113,247,0.1);"><i class="fa-solid fa-brain"></i> Anthropic Claude</span>
+                            <span class="badge-custom" style="background:rgba(63,185,80,0.1);"><i class="fa-solid fa-laptop-code"></i> مدل‌های محلی (Ollama)</span>
+                            <span class="badge-custom" style="background:rgba(210,153,29,0.1);"><i class="fa-solid fa-flask"></i> پشتیبان تست (Mock)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Start Preview -->
+    <section class="py-5 bg-dark-section">
         <div class="container">
             <h2 class="section-title"><i class="fa-solid fa-bolt"></i> شروع سریع</h2>
             <div class="row justify-content-center">
                 <div class="col-lg-8">
+                    <h4 class="mb-3">استفاده پایه (سازگار با نسخه ۱)</h4>
                     <div class="code-block-wrapper">
                         <div class="code-block-header">
                             <span class="lang-label">python</span>
@@ -188,13 +218,44 @@ report = toolkit.check_story_coherence(story)
 <span class="fn">print</span>(<span class="str">f"انسجام: {report['overall_score']:.0%}"</span>)</code></pre>
                         </div>
                     </div>
+
+                    <h4 class="mb-3 mt-5">استفاده پیشرفته با هوش مصنوعی <span class="badge" style="background:var(--green);">جدید در نسخه ۲.۰.۰</span></h4>
+                    <div class="code-block-wrapper">
+                        <div class="code-block-header">
+                            <span class="lang-label">python</span>
+                            <button class="copy-btn" onclick="copyCode(this)">
+                                <i class="fa-regular fa-copy"></i> کپی
+                            </button>
+                        </div>
+                        <div class="code-block-body">
+                            <pre><code><span class="kw">from</span> story_toolkit <span class="kw">import</span> StoryToolkit
+<span class="kw">from</span> story_toolkit.llm <span class="kw">import</span> LLMFactory, LLMProvider
+
+<span class="cm"># ایجاد پشتیبان هوش مصنوعی (Mock برای تست، بدون نیاز به کلید API)</span>
+llm = LLMFactory.create_backend(provider=LLMProvider.MOCK)
+
+<span class="cm"># ایجاد Toolkit با قابلیت هوش مصنوعی</span>
+toolkit = StoryToolkit(llm_backend=llm)
+
+<span class="cm"># تولید دیالوگ پیشرفته</span>
+dialogue = toolkit.dialogue_gen.generate_dialogue(
+    <span class="str">"کای"</span>, <span class="str">"مورگان"</span>,
+    context=<span class="str">"نبرد نهایی"</span>,
+    use_advanced=<span class="kw">True</span>,
+    style=<span class="str">"دراماتیک"</span>,
+    num_lines=8
+)
+
+<span class="fn">print</span>(toolkit.get_llm_status())  <span class="cm"># {'available': True, 'provider': 'mock'}</span></code></pre>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Stats -->
-    <section class="py-5 bg-dark-section">
+    <section class="py-5">
         <div class="container">
             <div class="row g-4">
                 <div class="col-6 col-md">
@@ -213,15 +274,15 @@ report = toolkit.check_story_coherence(story)
                 </div>
                 <div class="col-6 col-md">
                     <div class="stat-item">
-                        <div class="stat-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
-                        <div class="stat-number">۲</div>
-                        <div class="stat-label">ابزار NLP</div>
+                        <div class="stat-icon"><i class="fa-solid fa-brain"></i></div>
+                        <div class="stat-number">۴</div>
+                        <div class="stat-label">پشتیبان هوش مصنوعی <span class="badge" style="background:var(--green); font-size:10px;">جدید</span></div>
                     </div>
                 </div>
                 <div class="col-6 col-md">
                     <div class="stat-item">
                         <div class="stat-icon"><i class="fa-solid fa-check-double"></i></div>
-                        <div class="stat-number">۱۸+</div>
+                        <div class="stat-number">۲۵+</div>
                         <div class="stat-label">تست واحد</div>
                     </div>
                 </div>
@@ -237,7 +298,7 @@ report = toolkit.check_story_coherence(story)
     </section>
 
     <!-- Documentation Links -->
-    <section class="py-5">
+    <section class="py-5 bg-dark-section">
         <div class="container">
             <h2 class="section-title"><i class="fa-solid fa-folder-open"></i> مستندات</h2>
             <div class="row g-4">
@@ -277,6 +338,16 @@ report = toolkit.check_story_coherence(story)
         </div>
     </section>
 
+    <!-- Backward Compatibility Note -->
+    <section class="py-4">
+        <div class="container text-center">
+            <div class="note d-inline-block" style="display: inline-block; text-align: center;">
+                <i class="fa-solid fa-shield-alt"></i>
+                <strong>سازگار با نسخه قبل!</strong> تمام کدهای نوشته شده برای نسخه ۱.۰.۰ بدون تغییر در نسخه ۲.۰.۰ کار می‌کنند.
+            </div>
+        </div>
+    </section>
+
     <!-- Footer -->
     <footer class="footer py-4">
         <div class="container text-center">
@@ -291,7 +362,7 @@ report = toolkit.check_story_coherence(story)
                 <span class="text-muted">•</span>
                 <a href="#"><i class="fa-solid fa-scale-balanced"></i> مجوز MIT</a>
             </div>
-            <p class="mt-2 text-muted">Story Development Toolkit • نسخه ۱.۰.۰</p>
+            <p class="mt-2 text-muted">Story Development Toolkit • نسخه ۲.۰.۰ • مجوز MIT</p>
         </div>
     </footer>
 
