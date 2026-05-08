@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Story Development Toolkit v2.0.0 - Generate Engaging Stories with Python</title>
+    <title>Story Development Toolkit v2.2.2 - Generate Engaging Stories with Python</title>
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://lib.arvancloud.ir/bootstrap/5.2.3/css/bootstrap.css">
@@ -54,15 +54,19 @@
             <div class="hero-logo mb-4">📚</div>
             <h1 class="hero-title mb-3">Story Development Toolkit</h1>
             <p class="hero-subtitle mb-4">
-                A comprehensive Python toolkit for generating engaging and coherent stories with optional LLM support <span class="badge" style="background:var(--green);">NEW in v2.0.0</span>
+                A comprehensive Python toolkit for generating engaging and coherent stories with optional LLM support, memory, exporters, templates, and CLI
             </p>
 
             <div class="d-flex justify-content-center gap-2 flex-wrap mb-4">
                 <span class="badge-custom badge-python"><i class="fa-brands fa-python"></i> Python 3.11+</span>
-                <span class="badge-custom badge-version"><i class="fa-solid fa-code-branch"></i> v2.0.0</span>
+                <span class="badge-custom badge-version"><i class="fa-solid fa-code-branch"></i> v2.2.2</span>
                 <span class="badge-custom badge-license"><i class="fa-regular fa-file-lines"></i> MIT</span>
                 <span class="badge-custom badge-author"><i class="fa-solid fa-user"></i> Milad Rezanezhad</span>
                 <span class="badge-custom" style="background:rgba(88,166,255,0.1);color:#58a6ff;"><i class="fa-solid fa-brain"></i> LLM Ready</span>
+                <span class="badge-custom" style="background:rgba(63,185,80,0.1);color:#3fb950;"><i class="fa-solid fa-database"></i> Memory Ready</span>
+                <span class="badge-custom" style="background:rgba(210,153,29,0.1);color:#d2991d;"><i class="fa-solid fa-file-pdf"></i> Export Ready</span>
+                <span class="badge-custom" style="background:rgba(163,113,247,0.1);color:#a371f7;"><i class="fa-solid fa-clone"></i> Templates Ready</span>
+                <span class="badge-custom" style="background:rgba(219,97,162,0.1);color:#db61a2;"><i class="fa-solid fa-terminal"></i> CLI Ready</span>
             </div>
 
             <div class="d-flex justify-content-center gap-3 flex-wrap">
@@ -93,19 +97,18 @@
                             </button>
                         </div>
                         <div class="code-block-body">
-                            <pre><code>git clone https://github.com/miladrezanezhad/story-toolkit.git
-cd story-toolkit
-pip install -r requirements.txt
+                            <pre><code>pip install story-toolkit
 
-<span class="cm"># NEW in v2.0.0 - Install with LLM support</span>
-pip install story-toolkit[openai]      <span class="cm"># OpenAI (GPT-4, GPT-3.5)</span>
-pip install story-toolkit[anthropic]   <span class="cm"># Anthropic (Claude)</span>
-pip install story-toolkit[local]       <span class="cm"># Local LLM (Ollama, free)</span>
-pip install story-toolkit[all]         <span class="cm"># All backends</span></code></pre>
+<span class="cm"># Install with optional features</span>
+pip install story-toolkit[openai]      <span class="cm"># OpenAI support</span>
+pip install story-toolkit[anthropic]   <span class="cm"># Anthropic support</span>
+pip install story-toolkit[local]       <span class="cm"># Local LLM (Ollama)</span>
+pip install story-toolkit[export]      <span class="cm"># PDF, EPUB export</span>
+pip install story-toolkit[all]         <span class="cm"># Everything</span></code></pre>
                         </div>
                     </div>
                     <p class="text-center text-muted mt-3">
-                        Or install directly: <code style="background:var(--bg-tertiary);padding:2px 8px;border-radius:4px;color:var(--pink);">pip install -e .</code>
+                        Or install from source: <code style="background:var(--bg-tertiary);padding:2px 8px;border-radius:4px;color:var(--pink);">pip install -e .</code>
                     </p>
                 </div>
             </div>
@@ -135,7 +138,7 @@ pip install story-toolkit[all]         <span class="cm"># All backends</span></c
                     <div class="feature-card">
                         <div class="feature-icon">💬</div>
                         <h3>Dialogue Writing</h3>
-                        <p>Create natural dialogues with context-aware templates. <strong>NEW:</strong> Optional LLM integration for advanced, dramatic dialogues.</p>
+                        <p>Create natural dialogues with context-aware templates. Optional LLM integration for advanced, dramatic dialogues (v2.0.0).</p>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-4">
@@ -159,25 +162,53 @@ pip install story-toolkit[all]         <span class="cm"># All backends</span></c
                         <p>Analyze readability, pacing, dialogue balance, vocabulary richness, and reading difficulty level.</p>
                     </div>
                 </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">💾</div>
+                        <h3>Long-term Memory</h3>
+                        <p>Store stories in SQLite database with timeline events and character persistence (v2.1.0).</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">📄</div>
+                        <h3>Multiple Export Formats</h3>
+                        <p>Export stories to PDF, EPUB, HTML (4 templates), and Bionic Reading format (v2.2.0).</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">📋</div>
+                        <h3>Pre-built Templates</h3>
+                        <p>5 ready-to-use story structures: Hero's Journey, 3-Act, Mystery, Romance, Horror (v2.2.1).</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">💻</div>
+                        <h3>CLI Tool</h3>
+                        <p>Command-line interface for easy story generation without writing Python code (v2.2.2).</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- NEW: LLM Feature Highlight -->
+    <!-- Version Timeline -->
     <section class="py-5">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-10">
-                    <div class="note" style="background:rgba(63,185,80,0.1); border-left-color:var(--green); text-align:center;">
-                        <i class="fa-solid fa-brain" style="font-size:2rem; color:var(--green); margin-bottom:10px; display:inline-block;"></i>
-                        <h3 style="color:var(--green);">🤖 NEW in v2.0.0: Optional LLM Support</h3>
-                        <p>Integrate with OpenAI, Anthropic, or local models (Ollama) for advanced dialogue generation!<br>
-                        <strong>100% optional</strong> - your existing v1.0.0 code works unchanged.</p>
-                        <div class="mt-3">
-                            <span class="badge-custom" style="background:rgba(88,166,255,0.1);"><i class="fa-brands fa-openai"></i> OpenAI GPT-4</span>
-                            <span class="badge-custom" style="background:rgba(163,113,247,0.1);"><i class="fa-solid fa-brain"></i> Anthropic Claude</span>
-                            <span class="badge-custom" style="background:rgba(63,185,80,0.1);"><i class="fa-solid fa-laptop-code"></i> Local Models (Ollama)</span>
-                            <span class="badge-custom" style="background:rgba(210,153,29,0.1);"><i class="fa-solid fa-flask"></i> Mock Backend for Testing</span>
+                    <div class="note" style="text-align:center;">
+                        <i class="fa-solid fa-timeline" style="font-size:1.5rem;"></i>
+                        <h3>Version History</h3>
+                        <div class="row mt-3">
+                            <div class="col-md-2 col-6"><span class="badge-custom" style="background:rgba(63,185,80,0.2);">v1.0.0</span><br><small>Core</small></div>
+                            <div class="col-md-2 col-6"><span class="badge-custom" style="background:rgba(88,166,255,0.2);">v2.0.0</span><br><small>LLM</small></div>
+                            <div class="col-md-2 col-6"><span class="badge-custom" style="background:rgba(210,153,29,0.2);">v2.1.0</span><br><small>Memory</small></div>
+                            <div class="col-md-2 col-6"><span class="badge-custom" style="background:rgba(163,113,247,0.2);">v2.2.0</span><br><small>Exporters</small></div>
+                            <div class="col-md-2 col-6"><span class="badge-custom" style="background:rgba(219,97,162,0.2);">v2.2.1</span><br><small>Templates</small></div>
+                            <div class="col-md-2 col-6"><span class="badge-custom" style="background:rgba(63,185,80,0.2);">v2.2.2</span><br><small>CLI</small></div>
                         </div>
                     </div>
                 </div>
@@ -202,24 +233,17 @@ pip install story-toolkit[all]         <span class="cm"># All backends</span></c
                         <div class="code-block-body">
                             <pre><code><span class="kw">from</span> story_toolkit <span class="kw">import</span> StoryToolkit
 
-<span class="cm"># Create instance</span>
 toolkit = StoryToolkit()
-
-<span class="cm"># Create a story</span>
 story = toolkit.create_story(<span class="str">"fantasy"</span>, <span class="str">"courage"</span>)
-
-<span class="cm"># Add a hero</span>
 hero = toolkit.add_character_to_story(story, <span class="str">"Kai"</span>, <span class="str">"protagonist"</span>)
 hero.add_trait(<span class="str">"brave"</span>)
-hero.add_goal(<span class="str">"Save the kingdom"</span>)
 
-<span class="cm"># Check coherence</span>
 report = toolkit.check_story_coherence(story)
 <span class="fn">print</span>(<span class="str">f"Coherence: {report['overall_score']:.0%}"</span>)</code></pre>
                         </div>
                     </div>
 
-                    <h4 class="mb-3 mt-5">Advanced Usage with AI <span class="badge" style="background:var(--green);">NEW in v2.0.0</span></h4>
+                    <h4 class="mb-3 mt-5">Using Templates (v2.2.1)</h4>
                     <div class="code-block-wrapper">
                         <div class="code-block-header">
                             <span class="lang-label">python</span>
@@ -228,25 +252,28 @@ report = toolkit.check_story_coherence(story)
                             </button>
                         </div>
                         <div class="code-block-body">
-                            <pre><code><span class="kw">from</span> story_toolkit <span class="kw">import</span> StoryToolkit
-<span class="kw">from</span> story_toolkit.llm <span class="kw">import</span> LLMFactory, LLMProvider
+                            <pre><code><span class="cm"># Create story using Hero's Journey template (12 stages)</span>
+story = toolkit.use_template(<span class="str">"hero_journey"</span>, genre=<span class="str">"fantasy"</span>)
 
-<span class="cm"># Create LLM backend (Mock for testing, no API key)</span>
-llm = LLMFactory.create_backend(provider=LLMProvider.MOCK)
+<span class="cm"># List all templates</span>
+templates = toolkit.list_templates()
+<span class="kw">for</span> t <span class="kw">in</span> templates:
+    <span class="fn">print</span>(t[<span class="str">'name'</span>], t[<span class="str">'stage_count'</span>])</code></pre>
+                        </div>
+                    </div>
 
-<span class="cm"># Create toolkit with LLM</span>
-toolkit = StoryToolkit(llm_backend=llm)
-
-<span class="cm"># Generate advanced dialogue</span>
-dialogue = toolkit.dialogue_gen.generate_dialogue(
-    <span class="str">"Kai"</span>, <span class="str">"Morgan"</span>,
-    context=<span class="str">"final_battle"</span>,
-    use_advanced=<span class="kw">True</span>,
-    style=<span class="str">"dramatic"</span>,
-    num_lines=8
-)
-
-<span class="fn">print</span>(toolkit.get_llm_status())  <span class="cm"># {'available': True, 'provider': 'mock'}</span></code></pre>
+                    <h4 class="mb-3 mt-5">Using CLI (v2.2.2)</h4>
+                    <div class="code-block-wrapper">
+                        <div class="code-block-header">
+                            <span class="lang-label">bash</span>
+                            <button class="copy-btn" onclick="copyCode(this)">
+                                <i class="fa-regular fa-copy"></i> Copy
+                            </button>
+                        </div>
+                        <div class="code-block-body">
+                            <pre><code>story-toolkit story new --genre fantasy --theme courage
+story-toolkit template list
+story-toolkit template use hero_journey</code></pre>
                         </div>
                     </div>
                 </div>
@@ -276,21 +303,28 @@ dialogue = toolkit.dialogue_gen.generate_dialogue(
                     <div class="stat-item">
                         <div class="stat-icon"><i class="fa-solid fa-brain"></i></div>
                         <div class="stat-number">4</div>
-                        <div class="stat-label">LLM Backends <span class="badge" style="background:var(--green); font-size:10px;">NEW</span></div>
+                        <div class="stat-label">LLM Backends</div>
                     </div>
                 </div>
                 <div class="col-6 col-md">
                     <div class="stat-item">
-                        <div class="stat-icon"><i class="fa-solid fa-check-double"></i></div>
-                        <div class="stat-number">25+</div>
-                        <div class="stat-label">Unit Tests</div>
+                        <div class="stat-icon"><i class="fa-solid fa-file-export"></i></div>
+                        <div class="stat-number">4</div>
+                        <div class="stat-label">Export Formats</div>
+                    </div>
+                </div>
+                <div class="col-6 col-md">
+                    <div class="stat-item">
+                        <div class="stat-icon"><i class="fa-solid fa-clone"></i></div>
+                        <div class="stat-number">5</div>
+                        <div class="stat-label">Story Templates</div>
                     </div>
                 </div>
                 <div class="col-12 col-md">
                     <div class="stat-item">
-                        <div class="stat-icon"><i class="fa-solid fa-shield-halved"></i></div>
-                        <div class="stat-number">100%</div>
-                        <div class="stat-label">Test Coverage</div>
+                        <div class="stat-icon"><i class="fa-solid fa-check-double"></i></div>
+                        <div class="stat-number">30+</div>
+                        <div class="stat-label">Unit Tests</div>
                     </div>
                 </div>
             </div>
@@ -343,7 +377,7 @@ dialogue = toolkit.dialogue_gen.generate_dialogue(
         <div class="container text-center">
             <div class="note d-inline-block" style="display: inline-block; text-align: center;">
                 <i class="fa-solid fa-shield-alt"></i>
-                <strong>Backward Compatible!</strong> All code written for v1.0.0 works unchanged in v2.0.0.
+                <strong>Easy Upgrade!</strong> All code written for v1.0.0 works unchanged in v2.2.2. No rewriting needed!
             </div>
         </div>
     </section>
@@ -362,7 +396,7 @@ dialogue = toolkit.dialogue_gen.generate_dialogue(
                 <span class="text-muted">•</span>
                 <a href="#"><i class="fa-solid fa-scale-balanced"></i> MIT License</a>
             </div>
-            <p class="mt-2 text-muted">Story Development Toolkit • v2.0.0 • MIT License</p>
+            <p class="mt-2 text-muted">Story Development Toolkit • v2.2.2 • MIT License</p>
         </div>
     </footer>
 
