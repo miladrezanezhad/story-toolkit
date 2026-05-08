@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>شروع سریع - Story Development Toolkit</title>
+    <title>شروع سریع - Story Development Toolkit v2.0.0</title>
 
     <!-- Bootstrap RTL -->
     <link rel="stylesheet" href="https://lib.arvancloud.ir/bootstrap/5.2.3/css/bootstrap.rtl.css">
@@ -61,9 +61,13 @@
 
         <!-- Header -->
         <h1 class="mb-2"><i class="fa-solid fa-rocket"></i> شروع سریع</h1>
-        <p class="mb-5" style="font-size:1.1rem;color:var(--text-secondary);">
-            در ۵ دقیقه اولین داستان خود را با Story Development Toolkit بسازید
+        <p class="mb-3" style="font-size:1.1rem;color:var(--text-secondary);">
+            در ۵ دقیقه اولین داستان خود را با Story Development Toolkit <strong>نسخه ۲.۰.۰</strong> بسازید
         </p>
+        <div class="note mb-4">
+            <i class="fa-solid fa-star-of-life" style="color:var(--green);"></i>
+            <strong>جدید در نسخه ۲.۰.۰:</strong> قابلیت استفاده از هوش مصنوعی (LLM) برای دیالوگ‌های پیشرفته!
+        </div>
 
         <!-- Step 1 -->
         <h2 class="mb-3">مرحله ۱: نصب</h2>
@@ -77,7 +81,12 @@
             <div class="code-block-body">
                 <pre><code>git clone https://github.com/miladrezanezhad/story-toolkit.git
 cd story-toolkit
-pip install -r requirements.txt</code></pre>
+pip install -r requirements.txt
+
+<span class="cm"># جدید در نسخه ۲.۰.۰ - نصب با پشتیبانی LLM</span>
+pip install story-toolkit[openai]      <span class="cm"># پشتیبانی از OpenAI</span>
+pip install story-toolkit[local]       <span class="cm"># پشتیبانی از مدل‌های محلی (رایگان)</span>
+pip install story-toolkit[all]         <span class="cm"># همه پشتیبان‌ها</span></code></pre>
             </div>
         </div>
         <p class="text-muted mb-5">
@@ -103,6 +112,20 @@ toolkit = StoryToolkit()</code></pre>
         <p class="text-muted mb-5">
             کلاس <code>StoryToolkit</code> دسترسی یکپارچه به تمام امکانات را فراهم می‌کند.
         </p>
+
+        <!-- NEW: LLM Setup Section -->
+        <div class="note mb-5" style="background:rgba(63,185,80,0.1); border-left-color:var(--green);">
+            <strong><i class="fa-solid fa-brain" style="color:var(--green);"></i> جدید در نسخه ۲.۰.۰ - فعال‌سازی هوش مصنوعی:</strong>
+            <div class="mt-2">
+                <pre style="background:var(--bg-primary); padding:12px; border-radius:8px; margin-bottom:0;"><code><span class="kw">from</span> story_toolkit.llm <span class="kw">import</span> LLMFactory, LLMProvider
+
+<span class="cm"># ایجاد پشتیبان Mock برای تست (بدون نیاز به کلید API)</span>
+llm = LLMFactory.create_backend(provider=LLMProvider.MOCK)
+
+<span class="cm"># ایجاد Toolkit با قابلیت LLM</span>
+toolkit = StoryToolkit(llm_backend=llm)</code></pre>
+            </div>
+        </div>
 
         <!-- Step 3 -->
         <h2 class="mb-3">مرحله ۳: ساخت داستان</h2>
@@ -177,8 +200,8 @@ hero.add_relationship(<span class="str">"مورگان"</span>, <span class="str"
             <code>protagonist</code> (قهرمان)، <code>antagonist</code> (ضدقهرمان)، <code>supporting</code> (مکمل)، <code>mentor</code> (راهنما)
         </div>
 
-        <!-- Step 5 -->
-        <h2 class="mb-3">مرحله ۵: تولید دیالوگ</h2>
+        <!-- Step 5 - Legacy Dialogue (unchanged) -->
+        <h2 class="mb-3">مرحله ۵: تولید دیالوگ (حالت معمولی)</h2>
         <div class="code-block-wrapper">
             <div class="code-block-header">
                 <span class="lang-label">python</span>
@@ -207,9 +230,55 @@ dialogue = toolkit.dialogue_gen.generate_dialogue(
             کای: همیشه یه راه هست. تو فقط اشتباه انتخاب کردی.
         </div>
 
+        <!-- NEW: Advanced Dialogue Section -->
+        <h2 class="mb-3">مرحله ۵-الف: تولید دیالوگ پیشرفته با هوش مصنوعی <span class="badge" style="background:var(--green);">جدید در نسخه ۲.۰.۰</span></h2>
+        <div class="code-block-wrapper">
+            <div class="code-block-header">
+                <span class="lang-label">python</span>
+                <button class="copy-btn" onclick="copyCode(this)">
+                    <i class="fa-regular fa-copy"></i> کپی
+                </button>
+            </div>
+            <div class="code-block-body">
+                <pre><code><span class="kw">from</span> story_toolkit.llm <span class="kw">import</span> LLMFactory, LLMProvider
+
+<span class="cm"># مرحله ۱: ایجاد پشتیبان LLM (مثلاً Mock برای تست)</span>
+llm = LLMFactory.create_backend(provider=LLMProvider.MOCK)
+
+<span class="cm"># مرحله ۲: ایجاد Toolkit با قابلیت LLM</span>
+toolkit_advanced = StoryToolkit(llm_backend=llm)
+
+<span class="cm"># مرحله ۳: تولید دیالوگ پیشرفته</span>
+advanced_dialogue = toolkit_advanced.dialogue_gen.generate_dialogue(
+    <span class="str">"کای"</span>,
+    <span class="str">"مورگان"</span>,
+    context=<span class="str">"نبرد نهایی"</span>,
+    use_advanced=<span class="kw">True</span>,      <span class="cm"># فعال‌سازی هوش مصنوعی</span>
+    style=<span class="str">"دراماتیک"</span>,        <span class="cm"># سبک: natural, dramatic, poetic, humorous</span>
+    num_lines=8
+)
+
+<span class="kw">for</span> line <span class="kw">in</span> advanced_dialogue:
+    <span class="fn">print</span>(line)</code></pre>
+            </div>
+        </div>
+
+        <div class="output-block mb-5">
+            <i class="fa-solid fa-terminal"></i> خروجی (نمونه با پشتیبان Mock):<br><br>
+            کای: نمی‌تونم باور کنم چه کردی!<br>
+            مورگان: چاره‌ای برام نذاشتی، کای.<br>
+            کای: همیشه یه راه هست. تو اشتباه انتخاب کردی.<br>
+            مورگان: ببینیم در نهایت کی اشتباه کرده.<br>
+            کای: این تموم نشده.<br>
+            مورگان: درست می‌گی. تازه اولشه.<br>
+            کای: آماده باش. دفعه بعد شانس نمیاری.<br>
+            مورگان: همینطوره.
+        </div>
+
         <div class="note mb-5">
-            <strong><i class="fa-solid fa-lightbulb"></i> زمینه‌های دیالوگ:</strong>
-            <code>conflict</code> (درگیری)، <code>revelation</code> (افشاگری)، <code>emotional</code> (عاطفی)، <code>romantic</code> (عاشقانه)، <code>mysterious</code> (مرموز)
+            <strong><i class="fa-solid fa-lightbulb"></i> توجه:</strong>
+            برای استفاده از هوش مصنوعی واقعی (OpenAI یا Claude)، به کلید API نیاز دارید. پشتیبان <code>MOCK</code> برای تست بدون API مناسب است.<br>
+            سبک‌های قابل استفاده: <code>natural</code> (طبیعی)، <code>dramatic</code> (دراماتیک)، <code>poetic</code> (شاعرانه)، <code>humorous</code> (طنزآمیز)
         </div>
 
         <!-- Step 6 -->
@@ -275,8 +344,31 @@ toolkit.export_story(story, format=<span class="str">"markdown"</span>, filename
             </div>
         </div>
 
+        <!-- NEW: LLM Status Check -->
+        <h2 class="mb-3">مرحله ۷-الف: بررسی وضعیت هوش مصنوعی <span class="badge" style="background:var(--green);">جدید در نسخه ۲.۰.۰</span></h2>
+        <div class="code-block-wrapper">
+            <div class="code-block-header">
+                <span class="lang-label">python</span>
+                <button class="copy-btn" onclick="copyCode(this)">
+                    <i class="fa-regular fa-copy"></i> کپی
+                </button>
+            </div>
+            <div class="code-block-body">
+                <pre><code><span class="cm"># بررسی وضعیت LLM</span>
+status = toolkit_advanced.get_llm_status()
+<span class="fn">print</span>(<span class="str">f"وضعیت LLM: {status}"</span>)
+
+<span class="cm"># خروجی: {'available': True, 'provider': 'mock', 'model': 'mock'}</span>
+
+<span class="cm"># بررسی در دسترس بودن در DialogueGenerator</span>
+<span class="kw">if</span> toolkit_advanced.dialogue_gen.has_llm():
+    info = toolkit_advanced.dialogue_gen.get_llm_info()
+    <span class="fn">print</span>(<span class="str">f"استفاده از {info['provider']} - {info['model']}"</span>)</code></pre>
+            </div>
+        </div>
+
         <!-- Step 8: Full Code -->
-        <h2 class="mb-3">🎯 کد کامل یک‌جا</h2>
+        <h2 class="mb-3">🎯 کد کامل یک‌جا (نسخه پایه)</h2>
         <div class="code-block-wrapper">
             <div class="code-block-header">
                 <span class="lang-label">python</span>
@@ -322,6 +414,58 @@ save_story(story, <span class="str">"my_story.json"</span>)
             </div>
         </div>
 
+        <!-- NEW: Full Code with LLM -->
+        <h2 class="mb-3 mt-4">🤖 کد کامل با قابلیت هوش مصنوعی <span class="badge" style="background:var(--green);">جدید در نسخه ۲.۰.۰</span></h2>
+        <div class="code-block-wrapper">
+            <div class="code-block-header">
+                <span class="lang-label">python</span>
+                <button class="copy-btn" onclick="copyCode(this)">
+                    <i class="fa-regular fa-copy"></i> کپی
+                </button>
+            </div>
+            <div class="code-block-body">
+                <pre><code><span class="kw">from</span> story_toolkit <span class="kw">import</span> StoryToolkit
+<span class="kw">from</span> story_toolkit.llm <span class="kw">import</span> LLMFactory, LLMProvider
+<span class="kw">from</span> story_toolkit.utils.helpers <span class="kw">import</span> save_story
+
+<span class="cm"># ۱. ایجاد پشتیبان LLM (Mock برای تست)</span>
+llm = LLMFactory.create_backend(provider=LLMProvider.MOCK)
+
+<span class="cm"># ۲. ایجاد Toolkit با قابلیت LLM</span>
+toolkit = StoryToolkit(llm_backend=llm)
+
+<span class="cm"># ۳. ساخت داستان</span>
+story = toolkit.create_story(<span class="str">"fantasy"</span>, <span class="str">"courage"</span>, complexity=4)
+
+<span class="cm"># ۴. افزودن شخصیت‌ها</span>
+hero = toolkit.add_character_to_story(story, <span class="str">"کای"</span>, <span class="str">"protagonist"</span>)
+hero.add_trait(<span class="str">"brave"</span>)
+hero.add_goal(<span class="str">"Save the kingdom"</span>)
+
+villain = toolkit.add_character_to_story(story, <span class="str">"مورگان"</span>, <span class="str">"antagonist"</span>)
+villain.add_trait(<span class="str">"cunning"</span>)
+
+<span class="cm"># ۵. تولید دیالوگ پیشرفته با LLM</span>
+advanced_dialogue = toolkit.dialogue_gen.generate_dialogue(
+    <span class="str">"کای"</span>, <span class="str">"مورگان"</span>,
+    context=<span class="str">"نبرد نهایی"</span>,
+    use_advanced=<span class="kw">True</span>,
+    style=<span class="str">"دراماتیک"</span>,
+    num_lines=8
+)
+
+<span class="kw">for</span> line <span class="kw">in</span> advanced_dialogue:
+    <span class="fn">print</span>(line)
+
+<span class="cm"># ۶. بررسی وضعیت LLM</span>
+<span class="fn">print</span>(<span class="str">f"\n🤖 وضعیت LLM: {toolkit.get_llm_status()}"</span>)
+
+<span class="cm"># ۷. ذخیره داستان</span>
+save_story(story, <span class="str">"my_story_with_llm.json"</span>)
+<span class="fn">print</span>(<span class="str">"📁 داستان ذخیره شد"</span>)</code></pre>
+            </div>
+        </div>
+
         <!-- Next Steps -->
         <h2 class="mb-3 mt-5">📖 گام‌های بعدی</h2>
         <div class="row g-4">
@@ -343,6 +487,12 @@ save_story(story, <span class="str">"my_story.json"</span>)
             </div>
         </div>
 
+        <!-- Compatibility Note -->
+        <div class="note mt-5">
+            <i class="fa-solid fa-shield-alt"></i>
+            <strong>سازگاری با نسخه قبل:</strong> تمام کدهای نوشته شده برای نسخه ۱.۰.۰ بدون هیچ تغییری در نسخه ۲.۰.۰ کار می‌کنند. قابلیت‌های LLM کاملاً اختیاری هستند.
+        </div>
+
     </div>
 
     <!-- Footer -->
@@ -359,7 +509,7 @@ save_story(story, <span class="str">"my_story.json"</span>)
                 <span class="text-muted">•</span>
                 <a href="https://github.com/miladrezanezhad/story-toolkit"><i class="fa-brands fa-github"></i> گیت‌هاب</a>
             </div>
-            <p class="mt-2 text-muted">Story Development Toolkit • نسخه ۱.۰.۰</p>
+            <p class="mt-2 text-muted">Story Development Toolkit • نسخه ۲.۰.۰ • مجوز MIT</p>
         </div>
     </footer>
 
