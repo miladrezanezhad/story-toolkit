@@ -229,7 +229,7 @@ temp/
 *.old
 *.orig
 
-# Story exports (except examples)
+# Story exports (keep examples)
 !examples/*.json
 !examples/*.md
 
@@ -241,3 +241,34 @@ temp/
 .coverage
 htmlcov/
 .coverage.*
+
+# PDF exports (keep samples)
+*.pdf
+!docs/*.pdf
+
+# EPUB exports
+*.epub
+
+# HTML exports
+*.html
+!docs/**/*.html
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# Python virtual environments
+venv/
+.env/
+ENV/
+
+# pytest
+.pytest_cache/
+
+# mypy
+.mypy_cache/
+
+# build artifacts
+*.pyc
+*.pyo
+*.pyd

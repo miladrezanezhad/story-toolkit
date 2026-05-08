@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "story-toolkit"
-version = "2.0.0"
+version = "2.2.2"
 description = "A comprehensive toolkit for generating engaging and coherent stories with optional LLM support"
 readme = "README.md"
 requires-python = ">=3.11"
@@ -15,11 +15,15 @@ authors = [
 keywords = [
     "story", "writing", "narrative", "dialogue", "character",
     "plot", "world-building", "nlp", "creative-writing",
-    "fiction", "story-generator", "llm", "openai", "claude"
+    "fiction", "story-generator", "llm", "openai", "claude",
+    "story-telling", "python", "toolkit", "cli", "templates",
+    "epub", "pdf", "html", "memory", "sqlite"
 ]
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
+    "Intended Audience :: Education",
+    "Intended Audience :: Science/Research",
     "Topic :: Software Development :: Libraries :: Python Modules",
     "Topic :: Text Processing :: Linguistic",
     "Topic :: Artistic Software",
@@ -40,10 +44,26 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+# LLM backends
 openai = ["openai>=1.0.0"]
 anthropic = ["anthropic>=0.18.0"]
 local = ["ollama>=0.1.0"]
-llm = ["openai>=1.0.0", "anthropic>=0.18.0", "ollama>=0.1.0"]
+llama-cpp = ["llama-cpp-python>=0.2.0"]
+
+# Export formats
+export = [
+    "ebooklib>=0.18",
+    "reportlab>=4.0",
+]
+
+# Complete LLM support
+llm = [
+    "openai>=1.0.0",
+    "anthropic>=0.18.0",
+    "ollama>=0.1.0",
+]
+
+# Development dependencies
 dev = [
     "pytest>=7.0.0",
     "pytest-cov>=4.0.0",
@@ -53,17 +73,38 @@ dev = [
     "isort>=5.12.0",
     "flake8>=6.0.0",
     "mypy>=1.0.0",
+    "types-pyyaml>=6.0.0",
+    "types-requests>=2.31.0",
 ]
-all = ["story-toolkit[openai,anthropic,local,dev]"]
+
+# Documentation
+docs = [
+    "sphinx>=7.0.0",
+    "sphinx-rtd-theme>=1.3.0",
+    "myst-parser>=2.0.0",
+]
+
+# Testing
+test = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+    "pytest-mock>=3.11.0",
+]
+
+# Complete installation
+all = [
+    "story-toolkit[openai,anthropic,local,export,dev]"
+]
 
 [project.urls]
 "Homepage" = "https://github.com/miladrezanezhad/story-toolkit"
 "Bug Reports" = "https://github.com/miladrezanezhad/story-toolkit/issues"
 "Source" = "https://github.com/miladrezanezhad/story-toolkit"
 "Documentation" = "https://miladrezanezhad.github.io/story-toolkit/"
+"Changelog" = "https://github.com/miladrezanezhad/story-toolkit/blob/main/CHANGELOG.md"
 
 [project.scripts]
-story-toolkit = "story_toolkit.cli:main"
+story-toolkit = "story_toolkit.cli.main:main"
 
 [tool.black]
 line-length = 100

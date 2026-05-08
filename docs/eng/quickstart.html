@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quick Start - Story Development Toolkit v2.0.0</title>
+    <title>Quick Start - Story Development Toolkit v2.2.2</title>
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://lib.arvancloud.ir/bootstrap/5.2.3/css/bootstrap.css">
@@ -49,7 +49,7 @@
     </nav>
 
     <!-- Main Content -->
-    <div class="container py-5" style="max-width: 860px;">
+    <div class="container py-5" style="max-width: 1000px;">
 
         <!-- Breadcrumb -->
         <nav aria-label="breadcrumb" class="mb-4">
@@ -60,487 +60,741 @@
         </nav>
 
         <!-- Header -->
-        <h1 class="mb-2"><i class="fa-solid fa-rocket"></i> Quick Start</h1>
+        <h1 class="mb-2"><i class="fa-solid fa-rocket"></i> Quick Start Guide</h1>
         <p class="mb-3" style="font-size:1.1rem;color:var(--text-secondary);">
-            Build your first story with Story Development Toolkit <strong>v2.0.0</strong> in 5 minutes
+            Complete guide from v1.0.0 to v2.2.2 — Build stories step by step
         </p>
-        <div class="note mb-4">
-            <i class="fa-solid fa-star-of-life" style="color:var(--green);"></i>
-            <strong>NEW in v2.0.0:</strong> Optional LLM support for advanced dialogue generation with OpenAI, Anthropic, and local models!
+
+        <!-- Version Timeline -->
+        <div class="note mb-5" style="background:rgba(88,166,255,0.1); border-left-color:var(--accent);">
+            <i class="fa-solid fa-timeline"></i>
+            <strong>Version Timeline:</strong> v1.0.0 (Core) → v2.0.0 (LLM) → v2.1.0 (Memory) → v2.2.0 (Exporters) → v2.2.1 (Templates) → v2.2.2 (CLI)
         </div>
 
-        <!-- Step 1 -->
-        <h2 class="mb-3">Step 1: Installation</h2>
-        <div class="code-block-wrapper">
-            <div class="code-block-header">
-                <span class="lang-label">bash</span>
-                <button class="copy-btn" onclick="copyCode(this)">
-                    <i class="fa-regular fa-copy"></i> Copy
-                </button>
+        <!-- ============================================================ -->
+        <!-- SECTION: v1.0.0 - CORE FEATURES -->
+        <!-- ============================================================ -->
+        <div class="card mb-5" style="background:var(--bg-card); border-color:var(--border);">
+            <div class="card-header" style="background:var(--bg-tertiary);">
+                <h2 class="mb-0" style="color:var(--green);"><i class="fa-brands fa-python"></i> v1.0.0 - Core Features</h2>
             </div>
-            <div class="code-block-body">
-                <pre><code>git clone https://github.com/miladrezanezhad/story-toolkit.git
+            <div class="card-body">
+
+                <h3>Step 1: Installation</h3>
+                <div class="code-block-wrapper">
+                    <div class="code-block-header"><span class="lang-label">bash</span><button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> Copy</button></div>
+                    <div class="code-block-body"><pre><code>git clone https://github.com/miladrezanezhad/story-toolkit.git
 cd story-toolkit
 pip install -r requirements.txt
 
-<span class="cm"># NEW in v2.0.0 - Install with LLM support</span>
-pip install story-toolkit[openai]      <span class="cm"># OpenAI support (GPT-4, GPT-3.5)</span>
-pip install story-toolkit[anthropic]   <span class="cm"># Anthropic support (Claude)</span>
-pip install story-toolkit[local]       <span class="cm"># Local LLM support (Ollama, free)</span>
-pip install story-toolkit[all]         <span class="cm"># All backends</span></code></pre>
-            </div>
-        </div>
-        <p class="text-muted mb-5">
-            Or install directly with <code style="background:var(--bg-tertiary);padding:2px 8px;border-radius:4px;color:var(--pink);">pip install -e .</code>
-        </p>
+<span class="cm"># Or install directly</span>
+pip install -e .</code></pre></div>
+                </div>
 
-        <!-- Step 2 -->
-        <h2 class="mb-3">Step 2: Import the Library</h2>
-        <div class="code-block-wrapper">
-            <div class="code-block-header">
-                <span class="lang-label">python</span>
-                <button class="copy-btn" onclick="copyCode(this)">
-                    <i class="fa-regular fa-copy"></i> Copy
-                </button>
-            </div>
-            <div class="code-block-body">
-                <pre><code><span class="kw">from</span> story_toolkit <span class="kw">import</span> StoryToolkit
+                <h3>Step 2: Create Your First Story</h3>
+                <div class="code-block-wrapper">
+                    <div class="code-block-header"><span class="lang-label">python</span><button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> Copy</button></div>
+                    <div class="code-block-body"><pre><code><span class="kw">from</span> story_toolkit <span class="kw">import</span> StoryToolkit
 
-<span class="cm"># Create a Toolkit instance</span>
-toolkit = StoryToolkit()</code></pre>
-            </div>
-        </div>
-        <p class="text-muted mb-5">
-            The <code>StoryToolkit</code> class provides unified access to all features.
-        </p>
+<span class="cm"># Create toolkit instance</span>
+toolkit = StoryToolkit()
 
-        <!-- NEW: LLM Setup Section -->
-        <div class="note mb-5" style="background:rgba(63,185,80,0.1); border-left-color:var(--green);">
-            <strong><i class="fa-solid fa-brain" style="color:var(--green);"></i> NEW in v2.0.0 - Enable AI-Powered Features:</strong>
-            <div class="mt-2">
-                <pre style="background:var(--bg-primary); padding:12px; border-radius:8px; margin-bottom:0;"><code><span class="kw">from</span> story_toolkit.llm <span class="kw">import</span> LLMFactory, LLMProvider
+<span class="cm"># Create a fantasy story</span>
+story = toolkit.create_story(genre=<span class="str">"fantasy"</span>, theme=<span class="str">"courage"</span>)
 
-<span class="cm"># Create Mock backend for testing (no API key required)</span>
-llm = LLMFactory.create_backend(provider=LLMProvider.MOCK)
+<span class="fn">print</span>(story[<span class="str">"metadata"</span>][<span class="str">"genre"</span>])   <span class="cm"># "fantasy"</span>
+<span class="fn">print</span>(story[<span class="str">"metadata"</span>][<span class="str">"theme"</span>])   <span class="cm"># "courage"</span></code></pre></div>
+                </div>
 
-<span class="cm"># Create Toolkit with LLM capabilities</span>
-toolkit = StoryToolkit(llm_backend=llm)</code></pre>
-            </div>
-        </div>
-
-        <!-- Step 3 -->
-        <h2 class="mb-3">Step 3: Create a Story</h2>
-        <div class="code-block-wrapper">
-            <div class="code-block-header">
-                <span class="lang-label">python</span>
-                <button class="copy-btn" onclick="copyCode(this)">
-                    <i class="fa-regular fa-copy"></i> Copy
-                </button>
-            </div>
-            <div class="code-block-body">
-                <pre><code><span class="cm"># Create a fantasy story with the theme of courage</span>
-story = toolkit.create_story(
-    genre=<span class="str">"fantasy"</span>,
-    theme=<span class="str">"courage"</span>,
-    complexity=4
-)
-
-<span class="fn">print</span>(story[<span class="str">"metadata"</span>][<span class="str">"genre"</span>])      <span class="cm"># "fantasy"</span>
-<span class="fn">print</span>(story[<span class="str">"metadata"</span>][<span class="str">"theme"</span>])      <span class="cm"># "courage"</span>
-<span class="fn">print</span>(story[<span class="str">"metadata"</span>][<span class="str">"complexity"</span>]) <span class="cm"># 4</span></code></pre>
-            </div>
-        </div>
-
-        <div class="note mb-5">
-            <strong><i class="fa-solid fa-lightbulb"></i> Supported genres:</strong>
-            <code>fantasy</code>, <code>mystery</code>, <code>romance</code>, <code>adventure</code>, <code>sci_fi</code>
-        </div>
-
-        <!-- Step 4 -->
-        <h2 class="mb-3">Step 4: Add Characters</h2>
-        <div class="code-block-wrapper">
-            <div class="code-block-header">
-                <span class="lang-label">python</span>
-                <button class="copy-btn" onclick="copyCode(this)">
-                    <i class="fa-regular fa-copy"></i> Copy
-                </button>
-            </div>
-            <div class="code-block-body">
-                <pre><code><span class="cm"># Add the hero</span>
-hero = toolkit.add_character_to_story(
-    story,
-    <span class="str">"Kai"</span>,
-    <span class="str">"protagonist"</span>
-)
-
-<span class="cm"># Develop the hero's personality</span>
+                <h3>Step 3: Add Characters</h3>
+                <div class="code-block-wrapper">
+                    <div class="code-block-header"><span class="lang-label">python</span><button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> Copy</button></div>
+                    <div class="code-block-body"><pre><code><span class="cm"># Add hero</span>
+hero = toolkit.add_character_to_story(story, <span class="str">"Kai"</span>, <span class="str">"protagonist"</span>)
 hero.add_trait(<span class="str">"brave"</span>)
 hero.add_trait(<span class="str">"determined"</span>)
-hero.add_trait(<span class="str">"compassionate"</span>)
 hero.add_goal(<span class="str">"Save the kingdom"</span>)
 hero.add_skill(<span class="str">"sword_mastery"</span>)
-hero.add_skill(<span class="str">"stealth"</span>)
-hero.add_weakness(<span class="str">"overconfidence"</span>)
-hero.add_fear(<span class="str">"failure"</span>)
+hero.add_fear(<span class="str">"darkness"</span>)
 
-<span class="cm"># Add the villain</span>
-villain = toolkit.add_character_to_story(
-    story,
-    <span class="str">"Morgan"</span>,
-    <span class="str">"antagonist"</span>
-)
-villain.add_trait(<span class="str">"manipulative"</span>)
-villain.add_trait(<span class="str">"charismatic"</span>)
-villain.add_goal(<span class="str">"Control the kingdom"</span>)
-villain.add_skill(<span class="str">"strategic_planning"</span>)
+<span class="cm"># Add villain</span>
+villain = toolkit.add_character_to_story(story, <span class="str">"Shadow Lord"</span>, <span class="str">"antagonist"</span>)
+villain.add_trait(<span class="str">"cunning"</span>)
+villain.add_trait(<span class="str">"ruthless"</span>)
+villain.add_goal(<span class="str">"Conquer the realm"</span>)
 
-<span class="cm"># Add a mentor</span>
-mentor = toolkit.add_character_to_story(
-    story,
-    <span class="str">"Master Yuki"</span>,
-    <span class="str">"mentor"</span>
-)
-mentor.add_trait(<span class="str">"wise"</span>)
-mentor.add_trait(<span class="str">"mysterious"</span>)
+<span class="cm"># Create relationship</span>
+hero.add_relationship(<span class="str">"Shadow Lord"</span>, <span class="str">"enemy"</span>, strength=9)
 
-<span class="cm"># Create relationships</span>
-hero.add_relationship(<span class="str">"Morgan"</span>, <span class="str">"enemy"</span>, strength=9)
-hero.add_relationship(<span class="str">"Master Yuki"</span>, <span class="str">"mentor"</span>, strength=10)</code></pre>
-            </div>
-        </div>
+<span class="fn">print</span>(<span class="str">f"Hero: {hero.name}, Traits: {hero.personality_traits}"</span>)
+<span class="fn">print</span>(<span class="str">f"Villain: {villain.name}, Goal: {villain.goals[0]}"</span>)</code></pre></div>
+                </div>
 
-        <div class="note mb-5">
-            <strong><i class="fa-solid fa-lightbulb"></i> Available roles:</strong>
-            <code>protagonist</code>, <code>antagonist</code>, <code>supporting</code>, <code>mentor</code>
-        </div>
+                <div class="output-block mb-3">
+                    <i class="fa-solid fa-terminal"></i> Output:<br>
+                    Hero: Kai, Traits: ['brave', 'determined']<br>
+                    Villain: Shadow Lord, Goal: Conquer the realm
+                </div>
 
-        <!-- Step 5 - Legacy Dialogue (unchanged) -->
-        <h2 class="mb-3">Step 5: Generate Dialogue (Basic Mode)</h2>
-        <div class="code-block-wrapper">
-            <div class="code-block-header">
-                <span class="lang-label">python</span>
-                <button class="copy-btn" onclick="copyCode(this)">
-                    <i class="fa-regular fa-copy"></i> Copy
-                </button>
-            </div>
-            <div class="code-block-body">
-                <pre><code><span class="cm"># Generate a conflict dialogue</span>
+                <h3>Step 4: Generate Dialogue</h3>
+                <div class="code-block-wrapper">
+                    <div class="code-block-header"><span class="lang-label">python</span><button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> Copy</button></div>
+                    <div class="code-block-body"><pre><code><span class="cm"># Generate conflict dialogue</span>
 dialogue = toolkit.dialogue_gen.generate_dialogue(
-    <span class="str">"Kai"</span>,
-    <span class="str">"Morgan"</span>,
+    <span class="str">"Kai"</span>, <span class="str">"Shadow Lord"</span>,
     context=<span class="str">"conflict"</span>,
     mood=<span class="str">"tense"</span>
 )
 
 <span class="kw">for</span> line <span class="kw">in</span> dialogue:
-    <span class="fn">print</span>(line)</code></pre>
-            </div>
-        </div>
+    <span class="fn">print</span>(line)</code></pre></div>
+                </div>
 
-        <div class="output-block mb-5">
-            <i class="fa-solid fa-terminal"></i> Output:<br><br>
-            Kai: I can't believe you would do this!<br>
-            Morgan: You left me no choice.<br>
-            Kai: There's always a choice. You just chose wrong.
-        </div>
+                <div class="output-block mb-3">
+                    <i class="fa-solid fa-terminal"></i> Output:<br>
+                    Kai: I can't believe you would do this!<br>
+                    Shadow Lord: You left me no choice.<br>
+                    Kai: There's always a choice. You just chose wrong.
+                </div>
 
-        <!-- NEW: Advanced Dialogue Section -->
-        <h2 class="mb-3">Step 5-A: Generate Advanced Dialogue with AI <span class="badge" style="background:var(--green);">NEW in v2.0.0</span></h2>
-        <div class="code-block-wrapper">
-            <div class="code-block-header">
-                <span class="lang-label">python</span>
-                <button class="copy-btn" onclick="copyCode(this)">
-                    <i class="fa-regular fa-copy"></i> Copy
-                </button>
-            </div>
-            <div class="code-block-body">
-                <pre><code><span class="kw">from</span> story_toolkit.llm <span class="kw">import</span> LLMFactory, LLMProvider
-
-<span class="cm"># Step 1: Create LLM backend (Mock for testing, no API key)</span>
-llm = LLMFactory.create_backend(provider=LLMProvider.MOCK)
-
-<span class="cm"># Step 2: Create Toolkit with LLM capabilities</span>
-toolkit_advanced = StoryToolkit(llm_backend=llm)
-
-<span class="cm"># Step 3: Generate advanced dialogue</span>
-advanced_dialogue = toolkit_advanced.dialogue_gen.generate_dialogue(
-    <span class="str">"Kai"</span>,
-    <span class="str">"Morgan"</span>,
-    context=<span class="str">"final_battle"</span>,
-    use_advanced=<span class="kw">True</span>,      <span class="cm"># Enable AI</span>
-    style=<span class="str">"dramatic"</span>,         <span class="cm"># Options: natural, dramatic, poetic, humorous</span>
-    num_lines=8
-)
-
-<span class="kw">for</span> line <span class="kw">in</span> advanced_dialogue:
-    <span class="fn">print</span>(line)</code></pre>
-            </div>
-        </div>
-
-        <div class="output-block mb-5">
-            <i class="fa-solid fa-terminal"></i> Output (Mock backend example):<br><br>
-            Kai: I can't believe what you've done!<br>
-            Morgan: You left me no choice, Kai.<br>
-            Kai: There's always a choice. You chose wrong.<br>
-            Morgan: We'll see who was wrong in the end.<br>
-            Kai: This isn't over.<br>
-            Morgan: You're right about that.<br>
-            Kai: Next time, you won't be so lucky.<br>
-            Morgan: We'll see about that.
-        </div>
-
-        <div class="note mb-5">
-            <strong><i class="fa-solid fa-lightbulb"></i> Note:</strong>
-            For real AI (OpenAI or Claude), you'll need an API key. The <code>MOCK</code> backend is perfect for testing without any API key.<br>
-            Available styles: <code>natural</code>, <code>dramatic</code>, <code>poetic</code>, <code>humorous</code>
-        </div>
-
-        <!-- Step 6 -->
-        <h2 class="mb-3">Step 6: Build a World</h2>
-        <div class="code-block-wrapper">
-            <div class="code-block-header">
-                <span class="lang-label">python</span>
-                <button class="copy-btn" onclick="copyCode(this)">
-                    <i class="fa-regular fa-copy"></i> Copy
-                </button>
-            </div>
-            <div class="code-block-body">
-                <pre><code><span class="kw">from</span> story_toolkit.core.world_builder <span class="kw">import</span> WorldBuilder
+                <h3>Step 5: Build a World</h3>
+                <div class="code-block-wrapper">
+                    <div class="code-block-header"><span class="lang-label">python</span><button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> Copy</button></div>
+                    <div class="code-block-body"><pre><code><span class="kw">from</span> story_toolkit.core.world_builder <span class="kw">import</span> WorldBuilder
 
 world = WorldBuilder()
 world.create_world(<span class="str">"Eldoria"</span>, <span class="str">"fantasy"</span>)
 
 <span class="cm"># Add locations</span>
 world.add_location(<span class="str">"Crystal City"</span>, <span class="str">"Ancient metropolis"</span>, <span class="str">"city"</span>)
-world.add_location(<span class="str">"Shadow Forest"</span>, <span class="str">"Mysterious dark forest"</span>, <span class="str">"forest"</span>)
-world.add_location(<span class="str">"Thunder Mountains"</span>, <span class="str">"Storm-peaked mountains"</span>, <span class="str">"mountains"</span>)
+world.add_location(<span class="str">"Shadow Forest"</span>, <span class="str">"Mysterious woods"</span>, <span class="str">"forest"</span>)
+world.add_location(<span class="str">"Dragon's Peak"</span>, <span class="str">"Smoking volcano"</span>, <span class="str">"mountain"</span>)
 
 <span class="cm"># Connect locations</span>
 world.connect_locations(<span class="str">"Crystal City"</span>, <span class="str">"Shadow Forest"</span>)
 
-<span class="cm"># Add world rules</span>
-world.add_rule(<span class="str">"magical"</span>, <span class="str">"Only eclipse-born can wield magic"</span>)
-world.add_rule(<span class="str">"social"</span>, <span class="str">"The Council of Seven rules all"</span>)
+<span class="cm"># Add rules</span>
+world.add_rule(<span class="str">"magical"</span>, <span class="str">"Only pure hearts can use magic"</span>)
+world.add_rule(<span class="str">"social"</span>, <span class="str">"The Council of Seven rules"</span>)
 
-<span class="cm"># Add a faction</span>
+<span class="cm"># Add faction</span>
 world.add_faction(
     <span class="str">"Shadow Guild"</span>,
-    <span class="str">"Secret underground organization"</span>,
-    goals=[<span class="str">"Control magic"</span>, <span class="str">"Overthrow council"</span>]
-)</code></pre>
-            </div>
-        </div>
+    <span class="str">"Secret organization"</span>,
+    goals=[<span class="str">"control_magic"</span>, <span class="str">"overthrow_council"</span>]
+)
 
-        <!-- Step 7 -->
-        <h2 class="mb-3">Step 7: Check Story Coherence</h2>
-        <div class="code-block-wrapper">
-            <div class="code-block-header">
-                <span class="lang-label">python</span>
-                <button class="copy-btn" onclick="copyCode(this)">
-                    <i class="fa-regular fa-copy"></i> Copy
-                </button>
-            </div>
-            <div class="code-block-body">
-                <pre><code><span class="cm"># Check story coherence and get a report</span>
-report = toolkit.check_story_coherence(story)
+summary = world.get_world_summary()
+<span class="fn">print</span>(<span class="str">f"Locations: {summary['total_locations']}"</span>)</code></pre></div>
+                </div>
 
-<span class="cm"># Display overall score</span>
+                <h3>Step 6: Check Coherence</h3>
+                <div class="code-block-wrapper">
+                    <div class="code-block-header"><span class="lang-label">python</span><button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> Copy</button></div>
+                    <div class="code-block-body"><pre><code>report = toolkit.check_story_coherence(story)
+
 <span class="fn">print</span>(<span class="str">f"Coherence Score: {report['overall_score']:.0%}"</span>)
 
-<span class="cm"># Check for plot holes</span>
 <span class="kw">if</span> report[<span class="str">'plot_holes'</span>]:
-    <span class="fn">print</span>(<span class="str">"\n⚠️ Plot Holes Found:"</span>)
+    <span class="fn">print</span>(<span class="str">"Plot holes found:"</span>)
     <span class="kw">for</span> hole <span class="kw">in</span> report[<span class="str">'plot_holes'</span>]:
         <span class="fn">print</span>(<span class="str">f"  - {hole}"</span>)
 
-<span class="cm"># Show recommendations</span>
 <span class="kw">if</span> report[<span class="str">'recommendations'</span>]:
-    <span class="fn">print</span>(<span class="str">"\n💡 Recommendations:"</span>)
+    <span class="fn">print</span>(<span class="str">"Recommendations:"</span>)
     <span class="kw">for</span> rec <span class="kw">in</span> report[<span class="str">'recommendations'</span>]:
-        <span class="fn">print</span>(<span class="str">f"  - {rec}"</span>)</code></pre>
-            </div>
-        </div>
+        <span class="fn">print</span>(<span class="str">f"  💡 {rec}"</span>)</code></pre></div>
+                </div>
 
-        <div class="output-block mb-5">
-            <i class="fa-solid fa-terminal"></i> Output:<br><br>
-            Coherence Score: 100%<br><br>
-            💡 Recommendations:<br>
-            - Story appears coherent - maintain this quality throughout!
-        </div>
+                <div class="output-block mb-3">
+                    <i class="fa-solid fa-terminal"></i> Output:<br>
+                    Coherence Score: 100%<br>
+                    Recommendations:<br>
+                      💡 Story appears coherent - maintain this quality throughout!
+                </div>
 
-        <!-- Step 8 -->
-        <h2 class="mb-3">Step 8: Save & Export</h2>
-        <div class="code-block-wrapper">
-            <div class="code-block-header">
-                <span class="lang-label">python</span>
-                <button class="copy-btn" onclick="copyCode(this)">
-                    <i class="fa-regular fa-copy"></i> Copy
-                </button>
-            </div>
-            <div class="code-block-body">
-                <pre><code><span class="kw">from</span> story_toolkit.utils.helpers <span class="kw">import</span> save_story, export_to_markdown
+                <h3>Step 7: Save & Export</h3>
+                <div class="code-block-wrapper">
+                    <div class="code-block-header"><span class="lang-label">python</span><button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> Copy</button></div>
+                    <div class="code-block-body"><pre><code><span class="kw">from</span> story_toolkit.utils.helpers <span class="kw">import</span> save_story, export_to_markdown
 
 <span class="cm"># Save as JSON</span>
 save_story(story, <span class="str">"my_story.json"</span>)
 
-<span class="cm"># Export as Markdown (great for GitHub)</span>
+<span class="cm"># Export as Markdown</span>
 export_to_markdown(story, <span class="str">"my_story.md"</span>)
 
-<span class="cm"># Or use the Toolkit's built-in export</span>
-toolkit.export_story(story, format=<span class="str">"json"</span>, filename=<span class="str">"my_story"</span>)
-toolkit.export_story(story, format=<span class="str">"markdown"</span>, filename=<span class="str">"my_story"</span>)
+<span class="cm"># Or use toolkit method</span>
+toolkit.export_story(story, format=<span class="str">"json"</span>, filename=<span class="str">"my_story"</span>)</code></pre></div>
+                </div>
 
-<span class="fn">print</span>(<span class="str">"✅ Story saved successfully!"</span>)</code></pre>
+                <div class="note" style="background:rgba(63,185,80,0.1);">
+                    <i class="fa-solid fa-check-circle"></i>
+                    <strong>v1.0.0 Complete!</strong> You've built a story with characters, world, dialogue, and coherence checking!
+                </div>
             </div>
         </div>
 
-        <!-- NEW: LLM Status Check -->
-        <h2 class="mb-3">Step 8-A: Check LLM Status <span class="badge" style="background:var(--green);">NEW in v2.0.0</span></h2>
-        <div class="code-block-wrapper">
-            <div class="code-block-header">
-                <span class="lang-label">python</span>
-                <button class="copy-btn" onclick="copyCode(this)">
-                    <i class="fa-regular fa-copy"></i> Copy
-                </button>
+        <!-- ============================================================ -->
+        <!-- SECTION: v2.0.0 - LLM LAYER -->
+        <!-- ============================================================ -->
+        <div class="card mb-5" style="background:var(--bg-card); border-color:var(--border);">
+            <div class="card-header" style="background:var(--bg-tertiary);">
+                <h2 class="mb-0" style="color:var(--yellow);"><i class="fa-solid fa-brain"></i> v2.0.0 - LLM Layer (AI Integration)</h2>
             </div>
-            <div class="code-block-body">
-                <pre><code><span class="cm"># Check LLM status</span>
-status = toolkit_advanced.get_llm_status()
-<span class="fn">print</span>(<span class="str">f"LLM Status: {status}"</span>)
+            <div class="card-body">
 
-<span class="cm"># Output: {'available': True, 'provider': 'mock', 'model': 'mock'}</span>
+                <h3>Install with LLM Support</h3>
+                <div class="code-block-wrapper">
+                    <div class="code-block-header"><span class="lang-label">bash</span><button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> Copy</button></div>
+                    <div class="code-block-body"><pre><code>pip install story-toolkit[openai]      <span class="cm"># OpenAI support</span>
+pip install story-toolkit[anthropic]   <span class="cm"># Anthropic support</span>
+pip install story-toolkit[local]       <span class="cm"># Local LLM (Ollama)</span>
+pip install story-toolkit[all]         <span class="cm"># All backends</span></code></pre></div>
+                </div>
 
-<span class="cm"># Check availability in DialogueGenerator</span>
-<span class="kw">if</span> toolkit_advanced.dialogue_gen.has_llm():
-    info = toolkit_advanced.dialogue_gen.get_llm_info()
-    <span class="fn">print</span>(<span class="str">f"Using {info['provider']} - {info['model']}"</span>)</code></pre>
-            </div>
-        </div>
+                <h3>Mock Backend (Testing - No API Key)</h3>
+                <div class="code-block-wrapper">
+                    <div class="code-block-header"><span class="lang-label">python</span><button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> Copy</button></div>
+                    <div class="code-block-body"><pre><code><span class="kw">from</span> story_toolkit.llm <span class="kw">import</span> LLMFactory, LLMProvider
 
-        <!-- Step 9: Full Code -->
-        <h2 class="mb-3">🎯 Complete Code (Basic)</h2>
-        <div class="code-block-wrapper">
-            <div class="code-block-header">
-                <span class="lang-label">python</span>
-                <button class="copy-btn" onclick="copyCode(this)">
-                    <i class="fa-regular fa-copy"></i> Copy
-                </button>
-            </div>
-            <div class="code-block-body">
-                <pre><code><span class="kw">from</span> story_toolkit <span class="kw">import</span> StoryToolkit
-<span class="kw">from</span> story_toolkit.utils.helpers <span class="kw">import</span> save_story
-
-<span class="cm"># 1. Create instance</span>
-toolkit = StoryToolkit()
-
-<span class="cm"># 2. Create story</span>
-story = toolkit.create_story(<span class="str">"fantasy"</span>, <span class="str">"courage"</span>, complexity=4)
-
-<span class="cm"># 3. Add characters</span>
-hero = toolkit.add_character_to_story(story, <span class="str">"Kai"</span>, <span class="str">"protagonist"</span>)
-hero.add_trait(<span class="str">"brave"</span>)
-hero.add_goal(<span class="str">"Save the kingdom"</span>)
-
-villain = toolkit.add_character_to_story(story, <span class="str">"Morgan"</span>, <span class="str">"antagonist"</span>)
-villain.add_trait(<span class="str">"manipulative"</span>)
-
-<span class="cm"># 4. Create relationship</span>
-hero.add_relationship(<span class="str">"Morgan"</span>, <span class="str">"enemy"</span>, strength=9)
-
-<span class="cm"># 5. Generate dialogue</span>
-dialogue = toolkit.dialogue_gen.generate_dialogue(
-    <span class="str">"Kai"</span>, <span class="str">"Morgan"</span>, context=<span class="str">"conflict"</span>
-)
-<span class="kw">for</span> line <span class="kw">in</span> dialogue:
-    <span class="fn">print</span>(line)
-
-<span class="cm"># 6. Check coherence</span>
-report = toolkit.check_story_coherence(story)
-<span class="fn">print</span>(<span class="str">f"\n✅ Coherence Score: {report['overall_score']:.0%}"</span>)
-
-<span class="cm"># 7. Save story</span>
-save_story(story, <span class="str">"my_story.json"</span>)
-<span class="fn">print</span>(<span class="str">"📁 Story saved to my_story.json"</span>)</code></pre>
-            </div>
-        </div>
-
-        <!-- NEW: Full Code with LLM -->
-        <h2 class="mb-3 mt-4">🤖 Complete Code with AI <span class="badge" style="background:var(--green);">NEW in v2.0.0</span></h2>
-        <div class="code-block-wrapper">
-            <div class="code-block-header">
-                <span class="lang-label">python</span>
-                <button class="copy-btn" onclick="copyCode(this)">
-                    <i class="fa-regular fa-copy"></i> Copy
-                </button>
-            </div>
-            <div class="code-block-body">
-                <pre><code><span class="kw">from</span> story_toolkit <span class="kw">import</span> StoryToolkit
-<span class="kw">from</span> story_toolkit.llm <span class="kw">import</span> LLMFactory, LLMProvider
-<span class="kw">from</span> story_toolkit.utils.helpers <span class="kw">import</span> save_story
-
-<span class="cm"># 1. Create LLM backend (Mock for testing)</span>
+<span class="cm"># Create mock backend (no API key needed)</span>
 llm = LLMFactory.create_backend(provider=LLMProvider.MOCK)
-
-<span class="cm"># 2. Create Toolkit with LLM</span>
 toolkit = StoryToolkit(llm_backend=llm)
 
-<span class="cm"># 3. Create story</span>
-story = toolkit.create_story(<span class="str">"fantasy"</span>, <span class="str">"courage"</span>, complexity=4)
+<span class="cm"># Check LLM status</span>
+status = toolkit.get_llm_status()
+<span class="fn">print</span>(status)  <span class="cm"># {'available': True, 'provider': 'mock', 'model': 'mock'}</span></code></pre></div>
+                </div>
 
-<span class="cm"># 4. Add characters</span>
+                <h3>Advanced Dialogue Generation</h3>
+                <div class="code-block-wrapper">
+                    <div class="code-block-header"><span class="lang-label">python</span><button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> Copy</button></div>
+                    <div class="code-block-body"><pre><code><span class="cm"># Generate advanced dialogue with different styles</span>
+styles = [<span class="str">"natural"</span>, <span class="str">"dramatic"</span>, <span class="str">"poetic"</span>, <span class="str">"humorous"</span>]
+
+<span class="kw">for</span> style <span class="kw">in</span> styles:
+    dialogue = toolkit.dialogue_gen.generate_dialogue(
+        <span class="str">"Knight"</span>, <span class="str">"Dragon"</span>,
+        context=<span class="str">"final_battle"</span>,
+        use_advanced=<span class="kw">True</span>,
+        style=style,
+        num_lines=4
+    )
+    <span class="fn">print</span>(<span class="str">f"\n--- {style.upper()} ---"</span>)
+    <span class="kw">for</span> line <span class="kw">in</span> dialogue:
+        <span class="fn">print</span>(line)</code></pre></div>
+                </div>
+
+                <div class="output-block mb-3">
+                    <i class="fa-solid fa-terminal"></i> Output:<br><br>
+                    --- NATURAL ---<br>
+                    Knight: Hello Dragon.<br>
+                    Dragon: Knight. I've been expecting you.<br>
+                    Knight: Then you know why I'm here.<br>
+                    Dragon: Yes. The time has come.<br><br>
+                    --- DRAMATIC ---<br>
+                    Knight: I can't believe what you've done!<br>
+                    Dragon: You left me no choice, Knight.<br>
+                    Knight: There's always a choice. You chose wrong.<br>
+                    Dragon: We'll see who was wrong in the end.
+                </div>
+
+                <h3>Local LLM with Ollama (Free)</h3>
+                <div class="code-block-wrapper">
+                    <div class="code-block-header"><span class="lang-label">bash</span><button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> Copy</button></div>
+                    <div class="code-block-body"><pre><code><span class="cm"># First install Ollama</span>
+ollama pull llama2
+
+<span class="cm"># Then use in Python</span>
+llm = LLMFactory.create_backend(
+    provider=LLMProvider.LOCAL,
+    model=<span class="str">"llama2"</span>,
+    temperature=0.7
+)
+toolkit = StoryToolkit(llm_backend=llm)</code></pre></div>
+                </div>
+
+                <h3>OpenAI Integration (Real AI)</h3>
+                <div class="code-block-wrapper">
+                    <div class="code-block-header"><span class="lang-label">python</span><button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> Copy</button></div>
+                    <div class="code-block-body"><pre><code><span class="kw">import</span> os
+os.environ[<span class="str">"OPENAI_API_KEY"</span>] = <span class="str">"sk-..."</span>
+
+llm = LLMFactory.create_backend(
+    provider=LLMProvider.OPENAI,
+    model=<span class="str">"gpt-3.5-turbo"</span>,
+    temperature=0.8
+)
+toolkit = StoryToolkit(llm_backend=llm)
+
+dialogue = toolkit.generate_advanced_dialogue(
+    <span class="str">"Hero"</span>, <span class="str">"Villain"</span>,
+    context=<span class="str">"betrayal"</span>,
+    style=<span class="str">"dramatic"</span>
+)</code></pre></div>
+                </div>
+
+                <div class="note" style="background:rgba(63,185,80,0.1);">
+                    <i class="fa-solid fa-check-circle"></i>
+                    <strong>v2.0.0 Complete!</strong> You can now generate AI-powered dialogues with multiple styles!
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- SECTION: v2.1.0 - MEMORY LAYER -->
+        <!-- ============================================================ -->
+        <div class="card mb-5" style="background:var(--bg-card); border-color:var(--border);">
+            <div class="card-header" style="background:var(--bg-tertiary);">
+                <h2 class="mb-0" style="color:var(--orange);"><i class="fa-solid fa-database"></i> v2.1.0 - Memory Layer (SQLite)</h2>
+            </div>
+            <div class="card-body">
+
+                <h3>Enable SQLite Memory</h3>
+                <div class="code-block-wrapper">
+                    <div class="code-block-header"><span class="lang-label">python</span><button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> Copy</button></div>
+                    <div class="code-block-body"><pre><code><span class="cm"># Create toolkit with memory</span>
+toolkit = StoryToolkit(memory_backend=<span class="str">"sqlite"</span>, db_path=<span class="str">"stories.db"</span>)
+
+<span class="cm"># Create story and auto-save to memory</span>
+story = toolkit.create_story(
+    genre=<span class="str">"fantasy"</span>,
+    theme=<span class="str">"courage"</span>,
+    name=<span class="str">"My Epic Story"</span>,
+    save_to_memory=<span class="kw">True</span>
+)</code></pre></div>
+                </div>
+
+                <h3>Add Events to Timeline</h3>
+                <div class="code-block-wrapper">
+                    <div class="code-block-header"><span class="lang-label">python</span><button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> Copy</button></div>
+                    <div class="code-block-body"><pre><code><span class="cm"># Add events to story timeline</span>
+toolkit.add_event(chapter=1, description=<span class="str">"Kai finds the ancient map"</span>, importance=9)
+toolkit.add_event(chapter=2, description=<span class="str">"Shadow Lord attacks the village"</span>, importance=10)
+toolkit.add_event(chapter=3, description=<span class="str">"Kai meets the mysterious mentor"</span>, importance=7)
+toolkit.add_event(chapter=4, description=<span class="str">"Training montage begins"</span>, importance=6)
+toolkit.add_event(chapter=5, description=<span class="str">"Final battle approaches"</span>, importance=10)
+
+<span class="cm"># View timeline</span>
+timeline = toolkit.get_timeline()
+<span class="kw">for</span> event <span class="kw">in</span> timeline:
+    stars = <span class="str">"⭐"</span> * event.importance + <span class="str">"☆"</span> * (10 - event.importance)
+    <span class="fn">print</span>(<span class="str">f"Ch.{event.chapter:2d} [{stars}] {event.description}"</span>)</code></pre></div>
+                </div>
+
+                <div class="output-block mb-3">
+                    <i class="fa-solid fa-terminal"></i> Output:<br>
+                    Ch. 1 [⭐⭐⭐⭐⭐⭐⭐⭐⭐☆] Kai finds the ancient map<br>
+                    Ch. 2 [⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐] Shadow Lord attacks the village<br>
+                    Ch. 3 [⭐⭐⭐⭐⭐⭐⭐☆☆☆] Kai meets the mysterious mentor<br>
+                    Ch. 4 [⭐⭐⭐⭐⭐⭐☆☆☆☆] Training montage begins<br>
+                    Ch. 5 [⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐] Final battle approaches
+                </div>
+
+                <h3>Manage Stories in Database</h3>
+                <div class="code-block-wrapper">
+                    <div class="code-block-header"><span class="lang-label">python</span><button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> Copy</button></div>
+                    <div class="code-block-body"><pre><code><span class="cm"># List all stored stories</span>
+stories = toolkit.list_stored_stories()
+<span class="kw">for</span> s <span class="kw">in</span> stories:
+    <span class="fn">print</span>(<span class="str">f"📖 {s.name} (ID: {s.id}) - {s.genre}/{s.theme}"</span>)
+
+<span class="cm"># Load a story from memory</span>
+loaded = toolkit.load_story_from_memory(story_id)
+
+<span class="cm"># Add character to loaded story</span>
+new_hero = toolkit.add_character_to_story(loaded, <span class="str">"New Hero"</span>, <span class="str">"protagonist"</span>)
+
+<span class="cm"># Close connection when done</span>
+toolkit.close_memory()</code></pre></div>
+                </div>
+
+                <div class="note" style="background:rgba(63,185,80,0.1);">
+                    <i class="fa-solid fa-check-circle"></i>
+                    <strong>v2.1.0 Complete!</strong> Your stories are now permanently stored in a SQLite database!
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- SECTION: v2.2.0 - EXPORTERS -->
+        <!-- ============================================================ -->
+        <div class="card mb-5" style="background:var(--bg-card); border-color:var(--border);">
+            <div class="card-header" style="background:var(--bg-tertiary);">
+                <h2 class="mb-0" style="color:var(--purple);"><i class="fa-solid fa-file-export"></i> v2.2.0 - Exporters (PDF, EPUB, HTML, Bionic)</h2>
+            </div>
+            <div class="card-body">
+
+                <h3>Install Export Dependencies</h3>
+                <div class="code-block-wrapper">
+                    <div class="code-block-header"><span class="lang-label">bash</span><button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> Copy</button></div>
+                    <div class="code-block-body"><pre><code>pip install story-toolkit[export]
+<span class="cm"># Or individually:</span>
+pip install reportlab   <span class="cm"># PDF export</span>
+pip install ebooklib    <span class="cm"># EPUB export</span></code></pre></div>
+                </div>
+
+                <h3>Export to PDF (3 Styles)</h3>
+                <div class="code-block-wrapper">
+                    <div class="code-block-header"><span class="lang-label">python</span><button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> Copy</button></div>
+                    <div class="code-block-body"><pre><code><span class="kw">from</span> story_toolkit.exporters <span class="kw">import</span> PDFExporter, ExportConfig, PDFStyle
+
+<span class="cm"># Print style (for books)</span>
+config = ExportConfig(title=<span class="str">"The Crystal Saga"</span>, author=<span class="str">"Kai"</span>, pdf_style=PDFStyle.PRINT)
+exporter = PDFExporter(config)
+exporter.export(story, <span class="str">"story_print.pdf"</span>)
+
+<span class="cm"># Manuscript style (for publishers)</span>
+config.pdf_style = PDFStyle.MANUSCRIPT
+exporter.export(story, <span class="str">"story_manuscript.pdf"</span>)
+
+<span class="cm"># eBook style (for screen reading)</span>
+config.pdf_style = PDFStyle.EBOOK
+exporter.export(story, <span class="str">"story_ebook.pdf"</span>)</code></pre></div>
+                </div>
+
+                <h3>Export to EPUB (eBook)</h3>
+                <div class="code-block-wrapper">
+                    <div class="code-block-header"><span class="lang-label">python</span><button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> Copy</button></div>
+                    <div class="code-block-body"><pre><code><span class="kw">from</span> story_toolkit.exporters <span class="kw">import</span> EPUBExporter
+
+config = ExportConfig(title=<span class="str">"The Crystal Saga"</span>, author=<span class="str">"Kai"</span>)
+exporter = EPUBExporter(config)
+exporter.export(story, <span class="str">"story.epub"</span>)</code></pre></div>
+                </div>
+
+                <h3>Export to HTML (4 Templates)</h3>
+                <div class="code-block-wrapper">
+                    <div class="code-block-header"><span class="lang-label">python</span><button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> Copy</button></div>
+                    <div class="code-block-body"><pre><code><span class="kw">from</span> story_toolkit.exporters <span class="kw">import</span> HTMLExporter, HTMLTemplate
+
+templates = [
+    (HTMLTemplate.MODERN, <span class="str">"story_modern.html"</span>),
+    (HTMLTemplate.CLASSIC, <span class="str">"story_classic.html"</span>),
+    (HTMLTemplate.DARK, <span class="str">"story_dark.html"</span>),
+    (HTMLTemplate.MINIMAL, <span class="str">"story_minimal.html"</span>)
+]
+
+<span class="kw">for</span> template, filename <span class="kw">in</span> templates:
+    config = ExportConfig(title=<span class="str">"My Story"</span>, author=<span class="str">"Me"</span>, html_template=template)
+    exporter = HTMLExporter(config)
+    exporter.export(story, filename)
+    <span class="fn">print</span>(<span class="str">f"✅ Created: {filename}"</span>)</code></pre></div>
+                </div>
+
+                <h3>Bionic Reading (Faster Reading)</h3>
+                <div class="code-block-wrapper">
+                    <div class="code-block-header"><span class="lang-label">python</span><button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> Copy</button></div>
+                    <div class="code-block-body"><pre><code><span class="kw">from</span> story_toolkit.exporters <span class="kw">import</span> to_bionic
+
+text = <span class="str">"This is a normal sentence that can be read faster with Bionic Reading."</span>
+
+<span class="cm"># Strength 1: bold first letter</span>
+bionic1 = to_bionic(text, strength=1)
+<span class="fn">print</span>(bionic1)
+
+<span class="cm"># Strength 2: bold first two letters</span>
+bionic2 = to_bionic(text, strength=2)
+<span class="fn">print</span>(bionic2)
+
+<span class="cm"># HTML output with &lt;strong&gt; tags</span>
+bionic_html = to_bionic(text, as_html=<span class="kw">True</span>)
+<span class="fn">print</span>(bionic_html)</code></pre></div>
+                </div>
+
+                <div class="output-block mb-3">
+                    <i class="fa-solid fa-terminal"></i> Output:<br>
+                    <strong>T</strong>his <strong>i</strong>s <strong>a</strong> <strong>n</strong>ormal <strong>s</strong>entence...<br>
+                    <strong>Th</strong>is <strong>is</strong> <strong>a</strong> <strong>no</strong>rmal <strong>se</strong>ntence...<br>
+                    &lt;strong&gt;T&lt;/strong&gt;his &lt;strong&gt;i&lt;/strong&gt;s...
+                </div>
+
+                <div class="note" style="background:rgba(63,185,80,0.1);">
+                    <i class="fa-solid fa-check-circle"></i>
+                    <strong>v2.2.0 Complete!</strong> Export your stories to PDF, EPUB, HTML, or use Bionic Reading!
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- SECTION: v2.2.1 - PRE-BUILT TEMPLATES -->
+        <!-- ============================================================ -->
+        <div class="card mb-5" style="background:var(--bg-card); border-color:var(--border);">
+            <div class="card-header" style="background:var(--bg-tertiary);">
+                <h2 class="mb-0" style="color:var(--pink);"><i class="fa-solid fa-clone"></i> v2.2.1 - Pre-built Story Templates</h2>
+            </div>
+            <div class="card-body">
+
+                <h3>Available Templates</h3>
+                <div class="code-block-wrapper">
+                    <div class="code-block-header"><span class="lang-label">python</span><button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> Copy</button></div>
+                    <div class="code-block-body"><pre><code><span class="kw">from</span> story_toolkit <span class="kw">import</span> StoryToolkit
+
+toolkit = StoryToolkit()
+
+<span class="cm"># List all templates</span>
+templates = toolkit.list_templates()
+<span class="kw">for</span> t <span class="kw">in</span> templates:
+    <span class="fn">print</span>(<span class="str">f"📋 {t['name']}: {t['stage_count']} stages - {t['genre']}"</span>)</code></pre></div>
+                </div>
+
+                <div class="output-block mb-3">
+                    <i class="fa-solid fa-terminal"></i> Output:<br>
+                    📋 hero_journey: 12 stages - fantasy, adventure<br>
+                    📋 three_act: 3 stages - general<br>
+                    📋 mystery_clues: 5 stages - mystery<br>
+                    📋 romance_beat: 15 stages - romance<br>
+                    📋 horror_cycle: 6 stages - horror
+                </div>
+
+                <h3>Hero's Journey (12 Stages)</h3>
+                <div class="code-block-wrapper">
+                    <div class="code-block-header"><span class="lang-label">python</span><button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> Copy</button></div>
+                    <div class="code-block-body"><pre><code><span class="cm"># Create epic fantasy story</span>
+story = toolkit.use_template(<span class="str">"hero_journey"</span>, genre=<span class="str">"fantasy"</span>, theme=<span class="str">"redemption"</span>)
+
+<span class="cm"># View all 12 stages</span>
+<span class="kw">for</span> i, stage <span class="kw">in</span> enumerate(story[<span class="str">'plot'</span>][<span class="str">'main_plot'</span>], 1):
+    <span class="fn">print</span>(<span class="str">f"{i}. {stage['name']}"</span>)</code></pre></div>
+                </div>
+
+                <div class="output-block mb-3">
+                    <i class="fa-solid fa-terminal"></i> Output:<br>
+                    1. The Ordinary World<br>
+                    2. The Call to Adventure<br>
+                    3. Refusal of the Call<br>
+                    4. Meeting the Mentor<br>
+                    5. Crossing the Threshold<br>
+                    6. Tests, Allies, and Enemies<br>
+                    7. Approach to the Inmost Cave<br>
+                    8. The Ordeal<br>
+                    9. The Reward<br>
+                    10. The Road Back<br>
+                    11. The Resurrection<br>
+                    12. Return with the Elixir
+                </div>
+
+                <h3>Three Act Structure</h3>
+                <div class="code-block-wrapper">
+                    <div class="code-block-header"><span class="lang-label">python</span><button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> Copy</button></div>
+                    <div class="code-block-body"><pre><code>story = toolkit.use_template(<span class="str">"three_act"</span>, theme=<span class="str">"revenge"</span>)
+
+<span class="kw">for</span> stage <span class="kw">in</span> story[<span class="str">'plot'</span>][<span class="str">'main_plot'</span>]:
+    <span class="fn">print</span>(<span class="str">f"📍 {stage['name']}: {stage['description'][:60]}..."</span>)</code></pre></div>
+                </div>
+
+                <div class="output-block mb-3">
+                    <i class="fa-solid fa-terminal"></i> Output:<br>
+                    📍 Act I: Setup: Introduction of characters, setting, and the initial situation...<br>
+                    📍 Act II: Confrontation: The protagonist faces obstacles, meets allies...<br>
+                    📍 Act III: Resolution: The climax occurs, loose ends are tied...
+                </div>
+
+                <h3>Mystery Structure</h3>
+                <div class="code-block-wrapper">
+                    <div class="code-block-header"><span class="lang-label">python</span><button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> Copy</button></div>
+                    <div class="code-block-body"><pre><code>story = toolkit.use_template(<span class="str">"mystery_clues"</span>, theme=<span class="str">"whodunnit"</span>)
+
+stages = story[<span class="str">'plot'</span>][<span class="str">'main_plot'</span>]
+<span class="fn">print</span>(<span class="str">f"📖 {len(stages)} stages for your mystery story:"</span>)
+<span class="kw">for</span> stage <span class="kw">in</span> stages:
+    <span class="fn">print</span>(<span class="str">f"   - {stage['name']}"</span>)</code></pre></div>
+                </div>
+
+                <div class="output-block mb-3">
+                    <i class="fa-solid fa-terminal"></i> Output:<br>
+                    📖 5 stages for your mystery story:<br>
+                       - The Crime<br>
+                       - The Investigation Begins<br>
+                       - The False Trail<br>
+                       - The Breakthrough<br>
+                       - The Resolution
+                </div>
+
+                <div class="note" style="background:rgba(63,185,80,0.1);">
+                    <i class="fa-solid fa-check-circle"></i>
+                    <strong>v2.2.1 Complete!</strong> Start writing instantly with 5 pre-built story templates!
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- SECTION: v2.2.2 - CLI TOOL -->
+        <!-- ============================================================ -->
+        <div class="card mb-5" style="background:var(--bg-card); border-color:var(--green);">
+            <div class="card-header" style="background:var(--bg-tertiary);">
+                <h2 class="mb-0" style="color:var(--green);"><i class="fa-solid fa-terminal"></i> v2.2.2 - CLI Tool (Command Line Interface)</h2>
+            </div>
+            <div class="card-body">
+
+                <h3>Basic CLI Commands</h3>
+                <div class="code-block-wrapper">
+                    <div class="code-block-header"><span class="lang-label">bash</span><button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> Copy</button></div>
+                    <div class="code-block-body"><pre><code><span class="cm"># Create a new story</span>
+story-toolkit story new --genre fantasy --theme courage
+
+<span class="cm"># Create story with specific complexity</span>
+story-toolkit story new --genre sci_fi --theme survival --complexity 5
+
+<span class="cm"># Save story to JSON file</span>
+story-toolkit story new --genre fantasy --theme courage --output my_story.json
+
+<span class="cm"># List all stories in database</span>
+story-toolkit story list
+
+<span class="cm"># List all available templates</span>
+story-toolkit template list
+
+<span class="cm"># Use a template</span>
+story-toolkit template use hero_journey
+
+<span class="cm"># Use template with custom theme</span>
+story-toolkit template use three_act --theme redemption --output three_act.json</code></pre></div>
+                </div>
+
+                <h3>Complete CLI Workflow Example</h3>
+                <div class="code-block-wrapper">
+                    <div class="code-block-header"><span class="lang-label">bash</span><button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> Copy</button></div>
+                    <div class="code-block-body"><pre><code><span class="cm"># Step 1: Create a story using hero_journey template</span>
+story-toolkit template use hero_journey --genre fantasy --theme courage --output epic.json
+
+<span class="cm"># Step 2: Check what's in the story</span>
+<span class="cm"># (Open epic.json or use Python to inspect)</span>
+
+<span class="cm"># Step 3: List all your stories</span>
+story-toolkit story list
+
+<span class="cm"># Step 4: Load a story from database (if saved with memory)</span>
+story-toolkit story load --id abc123</code></pre></div>
+                </div>
+
+                <div class="note" style="background:rgba(63,185,80,0.1);">
+                    <i class="fa-solid fa-check-circle"></i>
+                    <strong>v2.2.2 Complete!</strong> Use the command line for quick story generation without writing Python code!
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- FULL INTEGRATION EXAMPLE -->
+        <!-- ============================================================ -->
+        <div class="card mb-5" style="background:var(--bg-card); border-color:var(--accent);">
+            <div class="card-header" style="background:var(--bg-tertiary);">
+                <h2 class="mb-0" style="color:var(--accent);"><i class="fa-solid fa-star"></i> Complete Integration Example (All Versions)</h2>
+            </div>
+            <div class="card-body">
+
+                <div class="code-block-wrapper">
+                    <div class="code-block-header"><span class="lang-label">python</span><button class="copy-btn" onclick="copyCode(this)"><i class="fa-regular fa-copy"></i> Copy</button></div>
+                    <div class="code-block-body"><pre><code><span class="kw">from</span> story_toolkit <span class="kw">import</span> StoryToolkit
+<span class="kw">from</span> story_toolkit.llm <span class="kw">import</span> LLMFactory, LLMProvider
+<span class="kw">from</span> story_toolkit.exporters <span class="kw">import</span> PDFExporter, ExportConfig, PDFStyle
+
+<span class="cm"># 1. Create toolkit with LLM and Memory (v2.0.0 + v2.1.0)</span>
+llm = LLMFactory.create_backend(provider=LLMProvider.MOCK)
+toolkit = StoryToolkit(llm_backend=llm, memory_backend=<span class="str">"sqlite"</span>, db_path=<span class="str">"my_stories.db"</span>)
+
+<span class="cm"># 2. Create story using template (v2.2.1)</span>
+story = toolkit.use_template(<span class="str">"hero_journey"</span>, genre=<span class="str">"fantasy"</span>, theme=<span class="str">"redemption"</span>)
+
+<span class="cm"># 3. Add custom characters (v1.0.0)</span>
 hero = toolkit.add_character_to_story(story, <span class="str">"Kai"</span>, <span class="str">"protagonist"</span>)
 hero.add_trait(<span class="str">"brave"</span>)
 hero.add_goal(<span class="str">"Save the kingdom"</span>)
 
-villain = toolkit.add_character_to_story(story, <span class="str">"Morgan"</span>, <span class="str">"antagonist"</span>)
+villain = toolkit.add_character_to_story(story, <span class="str">"Shadow Lord"</span>, <span class="str">"antagonist"</span>)
 villain.add_trait(<span class="str">"cunning"</span>)
 
-<span class="cm"># 5. Generate advanced dialogue with AI</span>
-advanced_dialogue = toolkit.dialogue_gen.generate_dialogue(
-    <span class="str">"Kai"</span>, <span class="str">"Morgan"</span>,
+<span class="cm"># 4. Generate advanced dialogue (v2.0.0)</span>
+dialogue = toolkit.dialogue_gen.generate_dialogue(
+    <span class="str">"Kai"</span>, <span class="str">"Shadow Lord"</span>,
     context=<span class="str">"final_battle"</span>,
     use_advanced=<span class="kw">True</span>,
     style=<span class="str">"dramatic"</span>,
     num_lines=8
 )
 
-<span class="kw">for</span> line <span class="kw">in</span> advanced_dialogue:
-    <span class="fn">print</span>(line)
+<span class="cm"># 5. Add to timeline (v2.1.0)</span>
+toolkit.add_event(1, <span class="str">"Hero discovers ancient map"</span>, <span class="str">"plot"</span>, 9)
+toolkit.add_event(2, <span class="str">"Villain attacks village"</span>, <span class="str">"conflict"</span>, 10)
+toolkit.add_event(3, <span class="str">"Hero meets mentor"</span>, <span class="str">"character_development"</span>, 7)
 
-<span class="cm"># 6. Check LLM status</span>
-<span class="fn">print</span>(<span class="str">f"\n🤖 LLM Status: {toolkit.get_llm_status()}"</span>)
+<span class="cm"># 6. Check coherence (v1.0.0)</span>
+report = toolkit.check_story_coherence(story)
+<span class="fn">print</span>(<span class="str">f"Coherence Score: {report['overall_score']:.0%}"</span>)
 
-<span class="cm"># 7. Save story</span>
-save_story(story, <span class="str">"my_story_with_ai.json"</span>)
-<span class="fn">print</span>(<span class="str">"📁 Story saved successfully"</span>)</code></pre>
+<span class="cm"># 7. Export to PDF (v2.2.0)</span>
+config = ExportConfig(title=<span class="str">"The Crystal Saga"</span>, author=<span class="str">"Kai"</span>, pdf_style=PDFStyle.PRINT)
+exporter = PDFExporter(config)
+exporter.export(story, <span class="str">"crystal_saga.pdf"</span>)
+
+<span class="cm"># 8. View timeline</span>
+<span class="fn">print</span>(<span class="str">"\n📅 Story Timeline:"</span>)
+<span class="kw">for</span> event <span class="kw">in</span> toolkit.get_timeline():
+    <span class="fn">print</span>(<span class="str">f"   Ch.{event.chapter}: {event.description}"</span>)
+
+<span class="cm"># 9. Close memory connection</span>
+toolkit.close_memory()
+
+<span class="fn">print</span>(<span class="str">"\n✅ Complete story created with all features!"</span>)</code></pre></div>
+                </div>
+
+                <div class="output-block mb-3">
+                    <i class="fa-solid fa-terminal"></i> Output:<br>
+                    Coherence Score: 100%<br><br>
+                    📅 Story Timeline:<br>
+                       Ch.1: Hero discovers ancient map<br>
+                       Ch.2: Villain attacks village<br>
+                       Ch.3: Hero meets mentor<br><br>
+                    ✅ Complete story created with all features!
+                </div>
+
             </div>
         </div>
 
         <!-- Next Steps -->
         <h2 class="mb-3 mt-5">📖 Next Steps</h2>
         <div class="row g-4">
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <a href="api.html" class="doc-card">
                     <div class="doc-icon"><i class="fa-solid fa-code"></i></div>
                     <h3>Full API Reference</h3>
-                    <p>Complete documentation for all classes, methods, and parameters</p>
+                    <p>Complete documentation for all classes and methods from v1 to v2.2.2</p>
                     <span class="lang-tag">🇬🇧 English</span>
                 </a>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <a href="https://github.com/miladrezanezhad/story-toolkit" class="doc-card" target="_blank">
                     <div class="doc-icon"><i class="fa-brands fa-github"></i></div>
-                    <h3>Source Code on GitHub</h3>
+                    <h3>Source Code</h3>
                     <p>View source code, examples, and tests</p>
                     <span class="lang-tag">🔗 GitHub</span>
                 </a>
             </div>
+            <div class="col-md-4">
+                <a href="../fa-ir/quickstart.html" class="doc-card">
+                    <div class="doc-icon"><i class="fa-solid fa-globe"></i></div>
+                    <h3>مستندات فارسی</h3>
+                    <p>راهنمای کامل به زبان فارسی</p>
+                    <span class="lang-tag">🇮🇷 فارسی</span>
+                </a>
+            </div>
         </div>
 
-        <!-- Compatibility Note -->
-        <div class="note mt-5">
+        <!-- Easy Upgrade Note -->
+        <div class="note mt-5" style="background:rgba(63,185,80,0.1);">
             <i class="fa-solid fa-shield-alt"></i>
-            <strong>Backward Compatibility:</strong> All code written for v1.0.0 works unchanged in v2.0.0. LLM features are completely optional.
+            <strong>Easy Upgrade - No Breaking Changes!</strong><br>
+            All code written for v1.0.0 works perfectly in v2.2.2. Just upgrade with:<br>
+            <code>pip install --upgrade story-toolkit</code><br><br>
+            <strong>Version Summary:</strong><br>
+            • v1.0.0: Core features (Character, Plot, World, Dialogue, Coherence)<br>
+            • v2.0.0: LLM layer (AI-powered dialogue)<br>
+            • v2.1.0: Memory layer (SQLite database)<br>
+            • v2.2.0: Exporters (PDF, EPUB, HTML, Bionic)<br>
+            • v2.2.1: Pre-built templates (5 structures)<br>
+            • v2.2.2: CLI tool (Command line interface)
         </div>
 
     </div>
@@ -559,7 +813,7 @@ save_story(story, <span class="str">"my_story_with_ai.json"</span>)
                 <span class="text-muted">•</span>
                 <a href="https://github.com/miladrezanezhad/story-toolkit"><i class="fa-brands fa-github"></i> GitHub</a>
             </div>
-            <p class="mt-2 text-muted">Story Development Toolkit • v2.0.0 • MIT License</p>
+            <p class="mt-2 text-muted">Story Development Toolkit • v2.2.2 • MIT License</p>
         </div>
     </footer>
 

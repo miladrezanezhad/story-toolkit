@@ -12,7 +12,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name="story-toolkit",
-    version="2.0.0",
+    version="2.2.2",
     author="Milad Rezanezhad",
     author_email="milad.rezanezhad@example.com",
     description="A comprehensive toolkit for generating engaging and coherent stories with optional LLM support",
@@ -30,14 +30,12 @@ setup(
         "Topic :: Artistic Software",
         "License :: OSI Approved :: MIT License",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.8",
-        "Programming Language :: Python :: 3.9",
-        "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: 3.11",
         "Programming Language :: Python :: 3.12",
+        "Programming Language :: Python :: 3.13",
         "Operating System :: OS Independent",
     ],
-    python_requires=">=3.8",
+    python_requires=">=3.11",
     install_requires=[
         "nltk>=3.8.1",
         "spacy>=3.7.0",
@@ -59,7 +57,12 @@ setup(
         "llama-cpp": [
             "llama-cpp-python>=0.2.0",
         ],
-        # Complete LLM support (all backends)
+        # Exporters
+        "export": [
+            "ebooklib>=0.18",
+            "reportlab>=4.0",
+        ],
+        # Complete LLM support
         "llm": [
             "openai>=1.0.0",
             "anthropic>=0.18.0",
@@ -70,6 +73,7 @@ setup(
             "pytest>=7.0.0",
             "pytest-cov>=4.0.0",
             "pytest-asyncio>=0.21.0",
+            "pytest-mock>=3.11.0",
             "black>=23.0.0",
             "isort>=5.12.0",
             "flake8>=6.0.0",
@@ -94,6 +98,8 @@ setup(
             "openai>=1.0.0",
             "anthropic>=0.18.0",
             "ollama>=0.1.0",
+            "ebooklib>=0.18",
+            "reportlab>=4.0",
             "pytest>=7.0.0",
             "pytest-cov>=4.0.0",
             "black>=23.0.0",
@@ -104,7 +110,7 @@ setup(
     },
     entry_points={
         "console_scripts": [
-            "story-toolkit=story_toolkit.cli:main",
+            "story-toolkit=story_toolkit.cli.main:main",
         ],
     },
     project_urls={
@@ -117,7 +123,8 @@ setup(
         "story", "writing", "narrative", "dialogue", "character",
         "plot", "world-building", "nlp", "creative-writing",
         "fiction", "story-generator", "llm", "openai", "claude",
-        "story-telling", "python", "toolkit"
+        "story-telling", "python", "toolkit", "cli", "templates",
+        "epub", "pdf", "html", "memory", "sqlite"
     ],
     include_package_data=True,
     zip_safe=False,
