@@ -2,7 +2,7 @@
 # 🧪 Story Toolkit - Test Summary
 
 **Last Updated:** May 10, 2026  
-**Total Tests:** 70 planned | 59 completed | 11 pending
+**Total Tests:** 70 planned | 70 completed | 0 pending
 
 ---
 
@@ -15,8 +15,8 @@
 | **v2.1.0** | Memory Layer (SQLite) | ✅ 15/15 | **COMPLETE** |
 | **v2.2.0** | Exporters (PDF, EPUB, HTML, Bionic) | ✅ 4/4 | **COMPLETE** |
 | **v2.2.1** | Templates | ✅ 9/9 | **COMPLETE** |
-| **v2.2.2** | CLI Tool | ⏳ 0/11 | PENDING |
-| **Total** | | **✅ 59/70** | **84% Complete** |
+| **v2.2.2** | CLI Tool | ✅ 11/11 | **COMPLETE** |
+| **Total** | | **✅ 70/70** | **100% Complete** |
 
 ---
 
@@ -162,7 +162,7 @@
 
 ---
 
-## ✅ v2.2.0 - Exporters (NEWLY COMPLETED!)
+## ✅ v2.2.0 - Exporters (COMPLETE)
 
 **Test File:** `tests/v2_2/test_exporters.py`  
 **Status:** ✅ **4/4 PASSED**  
@@ -220,91 +220,68 @@
 
 ---
 
-## ⏳ Pending Tests
+## ✅ v2.2.2 - CLI Tool (COMPLETE)
 
-### v2.2.2 - CLI Tool (11 tests pending)
+**Test File:** `tests/v2_2_2/test_cli.py`  
+**Status:** ✅ **11/11 PASSED**  
+**Date Completed:** May 10, 2026
 
-**Test File:** `tests/v2_2_2/test_cli.py`
+### CLI Tool Tests - 11/11 PASSED
 
-| Test Name | Description | Status |
-|-----------|-------------|--------|
-| `test_story_new` | Basic story creation | ⏳ PENDING |
-| `test_story_new_with_complexity` | Story creation with complexity level | ⏳ PENDING |
-| `test_story_new_all_genres` | Story creation for all 5 genres | ⏳ PENDING |
-| `test_output_to_file` | Saving story to JSON file | ⏳ PENDING |
-| `test_template_list` | Listing available templates | ⏳ PENDING |
-| `test_template_use_hero_journey` | Using hero_journey template | ⏳ PENDING |
-| `test_template_use_three_act` | Using three_act template | ⏳ PENDING |
-| `test_template_use_mystery_clues` | Using mystery_clues template | ⏳ PENDING |
-| `test_template_use_romance_beat` | Using romance_beat template | ⏳ PENDING |
-| `test_template_use_horror_cycle` | Using horror_cycle template | ⏳ PENDING |
-| `test_template_use_with_custom_genre` | Template with custom genre/theme | ⏳ PENDING |
+| # | Test Name | Description | Result |
+|---|-----------|-------------|--------|
+| 1 | `test_story_new` | Basic story creation | ✅ PASSED |
+| 2 | `test_story_new_with_complexity` | Story creation with complexity level | ✅ PASSED |
+| 3 | `test_story_new_all_genres` | Story creation for all 5 genres | ✅ PASSED |
+| 4 | `test_output_to_file` | Saving story to JSON file | ✅ PASSED |
+| 5 | `test_template_list` | Listing available templates | ✅ PASSED |
+| 6 | `test_template_use_hero_journey` | Using hero_journey template | ✅ PASSED |
+| 7 | `test_template_use_three_act` | Using three_act template | ✅ PASSED |
+| 8 | `test_template_use_mystery_clues` | Using mystery_clues template | ✅ PASSED |
+| 9 | `test_template_use_romance_beat` | Using romance_beat template | ✅ PASSED |
+| 10 | `test_template_use_horror_cycle` | Using horror_cycle template | ✅ PASSED |
+| 11 | `test_template_use_with_custom_genre` | Template with custom genre/theme | ✅ PASSED |
+
+**Verified Features:**
+- ✅ **Story Commands**: `new` with genre, theme, complexity, output file
+- ✅ **Template Commands**: `list` and `use` for all 5 templates
+- ✅ **All Genres**: fantasy, mystery, romance, adventure, sci_fi
+- ✅ **Custom Genres**: Override template genre with custom value
+- ✅ **File Output**: JSON export with proper formatting
+- ✅ **All Templates**: hero_journey, three_act, mystery_clues, romance_beat, horror_cycle
 
 ---
 
 ## 🎯 Test Execution Commands
 
-### Run v1 tests (completed)
+### Run all tests
 ```bash
+# Run all test suites
 python tests/v1/test_core.py
 python tests/v1/test_generators.py
 python tests/v1/test_nlp.py
-```
-
-### Run v2 tests (completed)
-```bash
 python tests/v2/test_llm_core.py
 python tests/v2/test_llm_integration.py
 python tests/v2/test_llm_backends.py
-```
-
-### Run v2.1 tests (completed)
-```bash
 python tests/v2_1/test_memory.py
-```
-
-### Run v2.2 tests (completed)
-```bash
 python tests/v2_2/test_exporters.py
-```
-
-### Run v2.2.1 tests (completed)
-```bash
 python tests/v2_2_1/test_templates.py
-```
-
-### Run all completed tests
-```bash
-python -c "
-from tests.v1 import test_core, test_generators, test_nlp
-from tests.v2 import test_llm_core, test_llm_integration, test_llm_backends
-from tests.v2_1 import test_memory
-from tests.v2_2 import test_exporters
-from tests.v2_2_1 import test_templates
-
-print('\n' + '='*60)
-print('🧪 RUNNING ALL COMPLETED TESTS')
-print('='*60)
-
-test_core.run_all()
-test_generators.run_all()
-test_nlp.run_all()
-test_llm_core.run_all()
-test_llm_integration.run_all()
-test_llm_backends.run_all()
-test_memory.run_all()
-test_exporters.run_all()
-test_templates.run_all()
-
-print('\n' + '='*60)
-print('🎉 ALL COMPLETED TESTS PASSED!')
-print('='*60)
-"
+python tests/v2_2_2/test_cli.py
 ```
 
 ### Run with pytest
 ```bash
-pytest tests/v1/ tests/v2/ tests/v2_1/ tests/v2_2/ tests/v2_2_1/ -v
+pytest tests/ -v
+```
+
+### Run specific version
+```bash
+pytest tests/v1/ -v
+pytest tests/v2/ -v
+pytest tests/v2_1/ -v
+pytest tests/v2_2/ -v
+pytest tests/v2_2_1/ -v
+pytest tests/v2_2_2/ -v
 ```
 
 ---
@@ -326,8 +303,7 @@ pytest tests/v1/ tests/v2/ tests/v2_1/ tests/v2_2/ tests/v2_2_1/ -v
 | `story_toolkit/memory/` (v2.1) | ~300 | ~280 | ~93% |
 | `story_toolkit/exporters/` (v2.2) | ~400 | ~380 | ~95% |
 | `story_toolkit/templates/` (v2.2.1) | ~250 | ~240 | ~96% |
-
-**Note:** Coverage will increase as more tests are added for v2.2.2.
+| `story_toolkit/cli/` (v2.2.2) | ~300 | ~280 | ~93% |
 
 ---
 
@@ -340,8 +316,8 @@ pytest tests/v1/ tests/v2/ tests/v2_1/ tests/v2_2/ tests/v2_2_1/ -v
 | v2.1.0 | 15 | 15 | 0 | 100% ✅ |
 | v2.2.0 | 4 | 4 | 0 | 100% ✅ |
 | v2.2.1 | 9 | 9 | 0 | 100% ✅ |
-| v2.2.2 | 11 | 0 | 0 | 0% ⏳ |
-| **Total** | **70** | **59** | **0** | **84%** |
+| v2.2.2 | 11 | 11 | 0 | 100% ✅ |
+| **Total** | **70** | **70** | **0** | **100%** ✅ |
 
 ---
 
@@ -352,8 +328,11 @@ pytest tests/v1/ tests/v2/ tests/v2_1/ tests/v2_2/ tests/v2_2_1/ -v
 - ✅ **May 10, 2026:** v2.1.0 Memory Layer - 15/15 tests passed
 - ✅ **May 10, 2026:** v2.2.0 Exporters - 4/4 tests passed
 - ✅ **May 10, 2026:** v2.2.1 Templates - 9/9 tests passed
+- ✅ **May 10, 2026:** v2.2.2 CLI Tool - 11/11 tests passed
 
-**Next Milestone:** v2.2.2 CLI Tool (11 tests)
+### 🎉 **ALL TESTS COMPLETED SUCCESSFULLY!** 🎉
+
+**Total:** 70/70 tests passing (100%)
 
 ---
 
