@@ -140,7 +140,7 @@ For answers to common questions, see the FAQ at
 For questions or to report violations:
 
 - **GitHub:** [Open an Issue](https://github.com/miladrezanezhad/story-toolkit/issues)
-- **Maintainer:** Milad Rezanezhad
+- **Email:** miladvf2014@gmail.com (for confidential reports)
 
 ---
 
