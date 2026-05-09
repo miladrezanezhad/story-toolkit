@@ -1,4 +1,3 @@
-
 # 🤝 Contributing to Story Development Toolkit
 
 First off, thank you for considering contributing! 🎉
@@ -115,18 +114,32 @@ git checkout -b fix/your-bug-fix
 
 ### Install Dependencies
 
+**Method 1: Using setup.py extras (recommended)**
+
+```bash
+# Install with all features and development tools
+pip install -e ".[all,dev]"
+
+# Or install specific extras:
+# - For LLM support: pip install -e ".[openai,anthropic,local]"
+# - For export formats: pip install -e ".[export]"
+# - For development: pip install -e ".[dev]"
+```
+
+**Method 2: Manual installation**
+
 ```bash
 # Core dependencies
 pip install -r requirements.txt
 
-# Development dependencies (testing, linting)
-pip install -r requirements-dev.txt
+# Development tools
+pip install pytest pytest-cov black isort flake8 mypy
 
-# Optional LLM dependencies
-pip install -r requirements-llm.txt
+# Optional: LLM backends
+pip install openai anthropic ollama
 
-# Optional export dependencies
-pip install -r requirements-export.txt
+# Optional: Export formats
+pip install reportlab ebooklib
 
 # Install in development mode
 pip install -e .
@@ -136,6 +149,12 @@ pip install -e .
 
 ```bash
 python -m spacy download en_core_web_sm
+
+# If you get permission errors on Linux/macOS:
+python -m spacy download en_core_web_sm --user
+
+# If you're on Windows and get permission errors:
+python -m spacy download en_core_web_sm --user
 ```
 
 ---
@@ -219,6 +238,7 @@ from story_toolkit.utils.helpers import save_story
 ```
 
 ### Naming Conventions
+
 | Type | Convention | Example |
 |------|------------|---------|
 | Classes | `PascalCase` | `CharacterGenerator` |
@@ -460,3 +480,4 @@ By contributing, you agree that your contributions will be licensed under the MI
 ---
 
 *Happy contributing! 🚀*
+```
