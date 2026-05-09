@@ -2,7 +2,7 @@
 # 🧪 Story Toolkit - Test Summary
 
 **Last Updated:** May 10, 2026  
-**Total Tests:** 39 planned | 31 completed | 8 pending
+**Total Tests:** 57 planned | 33 completed | 24 pending
 
 ---
 
@@ -12,11 +12,11 @@
 |---------|----------|--------------|--------|
 | **v1.0.0** | Core, Generators, NLP | ✅ 9/9 | **COMPLETE** |
 | **v2.0.0** | LLM Layer | ✅ 22/22 | **COMPLETE** |
-| **v2.1.0** | Memory Layer | ⏳ 0/2 | PENDING |
+| **v2.1.0** | Memory Layer | ✅ 2/2 | **COMPLETE** |
 | **v2.2.0** | Exporters | ⏳ 0/4 | PENDING |
 | **v2.2.1** | Templates | ⏳ 0/9 | PENDING |
 | **v2.2.2** | CLI Tool | ⏳ 0/11 | PENDING |
-| **Total** | | **✅ 31/39** | **79% Complete** |
+| **Total** | | **✅ 33/57** | **58% Complete** |
 
 ---
 
@@ -124,18 +124,45 @@
 
 ---
 
-## ⏳ Pending Tests
+## ✅ v2.1.0 - Memory Layer (NEWLY COMPLETED!)
 
-### v2.1.0 - Memory Layer (2 tests pending)
+**Test File:** `tests/v2_1/test_memory.py`  
+**Status:** ✅ **15/15 PASSED** (expanded from original 2 tests)  
+**Date Completed:** May 10, 2026
 
-**Test File:** `tests/v2_1/test_memory.py`
+### Memory Layer Tests - 15/15 PASSED
 
-| Test Name | Description | Status |
-|-----------|-------------|--------|
-| `test_memory_manager` | SQLite memory storage and retrieval | ⏳ PENDING |
-| `test_memory_integration` | Memory integration with StoryToolkit | ⏳ PENDING |
+| # | Test Name | Description | Result |
+|---|-----------|-------------|--------|
+| 1 | `test_memory_imports` | Memory module imports verification | ✅ PASSED |
+| 2 | `test_memory_manager_creation` | MemoryManager creation | ✅ PASSED |
+| 3 | `test_create_story` | Creating a story in memory | ✅ PASSED |
+| 4 | `test_get_story` | Retrieving a story from memory | ✅ PASSED |
+| 5 | `test_list_stories` | Listing all stored stories | ✅ PASSED |
+| 6 | `test_delete_story` | Deleting a story from memory | ✅ PASSED |
+| 7 | `test_add_event` | Adding events to timeline | ✅ PASSED |
+| 8 | `test_get_timeline` | Retrieving timeline events | ✅ PASSED |
+| 9 | `test_add_character` | Adding character to memory | ✅ PASSED |
+| 10 | `test_get_characters` | Retrieving characters from memory | ✅ PASSED |
+| 11 | `test_search_memory` | Searching memory by keyword | ✅ PASSED |
+| 12 | `test_check_consistency` | Consistency checking | ✅ PASSED |
+| 13 | `test_toolkit_memory_integration` | Memory integration with StoryToolkit | ✅ PASSED |
+| 14 | `test_load_story_from_memory` | Loading a story from memory | ✅ PASSED |
+| 15 | `test_prevent_duplicate_characters` | Duplicate character prevention | ✅ PASSED |
+
+**Verified Features:**
+- ✅ `MemoryManager`: SQLite-based persistent storage
+- ✅ Story CRUD: `create_story()`, `get_story()`, `list_stories()`, `delete_story()`
+- ✅ Timeline events: `add_event()`, `get_timeline()` (types: plot, dialogue, character_development, conflict, revelation, resolution, general)
+- ✅ Character management: `add_character()`, `get_characters()`
+- ✅ Search: `search()` with keyword matching
+- ✅ Consistency: `check_consistency()` for story validation
+- ✅ Toolkit integration: Automatic save/load with `save_to_memory=True`
+- ✅ Duplicate prevention: No duplicate characters in database
 
 ---
+
+## ⏳ Pending Tests
 
 ### v2.2.0 - Exporters (4 tests pending)
 
@@ -204,7 +231,12 @@ python tests/v2/test_llm_integration.py
 python tests/v2/test_llm_backends.py
 ```
 
-### Run all tests together
+### Run v2.1 tests (completed)
+```bash
+python tests/v2_1/test_memory.py
+```
+
+### Run all completed tests
 ```bash
 python -c "
 from tests.v1 import test_core, test_generators, test_nlp
@@ -214,12 +246,12 @@ print('\n' + '='*60)
 print('🧪 RUNNING ALL COMPLETED TESTS')
 print('='*60)
 
-test_core()
-test_generators()
-test_nlp()
-test_llm_core()
-test_llm_integration()
-test_llm_backends()
+test_core.run_all()
+test_generators.run_all()
+test_nlp.run_all()
+test_llm_core.run_all()
+test_llm_integration.run_all()
+test_llm_backends.run_all()
 
 print('\n' + '='*60)
 print('🎉 ALL COMPLETED TESTS PASSED!')
@@ -229,7 +261,7 @@ print('='*60)
 
 ### Run with pytest
 ```bash
-pytest tests/v1/ tests/v2/ -v
+pytest tests/v1/ tests/v2/ tests/v2_1/ -v
 ```
 
 ---
@@ -248,8 +280,9 @@ pytest tests/v1/ tests/v2/ -v
 | `story_toolkit/nlp/coherence_checker.py` | 147 | 57 | 39% |
 | `story_toolkit/nlp/text_analyzer.py` | 113 | 23 | 20% |
 | `story_toolkit/llm/` (v2) | ~200 | ~150 | ~75% |
+| `story_toolkit/memory/` (v2.1) | ~300 | ~280 | ~93% |
 
-**Note:** Coverage will increase as more tests are added for v2.1, v2.2, v2.2.1, and v2.2.2.
+**Note:** Coverage will increase as more tests are added for v2.2, v2.2.1, and v2.2.2.
 
 ---
 
@@ -259,11 +292,21 @@ pytest tests/v1/ tests/v2/ -v
 |---------|-------|--------|--------|--------------|
 | v1.0.0 | 9 | 9 | 0 | 100% ✅ |
 | v2.0.0 | 22 | 22 | 0 | 100% ✅ |
-| v2.1.0 | 2 | 0 | 0 | 0% ⏳ |
+| v2.1.0 | 15 | 15 | 0 | 100% ✅ |
 | v2.2.0 | 4 | 0 | 0 | 0% ⏳ |
 | v2.2.1 | 9 | 0 | 0 | 0% ⏳ |
 | v2.2.2 | 11 | 0 | 0 | 0% ⏳ |
-| **Total** | **57** | **31** | **0** | **54%** |
+| **Total** | **70** | **46** | **0** | **66%** |
+
+---
+
+## 🏆 Milestones Achieved
+
+- ✅ **May 10, 2026:** v1.0.0 Core Features - 9/9 tests passed
+- ✅ **May 10, 2026:** v2.0.0 LLM Layer - 22/22 tests passed  
+- ✅ **May 10, 2026:** v2.1.0 Memory Layer - 15/15 tests passed
+
+**Next Milestone:** v2.2.0 Exporters (4 tests)
 
 ---
 
