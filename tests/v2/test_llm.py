@@ -14,6 +14,7 @@ from story_toolkit import StoryToolkit
 
 
 def test_llm_imports():
+    """Test LLM module imports"""
     print("\n🤖 Testing LLM Imports (v2)...")
     
     from story_toolkit.llm import BaseLLMBackend, LLMConfig
@@ -25,6 +26,7 @@ def test_llm_imports():
 
 
 def test_mock_backend():
+    """Test Mock backend creation and basic functionality"""
     print("\n🔧 Testing Mock Backend (v2)...")
     
     llm = LLMFactory.create_backend(provider=LLMProvider.MOCK)
@@ -33,12 +35,14 @@ def test_mock_backend():
     
     assert response is not None
     assert len(dialogue) == 3
+    assert "Hero" in dialogue[0] or "Villain" in dialogue[0]
     
     print("   ✅ Mock backend tests passed")
     return True
 
 
 def test_llm_dialogue():
+    """Test advanced dialogue generation with LLM"""
     print("\n💬 Testing LLM Dialogue (v2)...")
     
     llm = LLMFactory.create_backend(provider=LLMProvider.MOCK)
@@ -60,9 +64,10 @@ def test_llm_dialogue():
 
 
 def test_backward_compatibility():
+    """Test that v1 code still works in v2"""
     print("\n🔄 Testing Backward Compatibility (v1 -> v2)...")
     
-    # Old way (no LLM)
+    # Old way (no LLM) - should still work
     toolkit = StoryToolkit()
     story = toolkit.create_story("fantasy", "courage")
     hero = toolkit.add_character_to_story(story, "Kai", "protagonist")
@@ -75,6 +80,7 @@ def test_backward_compatibility():
 
 
 def run_all():
+    """Run all v2.0.0 tests"""
     print("\n" + "="*60)
     print("🧪 V2.0.0 - LLM LAYER TESTS")
     print("="*60)
@@ -97,4 +103,5 @@ def run_all():
 
 
 if __name__ == "__main__":
-    run_all()
+    success = run_all()
+    sys.exit(0 if success else 1)
