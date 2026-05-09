@@ -1,0 +1,36 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: Story Development Toolkit
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: milad
+    family-names: Rezanezhad
+    email: miladvf2014@gmail.com
+    orcid: 'https://orcid.org/0009-0006-1311-6960'
+repository-code: 'https://github.com/miladrezanezhad/story-toolkit'
+url: 'https://miladrezanezhad.github.io/story-toolkit/'
+abstract: >+
+  A comprehensive Python toolkit for generating engaging and
+  coherent stories with optional LLM support. Provides tools
+  for character creation, plot generation, dialogue writing,
+  world building, coherence checking, and multiple export
+  formats (PDF, EPUB, HTML).
+
+keywords:
+  - story generation
+  - python toolkit
+  - creative writing
+  - LLM integration
+  - narrative generation
+  - character creation
+  - coherence checking
+  - export to pdf
+license: MIT
+commit: e428240
+version: 2.2.2
+date-released: '2026-05-07'
