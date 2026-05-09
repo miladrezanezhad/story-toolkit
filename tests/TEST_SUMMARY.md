@@ -2,7 +2,7 @@
 # 🧪 Story Toolkit - Test Summary
 
 **Last Updated:** May 10, 2026  
-**Total Tests:** 57 planned | 33 completed | 24 pending
+**Total Tests:** 70 planned | 55 completed | 15 pending
 
 ---
 
@@ -12,11 +12,11 @@
 |---------|----------|--------------|--------|
 | **v1.0.0** | Core, Generators, NLP | ✅ 9/9 | **COMPLETE** |
 | **v2.0.0** | LLM Layer | ✅ 22/22 | **COMPLETE** |
-| **v2.1.0** | Memory Layer | ✅ 2/2 | **COMPLETE** |
+| **v2.1.0** | Memory Layer (SQLite) | ✅ 15/15 | **COMPLETE** |
 | **v2.2.0** | Exporters | ⏳ 0/4 | PENDING |
-| **v2.2.1** | Templates | ⏳ 0/9 | PENDING |
+| **v2.2.1** | Templates | ✅ 9/9 | **COMPLETE** |
 | **v2.2.2** | CLI Tool | ⏳ 0/11 | PENDING |
-| **Total** | | **✅ 33/57** | **58% Complete** |
+| **Total** | | **✅ 55/70** | **79% Complete** |
 
 ---
 
@@ -124,10 +124,10 @@
 
 ---
 
-## ✅ v2.1.0 - Memory Layer (NEWLY COMPLETED!)
+## ✅ v2.1.0 - Memory Layer (COMPLETE)
 
 **Test File:** `tests/v2_1/test_memory.py`  
-**Status:** ✅ **15/15 PASSED** (expanded from original 2 tests)  
+**Status:** ✅ **15/15 PASSED**  
 **Date Completed:** May 10, 2026
 
 ### Memory Layer Tests - 15/15 PASSED
@@ -162,6 +162,39 @@
 
 ---
 
+## ✅ v2.2.1 - Templates (COMPLETE)
+
+**Test File:** `tests/v2_2_1/test_templates.py`  
+**Status:** ✅ **9/9 PASSED**  
+**Date Completed:** May 10, 2026
+
+### Template Tests - 9/9 PASSED
+
+| # | Test Name | Description | Result |
+|---|-----------|-------------|--------|
+| 1 | `test_template_manager` | TemplateManager listing and access (5 templates) | ✅ PASSED |
+| 2 | `test_hero_journey_template` | Hero's Journey (12 stages) | ✅ PASSED |
+| 3 | `test_three_act_template` | Three Act Structure (3 acts) | ✅ PASSED |
+| 4 | `test_mystery_clues_template` | Mystery Clues (5 stages) | ✅ PASSED |
+| 5 | `test_romance_beat_template` | Romance Beat (15 beats) | ✅ PASSED |
+| 6 | `test_horror_cycle_template` | Horror Cycle (6 stages) | ✅ PASSED |
+| 7 | `test_apply_template` | Template application to stories | ✅ PASSED |
+| 8 | `test_list_templates_from_toolkit` | Toolkit template listing | ✅ PASSED |
+| 9 | `test_get_template_info` | Template information retrieval | ✅ PASSED |
+
+**Verified Features:**
+- ✅ `TemplateManager`: Complete template management system
+- ✅ **5 Pre-built Templates:**
+  - `hero_journey` - 12-stage Campbell's monomyth (fantasy/adventure)
+  - `three_act` - 3-act structure (general)
+  - `mystery_clues` - 5-stage detective/mystery structure
+  - `romance_beat` - 15-beat romance structure
+  - `horror_cycle` - 6-stage horror structure
+- ✅ Template staging: Proper stage names, descriptions, chapter ranges
+- ✅ StoryToolkit integration: `use_template()`, `list_templates()`, `get_template_info()`
+
+---
+
 ## ⏳ Pending Tests
 
 ### v2.2.0 - Exporters (4 tests pending)
@@ -174,24 +207,6 @@
 | `test_epub` | EPUB eBook export | ⏳ PENDING |
 | `test_pdf` | PDF document export (3 styles) | ⏳ PENDING |
 | `test_html` | HTML web page export (4 templates) | ⏳ PENDING |
-
----
-
-### v2.2.1 - Templates (9 tests pending)
-
-**Test File:** `tests/v2_2_1/test_templates.py`
-
-| Test Name | Description | Status |
-|-----------|-------------|--------|
-| `test_template_manager` | TemplateManager listing and access | ⏳ PENDING |
-| `test_hero_journey_template` | Hero's Journey (12 stages) | ⏳ PENDING |
-| `test_three_act_template` | Three Act Structure (3 acts) | ⏳ PENDING |
-| `test_mystery_clues_template` | Mystery Clues (5 stages) | ⏳ PENDING |
-| `test_romance_beat_template` | Romance Beat (15 beats) | ⏳ PENDING |
-| `test_horror_cycle_template` | Horror Cycle (6 stages) | ⏳ PENDING |
-| `test_apply_template` | Template application to stories | ⏳ PENDING |
-| `test_list_templates_from_toolkit` | Toolkit template listing | ⏳ PENDING |
-| `test_get_template_info` | Template information retrieval | ⏳ PENDING |
 
 ---
 
@@ -236,11 +251,18 @@ python tests/v2/test_llm_backends.py
 python tests/v2_1/test_memory.py
 ```
 
+### Run v2.2.1 tests (completed)
+```bash
+python tests/v2_2_1/test_templates.py
+```
+
 ### Run all completed tests
 ```bash
 python -c "
 from tests.v1 import test_core, test_generators, test_nlp
 from tests.v2 import test_llm_core, test_llm_integration, test_llm_backends
+from tests.v2_1 import test_memory
+from tests.v2_2_1 import test_templates
 
 print('\n' + '='*60)
 print('🧪 RUNNING ALL COMPLETED TESTS')
@@ -252,6 +274,8 @@ test_nlp.run_all()
 test_llm_core.run_all()
 test_llm_integration.run_all()
 test_llm_backends.run_all()
+test_memory.run_all()
+test_templates.run_all()
 
 print('\n' + '='*60)
 print('🎉 ALL COMPLETED TESTS PASSED!')
@@ -261,7 +285,7 @@ print('='*60)
 
 ### Run with pytest
 ```bash
-pytest tests/v1/ tests/v2/ tests/v2_1/ -v
+pytest tests/v1/ tests/v2/ tests/v2_1/ tests/v2_2_1/ -v
 ```
 
 ---
@@ -281,8 +305,9 @@ pytest tests/v1/ tests/v2/ tests/v2_1/ -v
 | `story_toolkit/nlp/text_analyzer.py` | 113 | 23 | 20% |
 | `story_toolkit/llm/` (v2) | ~200 | ~150 | ~75% |
 | `story_toolkit/memory/` (v2.1) | ~300 | ~280 | ~93% |
+| `story_toolkit/templates/` (v2.2.1) | ~250 | ~240 | ~96% |
 
-**Note:** Coverage will increase as more tests are added for v2.2, v2.2.1, and v2.2.2.
+**Note:** Coverage will increase as more tests are added for v2.2.0 and v2.2.2.
 
 ---
 
@@ -294,9 +319,9 @@ pytest tests/v1/ tests/v2/ tests/v2_1/ -v
 | v2.0.0 | 22 | 22 | 0 | 100% ✅ |
 | v2.1.0 | 15 | 15 | 0 | 100% ✅ |
 | v2.2.0 | 4 | 0 | 0 | 0% ⏳ |
-| v2.2.1 | 9 | 0 | 0 | 0% ⏳ |
+| v2.2.1 | 9 | 9 | 0 | 100% ✅ |
 | v2.2.2 | 11 | 0 | 0 | 0% ⏳ |
-| **Total** | **70** | **46** | **0** | **66%** |
+| **Total** | **70** | **55** | **0** | **79%** |
 
 ---
 
@@ -305,8 +330,9 @@ pytest tests/v1/ tests/v2/ tests/v2_1/ -v
 - ✅ **May 10, 2026:** v1.0.0 Core Features - 9/9 tests passed
 - ✅ **May 10, 2026:** v2.0.0 LLM Layer - 22/22 tests passed  
 - ✅ **May 10, 2026:** v2.1.0 Memory Layer - 15/15 tests passed
+- ✅ **May 10, 2026:** v2.2.1 Templates - 9/9 tests passed
 
-**Next Milestone:** v2.2.0 Exporters (4 tests)
+**Next Milestone:** v2.2.0 Exporters (4 tests) or v2.2.2 CLI Tool (11 tests)
 
 ---
 
