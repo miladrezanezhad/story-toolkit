@@ -8,7 +8,10 @@ on:
   workflow_dispatch:
 
 jobs:
-  test:
+  # ============================================================
+  # LINUX TESTS (Primary - Must pass)
+  # ============================================================
+  test-linux:
     runs-on: ubuntu-latest
     
     strategy:
@@ -30,64 +33,84 @@ jobs:
         pip install -r requirements.txt
         pip install -r requirements-dev.txt
         pip install -e .
+        pip install pytest-cov coverage
     
     - name: Download spaCy model
       run: |
         python -m spacy download en_core_web_sm || true
     
-    - name: Run core tests
+    # ==================== V1.0.0 - CORE TESTS ====================
+    - name: Run v1 core tests
       run: |
-        python -m tests.test_core || true
+        python tests/v1/test_core.py
     
-    - name: Run generator tests
+    # ==================== V2.0.0 - LLM TESTS ====================
+    - name: Run v2 LLM tests
       run: |
-        python -m tests.test_generators || true
+        python tests/v2/test_llm.py
     
-    - name: Run memory tests (if exists)
+    # ==================== V2.1.0 - MEMORY TESTS ====================
+    - name: Run v2.1 memory tests
       run: |
         if [ -f tests/v2_1/test_memory.py ]; then
-          python tests/v2_1/test_memory.py || true
+          python tests/v2_1/test_memory.py
         fi
-      continue-on-error: true
     
-    - name: Run exporter tests (if exists)
+    # ==================== V2.2.0 - EXPORTER TESTS ====================
+    - name: Run v2.2 exporter tests
       run: |
         if [ -f tests/v2_2/test_exporters.py ]; then
-          python tests/v2_2/test_exporters.py || true
+          python tests/v2_2/test_exporters.py
         fi
-      continue-on-error: true
     
-    - name: Run template tests (if exists)
+    # ==================== V2.2.1 - TEMPLATE TESTS ====================
+    - name: Run v2.2.1 template tests
       run: |
         if [ -f tests/v2_2_1/test_templates.py ]; then
-          python tests/v2_2_1/test_templates.py || true
+          python tests/v2_2_1/test_templates.py
         fi
-      continue-on-error: true
     
-    - name: Run CLI tests (if exists)
+    # ==================== V2.2.2 - CLI TESTS ====================
+    - name: Run v2.2.2 CLI tests
       run: |
         if [ -f tests/v2_2_2/test_cli.py ]; then
-          python tests/v2_2_2/test_cli.py || true
+          python tests/v2_2_2/test_cli.py
         fi
-      continue-on-error: true
     
-    - name: Run comprehensive tests
+    # ==================== COMPREHENSIVE TESTS ====================
+    - name: Run all modules test
       run: |
-        if [ -f tests/test_full_comprehensive.py ]; then
-          python tests/test_full_comprehensive.py || true
+        if [ -f tests/test_all_modules.py ]; then
+          python tests/test_all_modules.py
         fi
-      continue-on-error: true
     
-    - name: Upload test results
+    # ==================== COVERAGE & CODECOV ====================
+    - name: Run coverage report
+      run: |
+        pytest tests/ --cov=story_toolkit --cov-report=xml --cov-report=html --cov-report=term --ignore=tests/test_llm_quick --ignore=tests/test_cli.py || true
+    
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v5
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        file: ./coverage.xml
+        flags: unittests
+        name: codecov-linux-${{ matrix.python-version }}
+        fail_ci_if_error: false
+    
+    - name: Upload test artifacts
       if: always()
       uses: actions/upload-artifact@v4
       with:
-        name: test-results-${{ matrix.python-version }}
+        name: test-results-linux-${{ matrix.python-version }}
         path: |
           .pytest_cache/
           htmlcov/
         retention-days: 7
 
+  # ============================================================
+  # WINDOWS TESTS (Secondary - allowed to fail)
+  # ============================================================
   test-windows:
     runs-on: windows-latest
     continue-on-error: true
@@ -107,14 +130,70 @@ jobs:
         pip install -r requirements-dev.txt
         pip install -e .
     
-    - name: Run tests on Windows
+    - name: Run Windows tests
       run: |
-        pytest tests/ -v --tb=short --ignore=tests/test_llm_quick
-      continue-on-error: true
+        python tests/v1/test_core.py
+        python tests/v2/test_llm.py
+        if (Test-Path tests/v2_1/test_memory.py) { python tests/v2_1/test_memory.py }
+        if (Test-Path tests/v2_2/test_exporters.py) { python tests/v2_2/test_exporters.py }
+        if (Test-Path tests/v2_2_1/test_templates.py) { python tests/v2_2_1/test_templates.py }
+        if (Test-Path tests/v2_2_2/test_cli.py) { python tests/v2_2_2/test_cli.py }
+    
+    - name: Upload test artifacts
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: test-results-windows
+        path: |
+          .pytest_cache/
+        retention-days: 7
 
+  # ============================================================
+  # MACOS TESTS (Secondary - allowed to fail)
+  # ============================================================
+  test-macos:
+    runs-on: macos-latest
+    continue-on-error: true
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install -r requirements-dev.txt
+        pip install -e .
+    
+    - name: Run macOS tests
+      run: |
+        python tests/v1/test_core.py
+        python tests/v2/test_llm.py
+        if [ -f tests/v2_1/test_memory.py ]; then python tests/v2_1/test_memory.py; fi
+        if [ -f tests/v2_2/test_exporters.py ]; then python tests/v2_2/test_exporters.py; fi
+        if [ -f tests/v2_2_1/test_templates.py ]; then python tests/v2_2_1/test_templates.py; fi
+        if [ -f tests/v2_2_2/test_cli.py ]; then python tests/v2_2_2/test_cli.py; fi
+    
+    - name: Upload test artifacts
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: test-results-macos
+        path: |
+          .pytest_cache/
+        retention-days: 7
+
+  # ============================================================
+  # COVERAGE REPORT (Separate job)
+  # ============================================================
   coverage:
     runs-on: ubuntu-latest
-    needs: test
+    needs: test-linux
     continue-on-error: true
     
     steps:
@@ -129,14 +208,32 @@ jobs:
       run: |
         pip install -r requirements.txt
         pip install -r requirements-dev.txt
-        pip install pytest-cov
+        pip install pytest-cov coverage
         pip install -e .
     
-    - name: Run coverage
+    - name: Generate coverage report
       run: |
-        pytest tests/ --cov=story_toolkit --cov-report=xml --cov-report=html --ignore=tests/test_llm_quick || true
-      continue-on-error: true
+        pytest tests/ --cov=story_toolkit --cov-report=xml --cov-report=html --cov-report=term
+    
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v5
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        file: ./coverage.xml
+        flags: unittests
+        name: codecov-full
+        fail_ci_if_error: false
+    
+    - name: Upload coverage report
+      uses: actions/upload-artifact@v4
+      with:
+        name: coverage-report
+        path: htmlcov/
+        retention-days: 14
 
+  # ============================================================
+  # LINTING & CODE QUALITY
+  # ============================================================
   lint:
     runs-on: ubuntu-latest
     continue-on-error: true
@@ -151,12 +248,50 @@ jobs:
     
     - name: Install linting tools
       run: |
-        pip install black flake8 mypy isort || true
+        pip install black flake8 mypy isort
     
     - name: Check formatting with black
       run: |
-        black --check story_toolkit/ --line-length 100 || true
+        black --check story_toolkit/ tests/ --line-length 100
+    
+    - name: Check imports with isort
+      run: |
+        isort --check-only story_toolkit/ tests/ --profile black
     
     - name: Lint with flake8
       run: |
-        flake8 story_toolkit/ --max-line-length=100 --ignore=E203,W503,E501 || true
+        flake8 story_toolkit/ --max-line-length=100 --ignore=E203,W503,E501,F403,F401
+    
+    - name: Type check with mypy
+      run: |
+        mypy story_toolkit/ --ignore-missing-imports || true
+
+  # ============================================================
+  # SUMMARY
+  # ============================================================
+  summary:
+    runs-on: ubuntu-latest
+    needs: [test-linux, test-windows, test-macos, coverage, lint]
+    if: always()
+    
+    steps:
+    - name: Test Summary
+      run: |
+        echo "=========================================="
+        echo "📊 STORY TOOLKIT - TEST SUMMARY"
+        echo "=========================================="
+        echo ""
+        echo "✅ Linux tests (3.11, 3.12, 3.13): ${{ needs.test-linux.result }}"
+        echo "✅ Windows tests: ${{ needs.test-windows.result }}"
+        echo "✅ macOS tests: ${{ needs.test-macos.result }}"
+        echo "✅ Coverage: ${{ needs.coverage.result }}"
+        echo "✅ Lint: ${{ needs.lint.result }}"
+        echo ""
+        echo "=========================================="
+        
+        if [[ "${{ needs.test-linux.result }}" == "success" ]]; then
+          echo "🎉 All critical tests passed!"
+        else
+          echo "⚠️ Some tests failed. Please check the logs."
+          exit 1
+        fi

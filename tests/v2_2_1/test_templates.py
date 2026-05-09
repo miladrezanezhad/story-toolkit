@@ -1,5 +1,5 @@
 """
-Tests for v2.2.0 - Exporters (EPUB, PDF, HTML, Bionic)
+Tests for v2.2.1 - Pre-built Story Templates
 
 Author: Milad Rezanezhad
 GitHub: https://github.com/miladrezanezhad
@@ -9,145 +9,189 @@ import sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
-import os
-import tempfile
 from story_toolkit import StoryToolkit
-from story_toolkit.exporters import (
-    EPUBExporter, PDFExporter, HTMLExporter,
-    ExportConfig, PDFStyle, HTMLTemplate, to_bionic
-)
+from story_toolkit.templates import TemplateManager
 
 
-def create_test_story():
-    """Create a test story for exporters"""
+def test_template_manager():
+    """Test TemplateManager - list all templates"""
+    print("\n📋 Testing TemplateManager...")
+    
+    manager = TemplateManager()
+    templates = manager.list_templates()
+    
+    print(f"   ✅ {len(templates)} templates available")
+    for t in templates:
+        print(f"      - {t['name']} ({t['genre']}): {t['stage_count']} stages")
+    
+    assert len(templates) == 5
+    return True
+
+
+def test_hero_journey_template():
+    """Test hero_journey template (12 stages)"""
+    print("\n🏰 Testing hero_journey template...")
+    
+    manager = TemplateManager()
+    template = manager.get_template("hero_journey")
+    
+    assert template is not None
+    assert template.name == "hero_journey"
+    assert template.get_stage_count() == 12
+    
+    stages = template.get_stages()
+    assert stages[0].name == "The Ordinary World"
+    assert stages[-1].name == "Return with the Elixir"
+    
+    print(f"   ✅ hero_journey: {len(stages)} stages")
+    return True
+
+
+def test_three_act_template():
+    """Test three_act template (3 acts)"""
+    print("\n🎬 Testing three_act template...")
+    
+    manager = TemplateManager()
+    template = manager.get_template("three_act")
+    
+    assert template is not None
+    assert template.get_stage_count() == 3
+    
+    stages = template.get_stages()
+    assert stages[0].name == "Act I: Setup"
+    assert stages[1].name == "Act II: Confrontation"
+    assert stages[2].name == "Act III: Resolution"
+    
+    print("   ✅ three_act template works")
+    return True
+
+
+def test_mystery_clues_template():
+    """Test mystery_clues template (5 stages)"""
+    print("\n🕵️ Testing mystery_clues template...")
+    
+    manager = TemplateManager()
+    template = manager.get_template("mystery_clues")
+    
+    assert template is not None
+    assert template.get_stage_count() == 5
+    
+    stages = template.get_stages()
+    expected = ["The Crime", "The Investigation Begins", "The False Trail", 
+                "The Breakthrough", "The Resolution"]
+    
+    for i, expected_name in enumerate(expected):
+        assert stages[i].name == expected_name
+    
+    print("   ✅ mystery_clues template works")
+    return True
+
+
+def test_romance_beat_template():
+    """Test romance_beat template (15 beats)"""
+    print("\n💕 Testing romance_beat template...")
+    
+    manager = TemplateManager()
+    template = manager.get_template("romance_beat")
+    
+    assert template is not None
+    assert template.get_stage_count() == 15
+    
+    stages = template.get_stages()
+    assert stages[0].name == "Setup"
+    assert stages[-1].name == "The Happy Ever After"
+    
+    print(f"   ✅ romance_beat: {len(stages)} stages")
+    return True
+
+
+def test_horror_cycle_template():
+    """Test horror_cycle template (6 stages)"""
+    print("\n👻 Testing horror_cycle template...")
+    
+    manager = TemplateManager()
+    template = manager.get_template("horror_cycle")
+    
+    assert template is not None
+    assert template.get_stage_count() == 6
+    
+    stages = template.get_stages()
+    expected = ["The Calm Before", "The Inciting Incident", "The Investigation",
+                "The Terror Rises", "The Confrontation", "The Aftermath"]
+    
+    for i, expected_name in enumerate(expected):
+        assert stages[i].name == expected_name
+    
+    print("   ✅ horror_cycle template works")
+    return True
+
+
+def test_apply_template():
+    """Test applying template to story"""
+    print("\n📖 Testing apply template to story...")
+    
     toolkit = StoryToolkit()
-    story = toolkit.create_story("fantasy", "courage")
-    story["metadata"]["title"] = "Test Story"
-    story["metadata"]["author"] = "Tester"
-    story["plot"]["main_plot"] = [
-        {"stage": "Beginning", "description": "The hero starts their journey."},
-        {"stage": "Middle", "description": "The hero faces challenges."},
-        {"stage": "End", "description": "The hero triumphs."}
-    ]
-    return story
-
-
-def test_bionic():
-    print("\n👁️ Testing Bionic Reading (v2.2)...")
+    story = toolkit.use_template("hero_journey", genre="fantasy", theme="courage")
     
-    text = "This is a test sentence."
-    bionic1 = to_bionic(text, strength=1)
-    bionic2 = to_bionic(text, strength=2)
+    assert story is not None
+    assert "plot" in story
+    assert len(story["plot"]["main_plot"]) == 12
+    assert story["metadata"]["template"] == "hero_journey"
     
-    assert "**T**his" in bionic1 or "**Th**is" in bionic1
-    assert len(bionic1) > len(text)
-    
-    print("   ✅ Bionic Reading tests passed")
+    print("   ✅ Template applied successfully")
     return True
 
 
-def test_epub():
-    print("\n📚 Testing EPUB Exporter (v2.2)...")
+def test_list_templates_from_toolkit():
+    """Test list_templates method from StoryToolkit"""
+    print("\n🔍 Testing list_templates from Toolkit...")
     
-    try:
-        import ebooklib
-        has_epub = True
-    except ImportError:
-        has_epub = False
-        print("   ⚠️ ebooklib not installed, skipping EPUB test")
-        return True
+    toolkit = StoryToolkit()
+    templates = toolkit.list_templates()
     
-    story = create_test_story()
-    config = ExportConfig(title="Test", author="Tester")
-    exporter = EPUBExporter(config)
+    assert len(templates) == 5
+    template_names = [t["name"] for t in templates]
+    expected = ["hero_journey", "three_act", "mystery_clues", "romance_beat", "horror_cycle"]
     
-    with tempfile.NamedTemporaryFile(suffix='.epub', delete=False) as tmp:
-        output_path = tmp.name
+    for name in expected:
+        assert name in template_names
     
-    try:
-        result = exporter.export(story, output_path)
-        assert os.path.exists(result)
-        assert os.path.getsize(result) > 0
-        print(f"   ✅ EPUB created: {os.path.getsize(result)} bytes")
-    except Exception as e:
-        print(f"   ❌ EPUB failed: {e}")
-        return False
-    finally:
-        if os.path.exists(output_path):
-            os.remove(output_path)
-    
+    print(f"   ✅ Found {len(templates)} templates")
     return True
 
 
-def test_pdf():
-    print("\n📄 Testing PDF Exporter (v2.2)...")
+def test_get_template_info():
+    """Test get_template_info method"""
+    print("\nℹ️ Testing get_template_info...")
     
-    try:
-        import reportlab
-    except ImportError:
-        print("   ⚠️ reportlab not installed, skipping PDF test")
-        return True
+    toolkit = StoryToolkit()
+    info = toolkit.get_template_info("hero_journey")
     
-    story = create_test_story()
-    config = ExportConfig(title="Test", author="Tester", pdf_style=PDFStyle.PRINT)
-    exporter = PDFExporter(config)
+    assert info["name"] == "hero_journey"
+    assert info["stage_count"] == 12
+    assert "stages" in info
+    assert len(info["stages"]) == 12
     
-    with tempfile.NamedTemporaryFile(suffix='.pdf', delete=False) as tmp:
-        output_path = tmp.name
-    
-    try:
-        result = exporter.export(story, output_path)
-        assert os.path.exists(result)
-        assert os.path.getsize(result) > 0
-        print(f"   ✅ PDF created: {os.path.getsize(result)} bytes")
-    except Exception as e:
-        print(f"   ❌ PDF failed: {e}")
-        return False
-    finally:
-        if os.path.exists(output_path):
-            os.remove(output_path)
-    
-    return True
-
-
-def test_html():
-    print("\n🌐 Testing HTML Exporter (v2.2)...")
-    
-    story = create_test_story()
-    
-    templates = ["modern", "classic", "dark", "minimal"]
-    for template_name in templates:
-        config = ExportConfig(title="Test", author="Tester")
-        config.html_template = HTMLTemplate(template_name)
-        exporter = HTMLExporter(config)
-        
-        with tempfile.NamedTemporaryFile(suffix='.html', delete=False) as tmp:
-            output_path = tmp.name
-        
-        try:
-            result = exporter.export(story, output_path)
-            assert os.path.exists(result)
-            assert os.path.getsize(result) > 0
-            print(f"   ✅ HTML ({template_name}): {os.path.getsize(result)} bytes")
-        except Exception as e:
-            print(f"   ❌ HTML ({template_name}) failed: {e}")
-        finally:
-            if os.path.exists(output_path):
-                os.remove(output_path)
-    
+    print(f"   ✅ hero_journey: {info['stage_count']} stages")
     return True
 
 
 def run_all():
+    """Run all v2.2.1 tests"""
     print("\n" + "="*60)
-    print("🧪 V2.2.0 - EXPORTERS TESTS")
+    print("🧪 V2.2.1 - PRE-BUILT STORY TEMPLATES TESTS")
     print("="*60)
     
     results = []
-    results.append(("Bionic Reading", test_bionic()))
-    results.append(("EPUB Exporter", test_epub()))
-    results.append(("PDF Exporter", test_pdf()))
-    results.append(("HTML Exporter", test_html()))
+    results.append(("Template Manager", test_template_manager()))
+    results.append(("Hero Journey Template", test_hero_journey_template()))
+    results.append(("Three Act Template", test_three_act_template()))
+    results.append(("Mystery Clues Template", test_mystery_clues_template()))
+    results.append(("Romance Beat Template", test_romance_beat_template()))
+    results.append(("Horror Cycle Template", test_horror_cycle_template()))
+    results.append(("Apply Template", test_apply_template()))
+    results.append(("List Templates", test_list_templates_from_toolkit()))
+    results.append(("Get Template Info", test_get_template_info()))
     
     print("\n" + "-"*40)
     for name, status in results:
@@ -155,10 +199,14 @@ def run_all():
     print("-"*40)
     
     all_passed = all(status for _, status in results)
-    print(f"\n📊 V2.2 Tests: {sum(1 for _, s in results if s)}/{len(results)} passed")
+    print(f"\n📊 V2.2.1 Tests: {sum(1 for _, s in results if s)}/{len(results)} passed")
+    
+    if all_passed:
+        print("\n🎉 V2.2.1 - PRE-BUILT STORY TEMPLATES - ALL TESTS PASSED!")
     
     return all_passed
 
 
 if __name__ == "__main__":
-    run_all()
+    success = run_all()
+    sys.exit(0 if success else 1)
