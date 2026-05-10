@@ -12,7 +12,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name="story-toolkit",
-    version="2.2.2",
+    version="2.2.3",
     author="Milad Rezanezhad",
     author_email="milad.rezanezhad@example.com",
     description="A comprehensive toolkit for generating engaging and coherent stories with optional LLM support",
