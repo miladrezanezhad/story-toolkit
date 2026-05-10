@@ -8,6 +8,7 @@ GitHub: https://github.com/miladrezanezhad
 """
 
 import os
+import html
 from typing import Dict, Any, List, Optional
 from datetime import datetime
 
@@ -20,13 +21,25 @@ class HTMLExporter(BaseExporter):
     def __init__(self, config: ExportConfig = None):
         super().__init__(config)
     
+    def _escape(self, text: str) -> str:
+        """Escape HTML special characters to prevent XSS"""
+        if not isinstance(text, str):
+            text = str(text)
+        return html.escape(text, quote=True)
+    
     def export(self, story_data: Dict[str, Any], output_path: str) -> str:
         """Export story to HTML format"""
         
-        # Get story data
-        title = self._get_title(story_data)
-        author = self._get_author(story_data)
+        # Get and escape story data
+        title = self._escape(self._get_title(story_data))
+        author = self._escape(self._get_author(story_data))
         chapters = self._get_chapters(story_data)
+        
+        # Escape chapter content and titles
+        for chapter in chapters:
+            chapter['content'] = self._escape(chapter.get('content', ''))
+            chapter['title'] = self._escape(chapter.get('title', f"Chapter {chapter['number']}"))
+        
         characters = story_data.get("characters", [])
         
         # Select template
@@ -55,77 +68,62 @@ class HTMLExporter(BaseExporter):
     
     def _render_chapters(self, chapters: List[Dict]) -> str:
         """Render chapters in HTML with proper content handling"""
-        html = ""
+        html_content = ""
         for chapter in chapters:
-            # Get content - could be HTML or plain text
             content = chapter.get('content', '')
             
-            # If content doesn't have HTML tags, wrap in paragraphs
-            if content and not ('<' in content and '>' in content):
-                # Split by double newlines into paragraphs
-                paragraphs = content.split('\n\n')
-                formatted_content = ''
-                for para in paragraphs:
-                    if para.strip():
-                        # Replace single newlines with spaces
-                        clean_para = para.strip().replace('\n', ' ')
-                        formatted_content += f'<p>{clean_para}</p>\n'
-            else:
-                # Content already has HTML tags or is empty
-                formatted_content = content if content else '<p>No content available.</p>'
+            if not content:
+                content = '<p>No content available.</p>'
             
-            html += f"""
+            html_content += f"""
         <div class="chapter">
             <h2>Chapter {chapter['number']}: {chapter['title']}</h2>
-            {formatted_content}
+            {content}
         </div>
 """
-        return html
+        return html_content
     
     def _render_chapters_classic(self, chapters: List[Dict]) -> str:
         """Render chapters in classic style with dropcap"""
-        html = ""
+        html_content = ""
         for chapter in chapters:
             content = chapter.get('content', '')
             
-            if content and not ('<' in content and '>' in content):
-                # Get first character for dropcap
+            if not content:
+                content = '<p>No content available.</p>'
+            
+            # Simple dropcap for first character if content is plain
+            if content and not content.startswith('<'):
                 first_char = content[0] if content else ''
                 rest_content = content[1:] if len(content) > 1 else ''
-                formatted_content = f'<p><span class="dropcap">{first_char}</span>{rest_content}</p>'
-            else:
-                formatted_content = content if content else '<p>No content available.</p>'
+                content = f'<p><span class="dropcap">{first_char}</span>{rest_content}</p>'
             
-            html += f"""
+            html_content += f"""
         <div class="chapter">
             <h2>Chapter {chapter['number']}</h2>
-            {formatted_content}
+            {content}
         </div>
 """
-        return html
+        return html_content
     
     def _render_chapters_minimal(self, chapters: List[Dict]) -> str:
         """Render chapters in minimal style"""
-        html = ""
+        html_content = ""
         for chapter in chapters:
             content = chapter.get('content', '')
             
-            if content and not ('<' in content and '>' in content):
-                # Take first 300 characters for preview
-                preview = content[:300] + '...' if len(content) > 300 else content
-                formatted_content = f'<p>{preview}</p>'
-            else:
-                formatted_content = content if content else '<p>No content available.</p>'
+            if not content:
+                content = '<p>No content available.</p>'
             
-            html += f"""
+            html_content += f"""
     <h2>Chapter {chapter['number']}: {chapter['title']}</h2>
-    {formatted_content}
+    {content}
     <hr>
 """
-        return html
+        return html_content
     
     def _modern_template(self, title: str, author: str, chapters: List[Dict], characters: List) -> str:
-        """Modern responsive HTML template"""
+        """Modern responsive HTML template - ESCAPED"""
         chapters_html = self._render_chapters(chapters)
         
         return f"""<!DOCTYPE html>
@@ -232,7 +230,7 @@ class HTMLExporter(BaseExporter):
 </html>"""
     
     def _classic_template(self, title: str, author: str, chapters: List[Dict], characters: List) -> str:
-        """Classic book-style HTML template"""
+        """Classic book-style HTML template - ESCAPED"""
         chapters_html = self._render_chapters_classic(chapters)
         
         return f"""<!DOCTYPE html>
@@ -315,7 +313,7 @@ class HTMLExporter(BaseExporter):
 </html>"""
     
     def _dark_template(self, title: str, author: str, chapters: List[Dict], characters: List) -> str:
-        """Dark theme HTML template for night reading"""
+        """Dark theme HTML template for night reading - ESCAPED"""
         chapters_html = self._render_chapters(chapters)
         
         return f"""<!DOCTYPE html>
@@ -390,7 +388,7 @@ class HTMLExporter(BaseExporter):
 </html>"""
     
     def _minimal_template(self, title: str, author: str, chapters: List[Dict], characters: List) -> str:
-        """Minimal clean HTML template"""
+        """Minimal clean HTML template - ESCAPED"""
         chapters_html = self._render_chapters_minimal(chapters)
         
         return f"""<!DOCTYPE html>
