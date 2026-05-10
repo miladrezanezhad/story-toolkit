@@ -3,6 +3,7 @@
 
 [![Tests](https://github.com/miladrezanezhad/story-toolkit/actions/workflows/tests.yml/badge.svg)](https://github.com/miladrezanezhad/story-toolkit/actions/workflows/tests.yml)
 [![Security Tests](https://github.com/miladrezanezhad/story-toolkit/actions/workflows/security.yml/badge.svg)](https://github.com/miladrezanezhad/story-toolkit/actions/workflows/security.yml)
+
 [![Python](https://img.shields.io/badge/Python-3.11+-blue.svg)](https://www.python.org/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Version](https://img.shields.io/badge/Version-2.2.3-orange.svg)](https://github.com/miladrezanezhad/story-toolkit/releases)
