@@ -2,15 +2,17 @@
 # 📚 Story Development Toolkit
 
 [![Tests](https://github.com/miladrezanezhad/story-toolkit/actions/workflows/tests.yml/badge.svg)](https://github.com/miladrezanezhad/story-toolkit/actions/workflows/tests.yml)
+[![Security Tests](https://github.com/miladrezanezhad/story-toolkit/actions/workflows/security.yml/badge.svg)](https://github.com/miladrezanezhad/story-toolkit/actions/workflows/security.yml)
 [![Python](https://img.shields.io/badge/Python-3.11+-blue.svg)](https://www.python.org/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/Version-2.2.2-orange.svg)](https://github.com/miladrezanezhad/story-toolkit/releases)
+[![Version](https://img.shields.io/badge/Version-2.2.3-orange.svg)](https://github.com/miladrezanezhad/story-toolkit/releases)
+[![Security Status](https://img.shields.io/badge/Security-Passed-brightgreen.svg)](SECURITY.md)
 [![Author](https://img.shields.io/badge/Author-Milad%20Rezanezhad-purple.svg)](https://github.com/miladrezanezhad)
 [![PyPI version](https://img.shields.io/pypi/v/story-toolkit.svg)](https://pypi.org/project/story-toolkit/)
 
 **A comprehensive Python toolkit for generating engaging and coherent stories with optional LLM support.**
 
-Story Development Toolkit provides tools for character creation, plot generation, dialogue writing, world building, and story coherence analysis — all in one package. **NEW in v2.2.2:** Complete CLI tool and pre-built story templates!
+Story Development Toolkit provides tools for character creation, plot generation, dialogue writing, world building, and story coherence analysis — all in one package. **NEW in v2.2.3:** Security hardening with 76 security tests (100% passing) and critical vulnerability fixes.
 
 ---
 
@@ -39,6 +41,7 @@ This README is also available in:
 | 📄 **Export Formats** | PDF, EPUB, HTML, JSON, Markdown (v2.2.0) |
 | 📋 **Pre-built Templates** | Hero's Journey, 3-Act, Mystery, Romance, Horror (v2.2.1) |
 | 💻 **CLI Tool** | Command-line interface for easy usage (v2.2.2) |
+| 🔒 **Security Hardening** | XSS, SQL injection, path traversal protection (v2.2.3) |
 
 ---
 
@@ -59,6 +62,9 @@ pip install story-toolkit[local]
 
 # With export formats (PDF, EPUB)
 pip install story-toolkit[export]
+
+# With security testing tools
+pip install story-toolkit[security]
 
 # Full installation (all features)
 pip install story-toolkit[all]
@@ -178,6 +184,35 @@ print(f"LLM Status: {toolkit.get_llm_status()}")
 
 ---
 
+## 🔒 Security Features (v2.2.3)
+
+Story Toolkit v2.2.3 includes comprehensive security hardening:
+
+| Security Control | Status | Description |
+|-----------------|--------|-------------|
+| **XSS Prevention** | ✅ | HTML escaping in all exporters |
+| **SQL Injection** | ✅ | Parameterized queries |
+| **Path Traversal** | ✅ | Path validation |
+| **Command Injection** | ✅ | No shell=True, input sanitization |
+| **DoS Protection** | ✅ | Resource limits |
+| **Memory Safety** | ✅ | No memory leaks |
+| **Security Tests** | ✅ | 76 tests (100% passing) |
+
+```python
+# Security sanitizer module
+from story_toolkit.security import sanitize_html, sanitize_path
+
+# Escape HTML automatically
+safe_text = sanitize_html("<script>alert('xss')</script>")
+# Returns: &lt;script&gt;alert(&#x27;xss&#x27;)&lt;/script&gt;
+
+# Validate file paths
+safe_path = sanitize_path("../../../etc/passwd")
+# Raises ValueError: Path traversal attempt
+```
+
+---
+
 ## 🤖 LLM Backends
 
 v2.0.0+ supports multiple LLM providers:
@@ -252,10 +287,11 @@ story_toolkit/
 │   ├── exporters/          # PDF, EPUB, HTML, Bionic exporters
 │   ├── templates/          # Pre-built story templates
 │   ├── cli/                # Command-line interface
+│   ├── security/           # Security sanitizers (v2.2.3)
 │   └── utils/              # Helper functions
 ├── docs/                   # Documentation (English & Persian)
 ├── examples/               # Usage examples
-├── tests/                  # Unit tests
+├── tests/                  # Unit tests + Security tests
 ├── requirements.txt        # Dependencies
 └── setup.py                # Package setup
 ```
@@ -277,6 +313,7 @@ Full documentation is available in two languages:
 - **API Reference** — Complete documentation for all classes and methods
 - **LLM Integration Guide** — How to use OpenAI, Anthropic, and local models
 - **CLI Guide** — Command-line interface usage
+- **Security Guide** — Security best practices
 - **Examples** — Simple, complete, and advanced usage examples
 
 ---
@@ -284,35 +321,23 @@ Full documentation is available in two languages:
 ## 🧪 Running Tests
 
 ```bash
-# Run all tests
-pytest tests/ -v
+# Run all unit tests
+pytest tests/v1 tests/v2 tests/v2_1 tests/v2_2 tests/v2_2_1 tests/v2_2_2 -v
 
-# Core module tests
-python -m tests.test_core
+# Run security tests (76 tests)
+python tests/run_security_tests.py
 
-# Generator tests
-python -m tests.test_generators
+# Run all tests (unit + security)
+python tests/test_story_toolkit.py
 
-# NLP tool tests
-python -m tests.test_nlp
-
-# LLM layer tests
-python -m tests.test_llm_quick.test_quick_verify
-
-# Comprehensive test suite
-python tests/test_suite.py
+# Run specific security test
+python tests/security/test_xss_prevention.py
 ```
 
 All tests should pass:
 ```
-✅ StoryEngine tests passed!
-✅ Character tests passed!
-✅ Plot tests passed!
-✅ WorldBuilder tests passed!
-✅ LLM layer tests passed!
-✅ Memory tests passed!
-✅ Exporter tests passed!
-✅ CLI tests passed!
+✅ StoryEngine tests passed! (70/70 unit tests)
+✅ Security tests passed! (76/76 security tests)
 ```
 
 ---
@@ -403,19 +428,29 @@ for rec in report['recommendations']:
 | Local LLM | `ollama>=0.1.0` |
 | PDF Export | `reportlab>=4.0` |
 | EPUB Export | `ebooklib>=0.18` |
+| Security Tests | `psutil>=5.9.0` |
 
 ---
 
-## 🔄 Version History
+## 📊 Version History
 
-| Version | Features | Python |
-|---------|----------|--------|
-| **2.2.2** | CLI Tool, Complete integration | 3.11+ |
-| 2.2.1 | Pre-built Templates (5 templates) | 3.11+ |
-| 2.2.0 | Exporters (PDF, EPUB, HTML, Bionic) | 3.11+ |
-| 2.1.0 | SQLite Memory, Timeline, Storage | 3.11+ |
-| 2.0.0 | LLM Layer (OpenAI, Anthropic, Local) | 3.11+ |
-| 1.0.0 | Core Features (Character, Plot, World) | 3.8+ |
+| Version | Features | Security | Python |
+|---------|----------|----------|--------|
+| **2.2.3** | Security Hardening | 🔒 100% | 3.11+ |
+| 2.2.2 | CLI Tool | ⚠️ Update recommended | 3.11+ |
+| 2.2.1 | Pre-built Templates (5 templates) | ⚠️ Update recommended | 3.11+ |
+| 2.2.0 | Exporters (PDF, EPUB, HTML, Bionic) | ⚠️ Update recommended | 3.11+ |
+| 2.1.0 | SQLite Memory, Timeline, Storage | ⚠️ Update recommended | 3.11+ |
+| 2.0.0 | LLM Layer (OpenAI, Anthropic, Local) | ⚠️ Update recommended | 3.11+ |
+| 1.0.0 | Core Features (Character, Plot, World) | ⚠️ Update recommended | 3.8+ |
+
+---
+
+## 🔒 Security Vulnerability Reporting
+
+Please report security vulnerabilities to: **miladvf2014@gmail.com**
+
+For more details, see [SECURITY.md](SECURITY.md).
 
 ---
 
@@ -452,20 +487,20 @@ If you find this project useful, please consider giving it a ⭐️ on GitHub!
 
 ---
 
-*Built with ❤️ for writers and developers*
+*Built with ❤️ and 🔒 for writers and developers*
 
 ---
 
-## ✨ **Version 2.2.2 Highlights**
+## ✨ **Version 2.2.3 Highlights**
 
 | Feature | Description |
 |---------|-------------|
-| 🎯 **Badges** | Python 3.11+, License, Version 2.2.2, Author |
-| 🤖 **LLM Support** | OpenAI, Anthropic, Local (Ollama) |
-| 💾 **Memory** | SQLite long-term persistence |
-| 📄 **Exporters** | PDF, EPUB, HTML (4 templates), Bionic Reading |
-| 📋 **Templates** | 5 pre-built story structures |
-| 💻 **CLI Tool** | Full command-line interface |
-| 📖 **Docs** | English & Persian documentation |
-| 🧪 **Tests** | 100% pass rate (16+ tests) |
-| 🔄 **Backward Compatible** | v1.0.0 code works unchanged |
+| 🔒 **Security** | 76 security tests (100% passing) |
+| 🛡️ **XSS Protection** | HTML escaping in all exporters |
+| 🚫 **SQL Injection** | Parameterized queries |
+| 📁 **Path Traversal** | Path validation |
+| 💻 **Command Injection** | No shell=True |
+| 🔐 **Security Module** | `story_toolkit.security` |
+| 🧪 **Security Tests** | Run with `python tests/run_security_tests.py` |
+| 📄 **Security Docs** | [SECURITY.md](SECURITY.md) |
+
