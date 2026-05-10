@@ -30,7 +30,7 @@ from .memory import MemoryManager, MemoryConfig
 # Templates module
 from .templates import TemplateManager
 
-__version__ = "2.3.0-dev"
+__version__ = "2.2.3"  # ← تغییر این خط
 __author__ = "Milad Rezanezhad"
 __github__ = "https://github.com/miladrezanezhad/story-toolkit"
 
