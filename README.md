@@ -1,5 +1,13 @@
+<div align="center">
+
+<img src="image.png" alt="Web Security Scanner Pro">
 
 # 📚 Story Development Toolkit
+
+Advanced Open Source Story Development Toolkit
+
+</div>
+
 
 [![Tests](https://github.com/miladrezanezhad/story-toolkit/actions/workflows/tests.yml/badge.svg)](https://github.com/miladrezanezhad/story-toolkit/actions/workflows/tests.yml)
 [![Security Tests](https://github.com/miladrezanezhad/story-toolkit/actions/workflows/security.yml/badge.svg)](https://github.com/miladrezanezhad/story-toolkit/actions/workflows/security.yml)
