@@ -22,7 +22,10 @@ from .nlp.text_analyzer import TextAnalyzer
 from .utils.helpers import save_story, load_story, export_to_markdown
 
 # LLM module
-from .llm import LLMFactory, LLMProvider, BaseLLMBackend, MockLLMBackend
+from .llm import (
+    LLMFactory, LLMProvider, BaseLLMBackend, MockLLMBackend,
+    OpenAIBackend, AnthropicBackend, GeminiBackend, OpenCodeBackend, CloudflareBackend, LocalLLMBackend
+)
 
 # Memory module
 from .memory import MemoryManager, MemoryConfig
@@ -236,8 +239,20 @@ class StoryToolkit:
         """List all stories in memory"""
         if not self._memory:
             raise RuntimeError("Memory backend not enabled")
-        
+
         return self._memory.list_stories()
+
+    def delete_stored_story(self, story_id: str) -> bool:
+        """Delete a story from memory"""
+        if not self._memory:
+            raise RuntimeError("Memory backend not enabled")
+        return self._memory.delete_story(story_id)
+
+    def clear_memory(self):
+        """Clear all stored stories from memory"""
+        if not self._memory:
+            raise RuntimeError("Memory backend not enabled")
+        self._memory.clear_all()
     
     def use_template(self, template_name: str, genre: str = None, theme: str = None) -> dict:
         """Create a story using a pre-built template"""
@@ -438,6 +453,12 @@ __all__ = [
     'LLMProvider',
     'BaseLLMBackend',
     'MockLLMBackend',
+    'OpenAIBackend',
+    'AnthropicBackend',
+    'GeminiBackend',
+    'OpenCodeBackend',
+    'CloudflareBackend',
+    'LocalLLMBackend',
     'MemoryManager',
     'MemoryConfig',
     'TemplateManager',

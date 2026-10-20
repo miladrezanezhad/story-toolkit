@@ -3,6 +3,12 @@ Web Dashboard Server for Story Development Toolkit.
 Inspired by Google Gemini - Single Page Application with REST API.
 Built entirely on Python standard library (no extra dependencies required).
 
+Features:
+- Multi-LLM Support: Gemini, OpenCode Free, Cloudflare Workers AI, OpenAI, Claude, Local
+- Configurable Proxy Support (HTTP/SOCKS)
+- Persistent Memory & Configuration across restarts (dashboard_config.json + stories.db)
+- Real Recent Stories Manager (Create, Load, Delete, Clear)
+
 Author: Milad Rezanezhad
 GitHub: https://github.com/miladrezanezhad
 """
@@ -14,41 +20,93 @@ import webbrowser
 from http.server import HTTPServer, BaseHTTPRequestHandler
 from urllib.parse import urlparse, parse_qs
 from pathlib import Path
+from datetime import datetime
 
 # Add project root to sys.path
 PROJECT_ROOT = Path(__file__).parent.parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
 
+CONFIG_FILE = PROJECT_ROOT / "dashboard_config.json"
+
 from story_toolkit import (
     StoryToolkit, LLMFactory, LLMProvider, BaseLLMBackend,
     TemplateManager, Character, WorldBuilder
 )
+from story_toolkit.memory.models import StoryModel
 from story_toolkit.nlp.coherence_checker import CoherenceChecker
 from story_toolkit.nlp.text_analyzer import TextAnalyzer
 from story_toolkit.exporters import ExportConfig, HTMLTemplate, PDFStyle
 
 
-class StoryDashboardHandler(BaseHTTPRequestHandler):
-    """HTTP Request Handler for Gemini-style Story Toolkit Web Dashboard"""
-
-    # Global toolkit instances cache
-    toolkit_instance = None
-    active_config = {
+def load_persistent_config() -> dict:
+    """Load persistent configuration from file or default"""
+    default_config = {
         "provider": "mock",
         "model": "mock",
-        "api_key": "",
+        "api_keys": {
+            "openai": "",
+            "anthropic": "",
+            "gemini": "",
+            "opencode": "",
+            "cloudflare": ""
+        },
+        "account_id": "",
+        "proxy": "http://127.0.0.1:10808",
+        "proxy_enabled": False,
         "temperature": 0.7,
         "max_tokens": 1200,
         "db_path": "stories.db"
     }
 
+    if CONFIG_FILE.exists():
+        try:
+            with open(CONFIG_FILE, "r", encoding="utf-8") as f:
+                saved = json.load(f)
+                default_config.update(saved)
+        except Exception as e:
+            print(f"⚠️ Error reading config file: {e}")
+
+    return default_config
+
+
+def save_persistent_config(config: dict):
+    """Save persistent configuration to file"""
+    try:
+        with open(CONFIG_FILE, "w", encoding="utf-8") as f:
+            json.dump(config, f, indent=2, ensure_ascii=False)
+    except Exception as e:
+        print(f"⚠️ Error saving config file: {e}")
+
+
+class StoryDashboardHandler(BaseHTTPRequestHandler):
+    """HTTP Request Handler for Gemini-style Story Toolkit Web Dashboard"""
+
+    toolkit_instance = None
+    active_config = load_persistent_config()
+
     @classmethod
     def get_toolkit(cls):
-        """Get or initialize StoryToolkit with current settings"""
+        """Get or initialize StoryToolkit with current settings and proxy"""
         provider_name = cls.active_config.get("provider", "mock").lower()
-        api_key = cls.active_config.get("api_key", "").strip() or None
+        api_keys = cls.active_config.get("api_keys", {})
+        api_key = api_keys.get(provider_name, "").strip() or None
         model = cls.active_config.get("model", "").strip() or None
         temp = float(cls.active_config.get("temperature", 0.7))
+
+        # Check proxy settings
+        proxy = None
+        if cls.active_config.get("proxy_enabled") and cls.active_config.get("proxy"):
+            proxy = cls.active_config["proxy"].strip()
+            # Also set environment proxies for underlying libraries
+            os.environ["HTTP_PROXY"] = proxy
+            os.environ["HTTPS_PROXY"] = proxy
+            os.environ["ALL_PROXY"] = proxy
+        else:
+            os.environ.pop("HTTP_PROXY", None)
+            os.environ.pop("HTTPS_PROXY", None)
+            os.environ.pop("ALL_PROXY", None)
+
+        account_id = cls.active_config.get("account_id", "").strip() or None
 
         try:
             provider = LLMProvider(provider_name)
@@ -61,7 +119,9 @@ class StoryDashboardHandler(BaseHTTPRequestHandler):
                 provider=provider,
                 api_key=api_key,
                 model=model,
-                temperature=temp
+                temperature=temp,
+                proxy=proxy,
+                account_id=account_id
             )
         except Exception as e:
             print(f"⚠️ Failed to create LLM backend {provider_name}: {e}. Falling back to Mock.")
@@ -78,7 +138,7 @@ class StoryDashboardHandler(BaseHTTPRequestHandler):
         self.send_response(status)
         self.send_header("Content-Type", f"{content_type}; charset=utf-8")
         self.send_header("Access-Control-Allow-Origin", "*")
-        self.send_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+        self.send_header("Access-Control-Allow-Methods", "GET, POST, DELETE, OPTIONS")
         self.send_header("Access-Control-Allow-Headers", "Content-Type")
         self.end_headers()
 
@@ -88,6 +148,7 @@ class StoryDashboardHandler(BaseHTTPRequestHandler):
     def do_GET(self):
         parsed = urlparse(self.path)
         path = parsed.path
+        query = parse_qs(parsed.query)
 
         if path in ["/", "/index.html"]:
             html_file = Path(__file__).parent / "index.html"
@@ -132,7 +193,7 @@ class StoryDashboardHandler(BaseHTTPRequestHandler):
                         "genre": s.genre,
                         "theme": s.theme,
                         "description": s.description,
-                        "created_at": s.created_at.isoformat() if hasattr(s.created_at, 'isoformat') else str(s.created_at)
+                        "created_at": s.created_at.strftime("%Y-%m-%d %H:%M") if hasattr(s.created_at, 'strftime') else str(s.created_at)[:16]
                     }
                     for s in stories
                 ]
@@ -141,6 +202,86 @@ class StoryDashboardHandler(BaseHTTPRequestHandler):
             self._set_headers()
             self.wfile.write(json.dumps({"stories": story_list}).encode("utf-8"))
             return
+
+        elif path == "/api/story":
+            story_id = query.get("id", [None])[0]
+            if not story_id:
+                self._set_headers(status=400)
+                self.wfile.write(json.dumps({"error": "Story ID required"}).encode("utf-8"))
+                return
+
+            tk = self.get_toolkit()
+            try:
+                story_model = tk._memory.get_story(story_id)
+                if not story_model:
+                    self._set_headers(status=404)
+                    self.wfile.write(json.dumps({"error": "Story not found"}).encode("utf-8"))
+                    return
+
+                characters = tk._memory.get_characters(story_id)
+                events = tk._memory.get_timeline(story_id)
+
+                story_data = {
+                    "id": story_model.id,
+                    "title": story_model.name,
+                    "name": story_model.name,
+                    "genre": story_model.genre,
+                    "theme": story_model.theme,
+                    "description": story_model.description,
+                    "author": story_model.author,
+                    "created_at": story_model.created_at.isoformat(),
+                    "chapters": story_model.data.get("chapters", []) if story_model.data else [],
+                    "characters": [
+                        {
+                            "name": c.name,
+                            "role": c.role,
+                            "traits": c.traits,
+                            "goals": c.goals
+                        }
+                        for c in characters
+                    ],
+                    "timeline": [
+                        {
+                            "chapter": e.chapter,
+                            "description": e.description,
+                            "importance": e.importance
+                        }
+                        for e in events
+                    ]
+                }
+                self._set_headers()
+                self.wfile.write(json.dumps({"success": True, "story": story_data}).encode("utf-8"))
+                return
+            except Exception as e:
+                self._set_headers(status=500)
+                self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode("utf-8"))
+                return
+
+        self._set_headers(status=404)
+        self.wfile.write(json.dumps({"error": "Endpoint not found"}).encode("utf-8"))
+
+    def do_DELETE(self):
+        parsed = urlparse(self.path)
+        path = parsed.path
+        query = parse_qs(parsed.query)
+
+        if path == "/api/story":
+            story_id = query.get("id", [None])[0]
+            if not story_id:
+                self._set_headers(status=400)
+                self.wfile.write(json.dumps({"error": "Story ID required"}).encode("utf-8"))
+                return
+
+            tk = self.get_toolkit()
+            try:
+                success = tk.delete_stored_story(story_id)
+                self._set_headers()
+                self.wfile.write(json.dumps({"success": success, "deleted_id": story_id}).encode("utf-8"))
+                return
+            except Exception as e:
+                self._set_headers(status=500)
+                self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode("utf-8"))
+                return
 
         self._set_headers(status=404)
         self.wfile.write(json.dumps({"error": "Endpoint not found"}).encode("utf-8"))
@@ -172,15 +313,27 @@ class StoryDashboardHandler(BaseHTTPRequestHandler):
                 self.wfile.write(json.dumps(response_data).encode("utf-8"))
                 return
 
-            # 2. Settings update
+            # 2. Settings update & persistence
             elif path == "/api/settings":
-                for key in ["provider", "model", "api_key", "temperature", "max_tokens", "db_path"]:
+                for key in ["provider", "model", "proxy", "proxy_enabled", "account_id", "temperature", "max_tokens", "db_path"]:
                     if key in body:
                         self.active_config[key] = body[key]
 
-                # Force re-instantiation
+                if "api_keys" in body and isinstance(body["api_keys"], dict):
+                    self.active_config.setdefault("api_keys", {}).update(body["api_keys"])
+
+                # If single api_key passed
+                if "api_key" in body and body["api_key"]:
+                    prov = self.active_config.get("provider", "mock").lower()
+                    self.active_config.setdefault("api_keys", {})[prov] = body["api_key"]
+
+                # Save persistently to disk
+                save_persistent_config(self.active_config)
+
+                # Recreate toolkit with new config & proxy
                 StoryDashboardHandler.toolkit_instance = None
                 new_tk = self.get_toolkit()
+
                 self._set_headers()
                 self.wfile.write(json.dumps({
                     "success": True,
@@ -189,7 +342,43 @@ class StoryDashboardHandler(BaseHTTPRequestHandler):
                 }).encode("utf-8"))
                 return
 
-            # 3. Create full story / novel
+            # 3. Clear memory endpoint
+            elif path == "/api/memory/clear":
+                target = body.get("target", "all")
+                result = {"success": True, "target": target}
+
+                if target in ["stories", "all"]:
+                    if tk._memory:
+                        tk.clear_memory()
+                    result["stories_cleared"] = True
+
+                if target in ["config", "all"]:
+                    self.active_config = {
+                        "provider": "mock",
+                        "model": "mock",
+                        "api_keys": {
+                            "openai": "",
+                            "anthropic": "",
+                            "gemini": "",
+                            "opencode": "",
+                            "cloudflare": ""
+                        },
+                        "account_id": "",
+                        "proxy": "http://127.0.0.1:10808",
+                        "proxy_enabled": False,
+                        "temperature": 0.7,
+                        "max_tokens": 1200,
+                        "db_path": "stories.db"
+                    }
+                    save_persistent_config(self.active_config)
+                    result["config_reset"] = True
+
+                StoryDashboardHandler.toolkit_instance = None
+                self._set_headers()
+                self.wfile.write(json.dumps(result).encode("utf-8"))
+                return
+
+            # 4. Create full story / novel with auto-save to memory
             elif path == "/api/story/create":
                 genre = body.get("genre", "fantasy")
                 theme = body.get("theme", "courage")
@@ -197,7 +386,7 @@ class StoryDashboardHandler(BaseHTTPRequestHandler):
                 words_per_chapter = int(body.get("words_per_chapter", 300))
                 protagonist = body.get("protagonist", None)
                 antagonist = body.get("antagonist", None)
-                save_db = body.get("save_to_memory", True)
+                title = body.get("title") or f"{genre.capitalize()}: {theme.capitalize()} Chronicle"
 
                 story = tk.generate_novel(
                     genre=genre,
@@ -208,21 +397,34 @@ class StoryDashboardHandler(BaseHTTPRequestHandler):
                     antagonist_name=antagonist,
                     use_llm=True
                 )
+                story["title"] = title
 
-                if save_db and tk._memory:
+                if tk._memory:
                     sid = tk._memory.create_story(
-                        name=f"{genre.capitalize()}: {theme.capitalize()} Chronicle",
+                        name=title,
                         genre=genre,
                         theme=theme,
-                        description=f"Generated {num_chapters}-chapter novel"
+                        description=f"Generated {num_chapters}-chapter novel with {protagonist or 'Hero'} and {antagonist or 'Rival'}"
                     )
                     story["memory_id"] = sid
+
+                    # Save story chapters into SQLite data column
+                    story_model = tk._memory.get_story(sid)
+                    if story_model:
+                        story_model.data = {"chapters": story.get("chapters", [])}
+                        tk._memory.memory.save_story(story_model)
+
+                    # Add protagonist & antagonist to DB
+                    if protagonist:
+                        tk._memory.add_character(sid, protagonist, "protagonist", ["determined", "heroic"])
+                    if antagonist:
+                        tk._memory.add_character(sid, antagonist, "antagonist", ["ruthless", "ambitious"])
 
                 self._set_headers()
                 self.wfile.write(json.dumps({"success": True, "story": story}).encode("utf-8"))
                 return
 
-            # 4. Generate Character
+            # 5. Generate Character
             elif path == "/api/character/create":
                 role = body.get("role", "protagonist")
                 name = body.get("name")
@@ -251,7 +453,7 @@ class StoryDashboardHandler(BaseHTTPRequestHandler):
                 self.wfile.write(json.dumps({"success": True, "character": char_dict}).encode("utf-8"))
                 return
 
-            # 5. Generate Dialogue
+            # 6. Generate Dialogue
             elif path == "/api/dialogue/generate":
                 speaker = body.get("speaker", "Protagonist")
                 listener = body.get("listener", "Antagonist")
@@ -271,18 +473,29 @@ class StoryDashboardHandler(BaseHTTPRequestHandler):
                 self.wfile.write(json.dumps({"success": True, "dialogue": dialogue}).encode("utf-8"))
                 return
 
-            # 6. Apply Template
+            # 7. Apply Template
             elif path == "/api/templates/apply":
                 tname = body.get("template", "hero_journey")
                 genre = body.get("genre", "fantasy")
                 theme = body.get("theme", "adventure")
 
                 story = tk.use_template(tname, genre=genre, theme=theme)
+
+                # Save template story to memory
+                if tk._memory:
+                    sid = tk._memory.create_story(
+                        name=f"{tname.replace('_', ' ').title()} - {genre.title()}",
+                        genre=genre,
+                        theme=theme,
+                        description=f"Generated structure from template {tname}"
+                    )
+                    story["memory_id"] = sid
+
                 self._set_headers()
                 self.wfile.write(json.dumps({"success": True, "story": story}).encode("utf-8"))
                 return
 
-            # 7. Check Coherence & Analyze Text
+            # 8. Check Coherence & Analyze Text
             elif path == "/api/coherence/check":
                 text = body.get("text", "")
                 story_data = body.get("story", None)
@@ -315,7 +528,7 @@ class StoryDashboardHandler(BaseHTTPRequestHandler):
                 }).encode("utf-8"))
                 return
 
-            # 8. Export Story
+            # 9. Export Story
             elif path == "/api/export":
                 story_data = body.get("story", {})
                 fmt = body.get("format", "html")
@@ -323,7 +536,6 @@ class StoryDashboardHandler(BaseHTTPRequestHandler):
 
                 out_path = tk.export_story(story_data, format=fmt, filename=filename)
 
-                # Read content for preview/download if text/html
                 file_content = ""
                 if os.path.exists(out_path):
                     if fmt in ["html", "bionic_html", "markdown", "md", "json", "txt"]:
@@ -402,6 +614,7 @@ class StoryDashboardHandler(BaseHTTPRequestHandler):
 
         # 4. Template or Story Generation
         elif "story" in lower or "داستان" in lower or "novel" in lower or "رمان" in lower or mode == "story":
+            title = f"{genre.capitalize()}: {theme.capitalize()} Chronicle"
             novel = tk.generate_novel(
                 genre=genre,
                 theme=theme,
@@ -409,9 +622,28 @@ class StoryDashboardHandler(BaseHTTPRequestHandler):
                 words_per_chapter=250,
                 use_llm=True
             )
+            novel["title"] = title
+
+            # Auto-save to SQLite memory
+            if tk._memory:
+                try:
+                    sid = tk._memory.create_story(
+                        name=title,
+                        genre=genre,
+                        theme=theme,
+                        description=f"Generated {genre} novel about {theme}"
+                    )
+                    novel["memory_id"] = sid
+                    story_model = tk._memory.get_story(sid)
+                    if story_model:
+                        story_model.data = {"chapters": novel.get("chapters", [])}
+                        tk._memory.memory.save_story(story_model)
+                except Exception as e:
+                    print(f"⚠️ Auto-save error: {e}")
+
             return {
                 "type": "story",
-                "reply": f"Complete 3-chapter narrative draft created for **{genre.capitalize()} / {theme.capitalize()}**:",
+                "reply": f"Complete 3-chapter narrative draft created for **{genre.capitalize()} / {theme.capitalize()}** (saved to database):",
                 "data": novel
             }
 
@@ -444,6 +676,10 @@ def run_dashboard(host="127.0.0.1", port=8080, open_browser=True):
     print("✨ STORY TOOLKIT - GEMINI WEB DASHBOARD")
     print("=" * 70)
     print(f"🚀 Server running at: {url}")
+    print(f"📁 Persistent config: {CONFIG_FILE}")
+    print(f"🌐 Active Provider: {StoryDashboardHandler.active_config.get('provider').upper()}")
+    if StoryDashboardHandler.active_config.get("proxy_enabled"):
+        print(f"🛡️ Proxy Active: {StoryDashboardHandler.active_config.get('proxy')}")
     print("💡 Press Ctrl+C to stop the server.")
     print("=" * 70 + "\n")
 

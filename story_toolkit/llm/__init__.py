@@ -1,5 +1,6 @@
 """
-LLM module for story-toolkit - Optional AI backend support.
+LLM module for story-toolkit - Multi-provider AI backend support.
+Supports OpenAI, Anthropic, Gemini, OpenCode Free, Cloudflare Workers AI, and Local LLMs.
 
 Author: Milad Rezanezhad
 GitHub: https://github.com/miladrezanezhad
@@ -10,6 +11,9 @@ from .factory import LLMFactory
 from .backends.mock_backend import MockLLMBackend
 from .backends.openai_backend import OpenAIBackend
 from .backends.anthropic_backend import AnthropicBackend
+from .backends.gemini_backend import GeminiBackend
+from .backends.opencode_backend import OpenCodeBackend
+from .backends.cloudflare_backend import CloudflareBackend
 from .backends.local_backend import LocalLLMBackend
 
 __all__ = [
@@ -20,5 +24,8 @@ __all__ = [
     'MockLLMBackend',
     'OpenAIBackend',
     'AnthropicBackend',
+    'GeminiBackend',
+    'OpenCodeBackend',
+    'CloudflareBackend',
     'LocalLLMBackend'
 ]

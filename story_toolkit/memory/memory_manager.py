@@ -91,6 +91,17 @@ class MemoryManager:
         """Get story statistics"""
         return self.memory.get_story_stats(story_id)
     
+    def delete_story(self, story_id: str) -> bool:
+        """Delete story from memory"""
+        if hasattr(self.memory, 'delete_story'):
+            return self.memory.delete_story(story_id)
+        return False
+
+    def clear_all(self):
+        """Clear all stored stories from memory"""
+        if hasattr(self.memory, 'clear_all'):
+            self.memory.clear_all()
+
     def close(self):
         """Close database connection"""
         self.memory.disconnect()

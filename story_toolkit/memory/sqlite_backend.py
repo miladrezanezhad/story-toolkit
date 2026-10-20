@@ -206,6 +206,15 @@ class SQLiteMemory(BaseMemory):
         cursor.execute("DELETE FROM stories WHERE id = ?", (story_id,))
         self.conn.commit()
         return cursor.rowcount > 0
+
+    def clear_all(self):
+        """Clear all stored stories, characters, and events from database"""
+        cursor = self.conn.cursor()
+        cursor.execute("DELETE FROM events")
+        cursor.execute("DELETE FROM characters")
+        cursor.execute("DELETE FROM locations")
+        cursor.execute("DELETE FROM stories")
+        self.conn.commit()
     
     def update_story(self, story: StoryModel) -> bool:
         """Update existing story"""

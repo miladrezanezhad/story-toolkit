@@ -70,6 +70,34 @@ class BaseLLMBackend(ABC):
         if self.config.enable_cache:
             import time
             self._cache[key] = (value, time.time())
+
+    def _make_http_request(self, url: str, payload: dict, headers: dict = None) -> dict:
+        """Send a JSON POST request with optional proxy support"""
+        import urllib.request
+        import json
+
+        req_headers = {
+            "Content-Type": "application/json",
+            "User-Agent": "Story-Toolkit/2.2.3"
+        }
+        if headers:
+            req_headers.update(headers)
+
+        handlers = []
+        if self.config.proxy and self.config.proxy.strip():
+            proxy_url = self.config.proxy.strip()
+            handlers.append(urllib.request.ProxyHandler({
+                'http': proxy_url,
+                'https': proxy_url
+            }))
+
+        opener = urllib.request.build_opener(*handlers)
+        req_data = json.dumps(payload).encode("utf-8")
+        req = urllib.request.Request(url, data=req_data, headers=req_headers, method="POST")
+
+        with opener.open(req, timeout=self.config.timeout) as resp:
+            body = resp.read().decode("utf-8")
+            return json.loads(body)
     
     @abstractmethod
     def generate(self, prompt: str, **kwargs) -> str:
