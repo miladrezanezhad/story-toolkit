@@ -39,7 +39,7 @@ from .exporters import (
     EPUBExporter, PDFExporter, HTMLExporter, to_bionic
 )
 
-__version__ = "2.2.3"
+__version__ = "2.3.0"
 __author__ = "Milad Rezanezhad"
 __github__ = "https://github.com/miladrezanezhad/story-toolkit"
 

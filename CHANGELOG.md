@@ -7,6 +7,38 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [2.3.0] - 2026-05-11 - GEMINI DASHBOARD & MULTI-LLM RELEASE 🚀
+
+### 🚀 Added
+- **Google Gemini Backend** (`story_toolkit/llm/backends/gemini_backend.py`)
+  - Native integration with Google Gemini (`gemini-1.5-flash`, `gemini-1.5-pro`, `gemini-2.0-flash`)
+  - Direct REST API communication with built-in proxy support
+- **OpenCode Free API Backend** (`story_toolkit/llm/backends/opencode_backend.py`)
+  - Support for free open-source models (DeepSeek, Llama 3.1, Qwen, Mistral)
+- **Cloudflare Workers AI Backend** (`story_toolkit/llm/backends/cloudflare_backend.py`)
+  - Direct connection to Cloudflare Workers AI with model routing and account token support
+- **Full Proxy Support (HTTP/SOCKS)**
+  - Configurable proxy support across all LLM providers and HTTP calls
+  - Toggle and configure local proxy (e.g. `http://127.0.0.1:10808`)
+- **Interactive Gemini-style Web Dashboard** (`dashboard.py`, `story_toolkit/web/`)
+  - Modern Gemini-inspired dark UI with single-page architecture
+  - Model switcher, quick prompt cards, interactive character and dialogue preview
+  - Available via `python dashboard.py` or CLI `story-toolkit dashboard`
+- **Persistent Memory & Configuration** (`dashboard_config.json`)
+  - Preserves API keys, active provider, model selections, and proxy settings across restarts
+  - Clear Memory & Reset tools in settings (Clear Stories DB, Reset Keys, Factory Reset)
+- **Dynamic Recent Stories Manager**
+  - Fully integrated with SQLite database to list, reload, and delete stories from sidebar
+
+### 🔧 Fixed & Improved
+- **LLM Package Architecture**: Fixed broken imports by consolidating all backends under `story_toolkit/llm/`
+- **GitHub Actions CI**: Fixed missing test runner references and standardized test execution in `.github/workflows/tests.yml`
+- **Exporters Integration**: Connected PDF, EPUB, HTML, and Bionic Reading to `StoryToolkit.export_story`
+- **CLI Subparsers**: Registered all subcommands (`character`, `dialogue`, `export`, `memory`, `dashboard`) in CLI parser
+- **Database & Security Hardening**: Enabled `PRAGMA foreign_keys = ON;` in SQLite and reinforced path sanitization
+
+---
+
 ## [2.2.3] - 2026-05-10 - SECURITY RELEASE 🔒
 
 ### 🚀 Added
