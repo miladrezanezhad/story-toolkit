@@ -37,6 +37,7 @@ class SQLiteMemory(BaseMemory):
         # Connect to database
         self.conn = sqlite3.connect(self.config.db_path)
         self.conn.row_factory = sqlite3.Row
+        self.conn.execute("PRAGMA foreign_keys = ON;")
         
         # Create all tables
         self._create_tables()

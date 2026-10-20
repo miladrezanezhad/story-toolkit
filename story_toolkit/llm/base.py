@@ -15,6 +15,9 @@ class LLMProvider(str, Enum):
     """Supported LLM service providers"""
     OPENAI = "openai"
     ANTHROPIC = "anthropic"
+    GEMINI = "gemini"
+    OPENCODE = "opencode"
+    CLOUDFLARE = "cloudflare"
     LOCAL = "local"
     MOCK = "mock"
     CUSTOM = "custom"
@@ -34,6 +37,8 @@ class LLMConfig:
     local_model_path: Optional[str] = None
     enable_cache: bool = True
     cache_ttl: int = 3600
+    proxy: Optional[str] = None
+    account_id: Optional[str] = None
 
 
 class BaseLLMBackend(ABC):

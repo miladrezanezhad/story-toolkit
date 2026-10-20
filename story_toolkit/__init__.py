@@ -30,7 +30,13 @@ from .memory import MemoryManager, MemoryConfig
 # Templates module
 from .templates import TemplateManager
 
-__version__ = "2.2.3"  # ← تغییر این خط
+# Exporters module
+from .exporters import (
+    BaseExporter, ExportConfig, ExportFormat, PDFStyle, HTMLTemplate,
+    EPUBExporter, PDFExporter, HTMLExporter, to_bionic
+)
+
+__version__ = "2.2.3"
 __author__ = "Milad Rezanezhad"
 __github__ = "https://github.com/miladrezanezhad/story-toolkit"
 
@@ -307,21 +313,75 @@ class StoryToolkit:
         
         return story
     
-    def export_story(self, story: dict, format: str = "json", filename: str = None) -> str:
-        """Export story to different formats (json, markdown, txt)"""
+    def export_story(self, story: dict, format: str = "json", filename: str = None, **kwargs) -> str:
+        """Export story to different formats (json, markdown, txt, pdf, epub, html, bionic_html)"""
         if not filename:
             from datetime import datetime
             filename = f"story_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
-        
-        if format == "json":
-            return save_story(story, f"{filename}.json")
-        elif format == "markdown":
-            return export_to_markdown(story, f"{filename}.md")
-        elif format == "txt":
-            return save_story(story, f"{filename}.txt")
+
+        fmt = format.lower()
+        if fmt == "json":
+            out_file = f"{filename}.json" if not filename.endswith('.json') else filename
+            return save_story(story, out_file)
+        elif fmt in ["markdown", "md"]:
+            out_file = f"{filename}.md" if not filename.endswith('.md') else filename
+            return export_to_markdown(story, out_file)
+        elif fmt == "txt":
+            out_file = f"{filename}.txt" if not filename.endswith('.txt') else filename
+            return save_story(story, out_file)
+        elif fmt == "html":
+            from .exporters import HTMLExporter, ExportConfig, HTMLTemplate
+            template_style = kwargs.get('html_template', HTMLTemplate.MODERN)
+            if isinstance(template_style, str):
+                template_style = HTMLTemplate(template_style)
+            title = story.get("metadata", {}).get("name") or story.get("metadata", {}).get("title")
+            config = ExportConfig(html_template=template_style, title=title)
+            exporter = HTMLExporter(config=config)
+            out_file = f"{filename}.html" if not filename.endswith('.html') else filename
+            return exporter.export(story, out_file)
+        elif fmt == "bionic_html":
+            from .exporters import HTMLExporter, ExportConfig, HTMLTemplate, process_story
+            template_style = kwargs.get('html_template', HTMLTemplate.MODERN)
+            if isinstance(template_style, str):
+                template_style = HTMLTemplate(template_style)
+            title = story.get("metadata", {}).get("name") or story.get("metadata", {}).get("title")
+            config = ExportConfig(html_template=template_style, title=title)
+            exporter = HTMLExporter(config=config)
+            bionic_story = process_story(story, strength=kwargs.get('bionic_strength', 1))
+            out_file = f"{filename}.html" if not filename.endswith('.html') else filename
+            return exporter.export(bionic_story, out_file)
+        elif fmt == "pdf":
+            from .exporters import PDFExporter, ExportConfig, PDFStyle
+            pdf_style = kwargs.get('pdf_style', PDFStyle.PRINT)
+            if isinstance(pdf_style, str):
+                pdf_style = PDFStyle(pdf_style)
+            title = story.get("metadata", {}).get("name") or story.get("metadata", {}).get("title")
+            config = ExportConfig(pdf_style=pdf_style, title=title)
+            exporter = PDFExporter(config=config)
+            out_file = f"{filename}.pdf" if not filename.endswith('.pdf') else filename
+            return exporter.export(story, out_file)
+        elif fmt == "epub":
+            from .exporters import EPUBExporter, ExportConfig
+            title = story.get("metadata", {}).get("name") or story.get("metadata", {}).get("title")
+            config = ExportConfig(title=title)
+            exporter = EPUBExporter(config=config)
+            out_file = f"{filename}.epub" if not filename.endswith('.epub') else filename
+            return exporter.export(story, out_file)
         else:
-            raise ValueError(f"Unsupported format: {format}")
-    
+            raise ValueError(f"Unsupported format: {format}. Supported: json, markdown, txt, html, bionic_html, pdf, epub")
+
+    def save_story(self, story: dict, filename: str) -> str:
+        """Save story to file with path safety validation"""
+        from .security.sanitizer import sanitize_path
+        safe_path = sanitize_path(filename)
+        return save_story(story, safe_path)
+
+    def load_story(self, filename: str) -> dict:
+        """Load story from JSON file"""
+        from .security.sanitizer import sanitize_path
+        safe_path = sanitize_path(filename)
+        return load_story(safe_path)
+
     def get_llm_status(self) -> dict:
         """Get status of LLM integration"""
         return {
@@ -380,5 +440,14 @@ __all__ = [
     'MockLLMBackend',
     'MemoryManager',
     'MemoryConfig',
-    'TemplateManager'
+    'TemplateManager',
+    'BaseExporter',
+    'ExportConfig',
+    'ExportFormat',
+    'PDFStyle',
+    'HTMLTemplate',
+    'EPUBExporter',
+    'PDFExporter',
+    'HTMLExporter',
+    'to_bionic'
 ]

@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="image.png" alt="Web Security Scanner Pro">
+<img src="image.png" alt="Story Development Toolkit">
 
 # 📚 داستان‌ساز هوشمند | Story Toolkit
 

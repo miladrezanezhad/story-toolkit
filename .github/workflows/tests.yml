@@ -43,7 +43,9 @@ jobs:
     - name: Run v1 core tests
       run: |
         python tests/v1/test_core.py
-    
+        python tests/v1/test_generators.py
+        python tests/v1/test_nlp.py
+
     # ==================== V2.0.0 - LLM TESTS ====================
     - name: Run v2 LLM tests
       run: |
@@ -133,6 +135,8 @@ jobs:
     - name: Run Windows tests
       run: |
         python tests/v1/test_core.py
+        python tests/v1/test_generators.py
+        python tests/v1/test_nlp.py
         python tests/v2/test_llm.py
         if (Test-Path tests/v2_1/test_memory.py) { python tests/v2_1/test_memory.py }
         if (Test-Path tests/v2_2/test_exporters.py) { python tests/v2_2/test_exporters.py }
@@ -173,6 +177,8 @@ jobs:
     - name: Run macOS tests
       run: |
         python tests/v1/test_core.py
+        python tests/v1/test_generators.py
+        python tests/v1/test_nlp.py
         python tests/v2/test_llm.py
         if [ -f tests/v2_1/test_memory.py ]; then python tests/v2_1/test_memory.py; fi
         if [ -f tests/v2_2/test_exporters.py ]; then python tests/v2_2/test_exporters.py; fi

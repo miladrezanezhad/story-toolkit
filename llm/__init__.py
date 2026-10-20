@@ -1,14 +1,6 @@
-# story_toolkit/llm/__init__.py
-"""LLM layer for story-toolkit - Support for various AI backends"""
+"""
+Backward compatibility proxy for story_toolkit.llm
+"""
 
-from .base import LLMProvider, LLMConfig, BaseLLMBackend
-from .factory import LLMFactory
-from .backends.mock_backend import MockLLMBackend
-
-__all__ = [
-    'LLMProvider',
-    'LLMConfig', 
-    'BaseLLMBackend',
-    'LLMFactory',
-    'MockLLMBackend'
-]
+from story_toolkit.llm import *
+from story_toolkit.llm import __all__
